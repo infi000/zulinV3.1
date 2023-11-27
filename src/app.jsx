@@ -92,7 +92,7 @@ class App extends Component {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: '西塔科学探索俱乐部',
+      navigationBarTitleText: '追光少年科学探索',
       navigationBarTextStyle: 'black',
     },
     subpackages: [

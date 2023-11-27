@@ -84,10 +84,17 @@ $border-style: 10px solid $bg-grey-color;
     justify-content: space-between;
     align-items: center;
 
-    background-color: #fff;
 
     .href-text {
-        color:#409EFF;
+        color:#e683e3;
     }
 }
 
+.user-yd{
+    margin-left: -40px;
+    width: 110%;
+    font-size: $sm-fontsize;
+    padding: 30px  0;
+    background-color: #ccc;
+
+}

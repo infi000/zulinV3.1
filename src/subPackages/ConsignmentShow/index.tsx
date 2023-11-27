@@ -29,7 +29,7 @@ const ConsignmentShow = () => {
     // dispatch({ type: 'ConsignmentShow/getRelatedGoods' });
     // dispatch({ type: 'ConsignmentShow/getIsfav' });
     Taro.setNavigationBarTitle({
-      title:title||'西塔科学探索俱乐部'
+      title:title||'追光少年科学探索'
     });
     (Taro as any).showShareMenu({
       withShareTicket: true,
@@ -45,7 +45,7 @@ const ConsignmentShow = () => {
     // }
     return {
       showShareItems: ['wechatFriends', 'wechatMoment'],
-      title: title || '西塔科学探索俱乐部',
+      title: title || '追光少年科学探索',
       path: '/subPackages/ConsignmentShow/index?gid=' + gid + '&title=' + title ,
       // imageUrl
     }

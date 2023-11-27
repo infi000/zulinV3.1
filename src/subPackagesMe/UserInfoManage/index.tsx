@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from '@tarojs/redux';
 import { agreementregisterinfo, createUserInfo, getMeInfo } from './services';
 import './index.scss';
 import UploadHead from './modules/UploadHead';
-import { showErrorToast } from '@/utils/util';
+import { showErrorToast, showSuccessToast } from '@/utils/util';
 
 const h5_host = 'https://backstagedev.leclubthallium.com';
 // const h5_host = 'http://localhost:3035';
@@ -52,37 +52,41 @@ const ConsignmentCreate = () => {
       return;
     }
     createUserInfo({ ...form }).then((d) => {
+      showSuccessToast("提交成功");
       console.log(d);
-    })
-
-    if(form.over18 === '0' ){
       Taro.navigateBack({
-        delta: 1,
-        success: function (res) {
-          dispatch({ type: 'main/getUserInfo', payload: {} });
-          Taro.showModal({
-            title: '提交成功',
-            content: '等待监护人签名中',
-            showCancel: false,
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
-         },
-      });
-      return;
-    }
-
-    const url = encodeURIComponent(`${h5_host}/uiResources/blank/signature?params=${JSON.stringify({ ...form })}&openid=${openid}`);
-    console.log('去签名', url);
-    // 提交接口
-    Taro.navigateTo({
-      url: "/subPackagesMe/WebView/index?url=" + url
+        delta: 1//表示回到上一页面
+      })
     })
+
+    // if(form.over18 === '0' ){
+    //   Taro.navigateBack({
+    //     delta: 1,
+    //     success: function (res) {
+    //       dispatch({ type: 'main/getUserInfo', payload: {} });
+    //       Taro.showModal({
+    //         title: '提交成功',
+    //         content: '等待监护人签名中',
+    //         showCancel: false,
+    //         success: function (res) {
+    //           if (res.confirm) {
+    //             console.log('用户点击确定')
+    //           } else if (res.cancel) {
+    //             console.log('用户点击取消')
+    //           }
+    //         }
+    //       })
+    //      },
+    //   });
+    //   return;
+    // }
+
+    // const url = encodeURIComponent(`${h5_host}/uiResources/blank/signature?params=${JSON.stringify({ ...form })}&openid=${openid}`);
+    // console.log('去签名', url);
+    // // 提交接口
+    // Taro.navigateTo({
+    //   url: "/subPackagesMe/WebView/index?url=" + url
+    // })
   }
   const handleCancel = () => {
     Taro.navigateBack({
@@ -114,7 +118,7 @@ const ConsignmentCreate = () => {
     <View className='userinfo-wrap'>
       <View className='myvip-wrap'>
         <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label'>昵称:</View>
+          <View className='at-col at-col-3 userinfo-label jb-text'>昵称:</View>
           <View className='at-col'>
             <AtInput
               className='userinfo-input'
@@ -126,7 +130,7 @@ const ConsignmentCreate = () => {
           </View>
         </View>
         <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label'>手机号:</View>
+          <View className='at-col at-col-3 userinfo-label jb-text'>手机号:</View>
           <View className='at-col'>
             <AtInput
               className='userinfo-input'
@@ -139,7 +143,7 @@ const ConsignmentCreate = () => {
           </View>
         </View>
         <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label'>真实姓名:</View>
+          <View className='at-col at-col-3 userinfo-label jb-text'>真实姓名:</View>
           <View className='at-col'>
             <AtInput
               className='userinfo-input'
@@ -151,7 +155,7 @@ const ConsignmentCreate = () => {
           </View>
         </View>
         <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label'>生日:</View>
+          <View className='at-col at-col-3 userinfo-label jb-text'>生日:</View>
           <View className='at-col'>
             <Picker mode='date' disabled={isVerify} onChange={(e: any) => handleUpdateForm({ birthday: e.target.value })} value={form.birthday}>
               <AtList>
@@ -161,7 +165,7 @@ const ConsignmentCreate = () => {
           </View>
         </View>
         <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label'>身份证:</View>
+          <View className='at-col at-col-3 userinfo-label jb-text'>身份证:</View>
           <View className='at-col'>
             <AtInput
               className='userinfo-input'
@@ -174,7 +178,7 @@ const ConsignmentCreate = () => {
           </View>
         </View>
         <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label'>性别:</View>
+          <View className='at-col at-col-3 userinfo-label jb-text'>性别:</View>
           <View className='at-col'>
             <AtRadio
               options={[{ label: '男', value: '1' }, { label: '女', value: '2' }]}
@@ -184,7 +188,7 @@ const ConsignmentCreate = () => {
           </View>
         </View>
         <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label'>已满18岁:</View>
+          <View className='at-col at-col-3 userinfo-label jb-text'>已满18岁:</View>
           <View className='at-col'>
             <AtRadio
               options={[{ label: '是', value: '1' }, { label: '否', value: '0' }]}
@@ -197,7 +201,7 @@ const ConsignmentCreate = () => {
           form.over18 === '0' && (
             <Block>
               <View className='at-row  at-row__align--center userinfo-form-item'>
-                <View className='at-col at-col-3 userinfo-label'>监护人姓名:</View>
+                <View className='at-col at-col-3 userinfo-label jb-text'>监护人姓名:</View>
                 <View className='at-col'>
                   <AtInput
                     className='userinfo-input'
@@ -209,7 +213,7 @@ const ConsignmentCreate = () => {
                 </View>
               </View>
               <View className='at-row  at-row__align--center userinfo-form-item'>
-                <View className='at-col at-col-3 userinfo-label'>监护人身份证号:</View>
+                <View className='at-col at-col-3 userinfo-label jb-text'>监护人身份证号:</View>
                 <View className='at-col'>
                   <AtInput
                     className='userinfo-input'
@@ -221,7 +225,7 @@ const ConsignmentCreate = () => {
                 </View>
               </View>
               <View className='at-row  at-row__align--center userinfo-form-item'>
-                <View className='at-col at-col-3 userinfo-label'>监护人电话:</View>
+                <View className='at-col at-col-3 userinfo-label jb-text'>监护人电话:</View>
                 <View className='at-col'>
                   <AtInput
                     className='userinfo-input'
@@ -233,7 +237,7 @@ const ConsignmentCreate = () => {
                 </View>
               </View>
               <View className='at-row  at-row__align--center userinfo-form-item'>
-                <View className='at-col at-col-3 userinfo-label'>监护人联系地址:</View>
+                <View className='at-col at-col-3 userinfo-label jb-text'>监护人联系地址:</View>
                 <View className='at-col'>
                   <AtInput
                     className='userinfo-input'
@@ -249,7 +253,7 @@ const ConsignmentCreate = () => {
         }
         {
           !isVerify && <View className='at-row  at-row__align--center userinfo-form-item'>
-            <View className='at-col at-col-3 userinfo-label'>头像:</View>
+            <View className='at-col at-col-3 userinfo-label jb-text'>头像:</View>
             <View className='at-col'>
               <UploadHead length={1} ftype='1' />
             </View>
@@ -257,14 +261,14 @@ const ConsignmentCreate = () => {
         }
         {
           !isVerify && <View className='at-row  at-row__align--center userinfo-form-item'>
-            <View className='at-col at-col-3 userinfo-label'>自拍头像:</View>
+            <View className='at-col at-col-3 userinfo-label jb-text'>自拍头像:</View>
             <View className='at-col'>
               <UploadHead length={1} ftype='2' />
             </View>
           </View>
         }
         {
-          !isVerify && <View>
+          !isVerify && <View className='user-yd'>
             <View className='lease-order-pay-protocol'>
               <Radio onClick={agreePayProtocol} checked={payProtocol}></Radio>
               <View>
@@ -276,17 +280,22 @@ const ConsignmentCreate = () => {
             </View>
           </View>
         }
-
+        <View style={{ height: ' 20px' }}></View>
         <View className='edit-btn-wrap'>
-          <View className='btn-submit'>
-            <AtButton type='primary' size='small' onClick={handleToSign} disabled={isVerify}>
-              {isVerify ? '已提交' : '下一步'}
-            </AtButton>
+          <View className='at-row at-row__justify--around'>
+            <View className='at-col at-col-5'>
+              <AtButton size='small' circle onClick={handleCancel}>
+                取消
+              </AtButton>
+            </View>
+            <View className='at-col at-col-5'>
+              <AtButton type='primary' circle size='small' onClick={handleToSign} disabled={isVerify}>
+                {isVerify ? '已提交' : '下一步'}
+              </AtButton>
+            </View>
+
           </View>
-          <View style={{ height: ' 20px' }}></View>
-          <AtButton size='small' onClick={handleCancel}>
-            取消
-          </AtButton>
+
         </View>
         <View style={{ height: ' 20px' }}></View>
       </View>

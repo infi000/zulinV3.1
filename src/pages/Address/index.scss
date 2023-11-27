@@ -4,6 +4,7 @@
 .address-edit-wrap{
     position: relative;
     padding-bottom: 200px;
+    font-size: #ccc;
 }
 
 .address-con{
@@ -40,12 +41,15 @@
 .addnew-wrap{
     background-color: #fff;
     position: fixed;
-    bottom: 20px;
+    bottom: 50%;
     width: 100%;
     box-sizing: border-box;
     .addnew-btn-top{
         margin-bottom: 20px;
     }
+}
+.addnew-wrap-bottom{
+    bottom: 20px!important;
 }
 
 .edit-btn-wrap{
@@ -54,5 +58,13 @@
     box-sizing: border-box;
     .btn-submit{
         margin-bottom: 20px;
+    }
+}
+
+.add-btn-con{
+    text-align: right;
+    .add-icon-con{
+        margin-right: 13px;
+        display: inline-block;
     }
 }

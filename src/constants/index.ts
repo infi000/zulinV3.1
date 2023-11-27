@@ -13,6 +13,7 @@ export const ROUTER_NAME_MAP = {
     community:'Community',
     reserve:'Reserve',
     index:'Index',
+    pinpai:'Index',
 };
 
 export const ORDER_OTYPE_MAP = new Map([

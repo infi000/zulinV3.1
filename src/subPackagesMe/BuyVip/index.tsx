@@ -81,10 +81,10 @@ const ConsignmentCreate = () => {
         <View style={{ height: '500px', lineHeight: '500px', textAlign: 'center' }}>
           <Image style='width: 100%;height: 100%;' src={bg} />
         </View>
-        <View className='at-row  at-row__align--center' style={{ margin: '10px 0'}}>
+        <View className='at-row  at-row__align--center' style={{ margin: '10px 0' }}>
           <View className='at-col at-col-1 at-col--auto'>邀请码:</View>
           <View className='at-col'>
-             <AtInput
+            <AtInput
               className='goods-input'
               name='key'
               onChange={(e) => handleUpdateForm({ key: e })}
@@ -92,15 +92,18 @@ const ConsignmentCreate = () => {
           </View>
         </View>
         <View className='edit-btn-wrap'>
-          <View className='btn-submit'>
-            <AtButton type='primary' size='small' onClick={handleSubmit}>
-              购买会员
-            </AtButton>
+          <View className='at-row at-row__justify--around'>
+            <View className='at-col at-col-5'>
+              <AtButton type='primary' circle size='small' onClick={handleSubmit}>
+                购买会员
+              </AtButton>
+            </View>
+            <View className='at-col at-col-5'>
+              <AtButton size='small' circle onClick={handleCancel}>
+                取消
+              </AtButton>
+            </View>
           </View>
-
-          <AtButton size='small' onClick={handleCancel}>
-            取消
-          </AtButton>
         </View>
       </View>
     </View>

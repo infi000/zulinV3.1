@@ -2,7 +2,7 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-08-10 23:47:55
  * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2023-08-16 01:04:34
+ * @LastEditTime: 2023-11-21 23:29:41
  * @FilePath: /zulin/src/pages/Me/modules/MyAvatar.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -15,7 +15,6 @@ import { logIn } from '@/utils/auth';
 
 import '../index.scss';
 import { showErrorToast } from '@/utils/util';
-import {setwxuserphone} from '../services'
 
 const myType = {
   1: '普通会员',
@@ -63,15 +62,19 @@ const MyAvatar = () => {
   console.log('userInfo', userInfo);
 
   return (
-    <View className='my-avatar-con'>
+    <View className='my-avatar-con jb-bg'>
       <View className='at-row at-row__align--center  my-avatar-top'>
         {isLogIn ? (
           <Block key={JSON.stringify(userInfo)}>
-            <View className='at-col  at-col-3'>
-              <AtAvatar circle image={userInfo.face}></AtAvatar>
+            <View className='at-col  at-col-4'>
+              <AtAvatar size='large' circle image={userInfo.face}></AtAvatar>
+              
             </View>
-            <View className='at-col'>{userInfo.nickname}</View>
-            <View className='at-col'>{myType[userInfo.mtype] ? myType[userInfo.mtype]: ''}</View>
+            <View className='at-col'>
+              <View  className='my-avatar-line1'> <span>{userInfo.nickname}</span></View>
+              <View className='my-avatar-line2'><span>{myType[userInfo.mtype] ? myType[userInfo.mtype]: ''}</span></View>
+            
+            </View>
             {/* <View className='at-col'>{userInfo.nickname}</View> */}
           </Block>
         ) : (

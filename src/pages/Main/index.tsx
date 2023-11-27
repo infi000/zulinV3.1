@@ -27,7 +27,7 @@ const Main = (props) => {
     //   console.log(res.target)
     // }
     return {
-      title: '西塔科学探索俱乐部',
+      title: '追光少年科学探索',
       path: '/pages/Main/index'
     }
   })

@@ -18,16 +18,40 @@
   background-color: #292929;
   color: #fff;
   height: 300px;
-  padding: 40px;
+  padding: 40px 60px;
+  position: relative;
+  .my-avatar-line1{
+    span{
+      background-color: #fad3d5;
+      color: #000;
+      font-size: 38px;
+      font-weight: bold;
+    }
+    margin-bottom: 20px;
+  }
+  .my-avatar-line2{
+    span{
+      color: #fff;
+      background-color: #fbb03c;
+      border-radius: 10px;
+      padding: 5px 10px;
+
+
+    }
+  }
   .my-avatar-top {
     height: 180px;
     // background-color: yellowgreen;
   }
   .my-avatar-bottom {
     // height:100px;
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+    right: 20px;
     padding: 16px 0;
     line-height: 50px;
-    width: 100%;
+    width: auto;
     background-color: #fff;
     color: #000;
     border-radius: 10px;
@@ -41,7 +65,9 @@
   }
 }
 .order-sales-con {
-  padding: 40px;
+  padding: 0 20px;
+  margin-top: 25px;
+
 }
 
 .me-con {
@@ -92,4 +118,21 @@
 
 .me-other-wrap {
   background-color: $bg-grey-color;
+  .at-grid{
+    background-color: red;
+  }
+  .at-grid-con{
+    width: 80%;
+    .content-inner__text{
+      font-size: 25px;
+    }
+    .at-grid__flex .content-inner__text {
+      font-size: 25px;
+    }
+    .at-grid__flex .content-inner__img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
 }

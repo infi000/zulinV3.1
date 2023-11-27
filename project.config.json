@@ -1,8 +1,8 @@
 {
   "miniprogramRoot": "dist/",
-  "projectname": "西塔科学探索俱乐部",
+  "projectname": "追光少年科学探索",
   "description": "test",
-  "appid": "wxebffe4cf6de33f12",
+  "appid": "wxdb1f6dec3f5bf282",
   "setting": {
     "urlCheck": false,
     "es6": false,

@@ -79,3 +79,17 @@ export {default as yue} from './yue.png';
 export {default as yue_s} from './yue_s.png';
 export {default as me} from './me.png';
 export {default as me_s} from './me_s.png';
+
+
+export {default as btn_pinpai} from './按钮-品牌.png';
+export {default as btn_shequ} from './按钮-社区.png';
+export {default as btn_wode} from './按钮-我的.png';
+export {default as btn_shouye2} from './按钮-首页2.png';
+export {default as dzgl} from './地址管理.png';
+export {default as grzx} from './个人中心.png';
+export {default as hycz} from './会员充值.png';
+export {default as hykgm} from './会员卡购买.png';
+export {default as yydd} from './预约订单.png';
+export {default as zgkf} from './追光客服.png';
+export {default as zy2} from './资源 2.png';
+export {default as zy3} from './资源 3.png';

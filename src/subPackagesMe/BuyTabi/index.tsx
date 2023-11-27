@@ -99,26 +99,18 @@ const ConsignmentCreate = () => {
               { value: '1000元', key: '1000', },
             ]
           } />
-        <View className='at-row  at-row__align--center' style={{ margin: '10px 0'}}>
-          <View className='at-col at-col-1 at-col--auto'>自定义金额:</View>
-          <View className='at-col'>
-            <AtInput
-                name='total'
-                value={form.total}
-                onChange={(e) => handleUpdateForm({ total: e })}
-            />
-          </View>
-        </View>
         <View className='edit-btn-wrap'>
-          <View className='btn-submit'>
-            <AtButton type='primary' size='small' onClick={handleSubmit}>
-              充值
-            </AtButton>
+          <View className='at-row at-row__justify--around'>
+            <View className='at-col at-col-6'>
+             <View className='myvip-kj' >会计：</View>
+             <View className='myvip-je'> {form.total || ''}</View>
+            </View>
+            <View className='at-col at-col-4'>
+              <AtButton type='primary' size='small' onClick={handleSubmit}>
+                充值
+              </AtButton>
+            </View>
           </View>
-
-          <AtButton size='small' onClick={handleCancel}>
-            取消
-          </AtButton>
         </View>
       </View>
     </View>

@@ -1,6 +1,22 @@
+/*
+ * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
+ * @Date: 2023-07-29 23:08:59
+ * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
+ * @LastEditTime: 2023-11-26 21:55:16
+ * @FilePath: /zulinV3.1/src/components/Tabbar/store.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+/*
+ * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
+ * @Date: 2023-07-29 23:08:59
+ * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
+ * @LastEditTime: 2023-11-26 21:53:35
+ * @FilePath: /zulinV3.1/src/components/Tabbar/store.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import delay from '@/utils/delay';
 // import { liwu, liwu_s, wode, wode_s } from '@/static/images';
-import {shop,shop_s, community,community_s, yue, yue_s, me, me_s } from '@/static/images';
+import {btn_shouye2,btn_pinpai, btn_shequ,yydd, btn_wode, yue_s, me, me_s } from '@/static/images';
 import { ROUTER_NAME_MAP } from '@/constants/index';
 
 export default {
@@ -11,26 +27,32 @@ export default {
         title: '首页',
         // type: ROUTER_NAME_MAP.goodGoods,
         type: ROUTER_NAME_MAP.index,
-        image: shop,
-        selectedImage: shop_s,
+        image: btn_shouye2,
+        selectedImage: btn_shouye2,
       },
       {
-        title: '社区',
-        type: ROUTER_NAME_MAP.community,
-        image: community,
-        selectedImage: community_s,
+        title: '品牌',
+        type: ROUTER_NAME_MAP.pinpai,
+        image: btn_pinpai,
+        selectedImage: btn_pinpai,
       },
       {
         title: '预约',
         type: ROUTER_NAME_MAP.reserve,
-        image: yue,
-        selectedImage: yue_s,
+        image: yydd,
+        selectedImage: yydd,
+      },
+      {
+        title: '社区',
+        type: ROUTER_NAME_MAP.community,
+        image: btn_shequ,
+        selectedImage: btn_shequ,
       },
       {
         title: '我的',
         type: ROUTER_NAME_MAP.me,
-        image: me,
-        selectedImage: me_s,
+        image: btn_wode,
+        selectedImage: btn_wode,
       },
     ],
     currentNavIndex: 0,

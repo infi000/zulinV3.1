@@ -155,7 +155,7 @@ $border-style: 10px solid $bg-grey-color;
 
 .myvip-wrap{
     @include con;
-    background-color: #fff;
+    background-color: #ccc;
     height: 100%;
 }
 .goodspage-img-wrap{
@@ -179,10 +179,12 @@ $border-style: 10px solid $bg-grey-color;
 .edit-btn-wrap{
     width: 100%;
     padding: 20px 20px;
+    background-color: #fff;
     box-sizing: border-box;
-    .btn-submit{
-        margin-bottom: 20px;
-    }
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .common-wrap{
@@ -267,3 +269,17 @@ $border-style: 10px solid $bg-grey-color;
     @include con;
     margin-bottom: 10px;
   }
+
+  .myvip-kj{
+    background-color: #fad3d5;
+    display: inline-block;
+    font-size: 28px;;
+
+  }
+
+    .myvip-je{
+        background-color: #f8d0f9;
+        color: red;
+        display: inline-block;
+        font-size: 28px;;
+    }

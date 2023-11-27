@@ -5,7 +5,8 @@ import { subMsg, getAllTemplate } from '../services';
 import '../index.scss';
 import { isArray } from 'lodash';
 import { useSelector } from '@tarojs/redux';
-import { AtIcon } from 'taro-ui'
+import { AtGrid, AtIcon } from 'taro-ui'
+import { grzx, hycz, hykgm, yydd, zgkf, dzgl, } from '@/static/images';
 
 const LIST_URL_MAP = [
   // { name: '抽奖', url: '/pages/Choujiang/index' },
@@ -35,23 +36,7 @@ const Others = () => {
   const handleClickItem = (url) => {
     Taro.navigateTo({ url });
   };
-  // const handleSubscribe = (url) => {
-  //   Taro.requestSubscribeMessage({
-  //     tmplIds: tmplIds,
-  //     success: function (res) {
-  //       const templateids: string[] = [];
-  //       tmplIds.forEach((id) => {
-  //         if (res[id] === 'accept') {
-  //           templateids.push(id);
-  //         }
-  //       });
-  //       if (templateids.length > 0) {
-  //         subMsg({ templateids: templateids.join(",") })
-  //         showSuccessToast('提交成功');
-  //       }
-  //     },
-  //   });
-  // };
+
   const handleCarm = () => {
     // eslint-disable-next-line no-undef
     wx.scanCode({
@@ -75,69 +60,65 @@ const Others = () => {
     // })
   }, [])
 
+  const handleCl = (opt: any) => {
+    console.log(opt);
+    const { value } = opt;
+    switch (value) {
+      case '个人中心':
+        Taro.navigateTo({ url: '/subPackagesMe/UserInfoManage/index' });
+        break;
+      case '会员卡购买':
+        Taro.navigateTo({ url: '/subPackagesMe/BuyVip/index' });
+        break;
+      case '购买铊币':
+        Taro.navigateTo({ url: '/subPackagesMe/BuyTabi/index' });
+        break;
+      case '地址管理':
+        Taro.navigateTo({ url: '/pages/Address/index' });
+        break;
+      case '预约订单':
+        Taro.navigateTo({ url: '/pages/LeaseOrderList/index' });
+        break;
+      case '追光客服':
+        Taro.navigateTo({ url: '/pages/Kefu/index' });
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <View className='me-other-wrap'>
-      {/* verify: 1审核通过，2审核不通过 */}
-      {
-        //  `${userInfo.verify}` !== '1' &&
-         true &&
-        <View className='at-row me-others-con' onClick={() => { handleClickItem('/subPackagesMe/UserInfoManage/index'); }}>
-          <View className='at-col-1 textL'><AtIcon value='user' size='18' color='#FF9800' /></View>
-          <View className='at-col-5 textL'>个人中心</View>
-          <View className='at-col-6 textR'><AtIcon value='chevron-right' size='18' /></View>
-        </View>
-      }
-      {LIST_URL_MAP.map((item) => {
-        const { name, url, icon } = item;
-        return (
-          <View
-            className='at-row me-others-con'
-            key={name}
-            onClick={() => {
-              handleClickItem(url);
-            }}
-          >
-            <View className='at-col-1 textL'><AtIcon value={icon.val} size='18' color={icon.color} /></View>
-            <View className='at-col-5 textL'>{name}</View>
-            <View
-              className='at-col-6 textR'
-            // onClick={() => {
-            //   handleClickItem(url);
-            // }}
-            ><AtIcon value='chevron-right' size='18' /></View>
-          </View>
-        );
-      })}
-      {/* <View className='at-row me-others-con' onClick={handleSubscribe}>
-        <View className='at-col-6 textL'>消息订阅</View>
-        <View className='at-col-6 textR'></View>
-      </View> */}
-      {/* // ut: 1不可验票，2可验票\ */}
-      {
-        userInfo.ut === '2' && <View className='at-row me-others-con' onClick={handleCarm}>
-          <View className='at-col-1 textL'><AtIcon value='repeat-play' size='18' color='#2196F3' /></View>
-          <View className='at-col-5 textL'>扫码</View>
-          <View className='at-col-6 textR'><AtIcon value='chevron-right' size='18' /></View>
-        </View>
-      }
-      <View className='at-row me-others-con' onClick={handleLeaseOrder}>
-        <View className='at-col-1 textL'><AtIcon value='bell' size='18' color='#2196F3' /></View>
-        <View className='at-col-5 textL'>预约订单</View>
-        <View className='at-col-6 textR'><AtIcon value='chevron-right' size='18' /></View>
+      <View className='at-grid-con'>
+        <AtGrid hasBorder={false} onClick={handleCl} data={
+          [
+            {
+              image: grzx,
+              value: '个人中心',
+            },
+            {
+              image: hykgm,
+              value: '会员卡购买'
+            },
+            {
+              image: hycz,
+              value: '购买铊币'
+            },
+            {
+              image: yydd,
+              value: '地址管理'
+            },
+            {
+              image: yydd,
+              value: '预约订单'
+            },
+            {
+              image: zgkf,
+              value: '追光客服'
+            }
+          ]
+        } />
       </View>
-      <View className='at-row me-others-con'>
-        <Button open-type="contact" className='hideButton'>
-          客服
-        </Button>
-        <View className='at-col-1 textL'><AtIcon value='message' size='18' color='#2196F3' /></View>
-        <View className='at-col-5 textL'>客服</View>
-        <View className='at-col-6 textR'><AtIcon value='chevron-right' size='18' /></View>
-      </View>
-      {/* <View className='at-row me-others-con' onClick={handleTaskList}>
-        <View className='at-col-1 textL'><AtIcon value='numbered-list' size='18' color='#2196F3' /></View>
-        <View className='at-col-5 textL'>任务中心</View>
-        <View className='at-col-6 textR'><AtIcon value='chevron-right' size='18' /></View>
-      </View> */}
     </View>
   );
 };
