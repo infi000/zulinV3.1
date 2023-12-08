@@ -15,11 +15,10 @@ import ConsignmentShow from '@/subPackages/ConsignmentShow/store';
 import ConsignmentBuyList from '@/subPackages/ConsignmentBuyList/store';
 import ConsignmentSaleList from '@/subPackages/ConsignmentSaleList/store';
 import ConsignmentCreate from '@/subPackages/ConsignmentCreate/store';
-import ConsignmentMenu from '@/subPackages/ConsignmentMenu/store';
 import UserInfoManage from '@/subPackagesMe/UserInfoManage/store';
 import BuyVip from '@/subPackagesMe/BuyVip/store';
 import BuyTabi from '@/subPackagesMe/BuyTabi/store';
 
 export default [
-  main,tabbar,address,goodsShow,goodGoods,order,collect,myvip,photoWall, reserve, lease, Consignment, ConsignmentShow, ConsignmentBuyList, ConsignmentSaleList, ConsignmentCreate, ConsignmentMenu,UserInfoManage, BuyVip,BuyTabi
+  main,tabbar,address,goodsShow,goodGoods,order,collect,myvip,photoWall, reserve, lease, Consignment, ConsignmentShow, ConsignmentBuyList, ConsignmentSaleList, ConsignmentCreate,UserInfoManage, BuyVip,BuyTabi
 ]

@@ -102,7 +102,7 @@ const BuyPage = () => {
         </View>
         <AtRadio
           options={[
-            { label: '铊币', value: 'ta', },
+            { label: '积分', value: 'ta', },
             { label: '微信支付', value: 'miniwxpay' },
           ]}
           value={payType}

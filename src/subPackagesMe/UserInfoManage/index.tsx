@@ -104,10 +104,8 @@ const ConsignmentCreate = () => {
 
   const dumpProtocol = (e) => {
     let src = e.currentTarget.dataset.url;
-    const url = encodeURIComponent(`${h5_host}/uiResources/blank/wordApp?wordNum=${src}`);
-    console.log('看合同', url);
     Taro.navigateTo({
-      url: "/subPackagesMe/WebView/index?url=" + url
+      url: "/subPackagesMe/WebView/index?url=" + src
     })
   }
   const agreePayProtocol = () => {
@@ -273,9 +271,9 @@ const ConsignmentCreate = () => {
               <Radio onClick={agreePayProtocol} checked={payProtocol}></Radio>
               <View>
                 我已阅读并同意
-                <Text onClick={dumpProtocol} data-url="1" className='href-text'>《烯铊俱乐部安全责任协议书》</Text>与
-                <Text onClick={dumpProtocol} data-url="2" className='href-text'>《会员入会协议》</Text>与
-                <Text onClick={dumpProtocol} data-url="3" className='href-text'>《用户注册协议范本》</Text>
+                <Text onClick={dumpProtocol} data-url="https://api.lifestylelightseeker.com/Uploads/Picture/2023-07-12/p2.pdf" className='href-text'>《隐私协议》</Text>
+                <Text className='href-text'></Text>
+                <Text className='href-text'></Text>
               </View>
             </View>
           </View>

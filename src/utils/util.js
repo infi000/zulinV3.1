@@ -2,7 +2,7 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-29 23:08:59
  * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2023-08-29 23:31:56
+ * @LastEditTime: 2023-12-07 01:18:57
  * @FilePath: /zulin/src/utils/util.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -104,4 +104,20 @@ console.log("当前时间戳", now)
   let s = parseInt(sy%60);
 
   return {h:h, s:s};
+}
+/**
+ * 过滤掉Object中的值为falsy的key
+ * false、空字符串、null、undefined、等等均会被过滤
+ * @param params Object
+ */
+export function falsyParamsFilter(params) {
+  if (params) {
+    const newParams = {} ;
+    // false、空字符串、null、undefined、等等均会被过滤
+    Object.keys(params).filter(key => !!params[key] || params[key] === 0).forEach((key) => {
+      newParams[key] = params[key];
+    });
+    return newParams;
+  }
+  return params;
 }

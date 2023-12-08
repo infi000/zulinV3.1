@@ -1,11 +1,3 @@
-/*
- * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @Date: 2023-06-25 13:18:23
- * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2023-12-07 23:36:42
- * @FilePath: /zulinV3.1/src/pages/Lease/services.ts
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
 import request from '@/utils/request';
 import Api from '@/config/api';
 
@@ -23,7 +15,7 @@ export const getExperimentDetailService = (payload: { eid: string }) => request.
  * @param payload 获取房间
  * @returns 
  */
-export const getEquipmentsService = (data) => request.post(Api.leaseEquipments, data);
+export const getEquipmentsService = (data) => request.get(Api.leaseEquipments, data);
 
 /**
  * 
@@ -52,21 +44,6 @@ export const getEquipmentBookTimes = (data) => request.get(Api.leaseEquipmentboo
  * @returns 
  */
 export const orderadd = (data) => request.post(Api.leaseOrderadd, data);
-
-/**
- * 
- * @param payload 取实验项目名称列表
- * @returns 
- */
-export const getExperimentnames = () => request.post(Api.experimentnames);
-
-
-/**
- * 
- * @param payload 实验项目下小分类列表
- * @returns 
- */
-export const getExperimentcategorys = (data) => request.post(Api.experimentcategorys, data);
 
 
 export default {};

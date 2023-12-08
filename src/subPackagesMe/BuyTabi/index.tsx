@@ -102,7 +102,7 @@ const ConsignmentCreate = () => {
         <View className='edit-btn-wrap'>
           <View className='at-row at-row__justify--around'>
             <View className='at-col at-col-6'>
-             <View className='myvip-kj' >会计：</View>
+             <View className='myvip-kj' >合计：</View>
              <View className='myvip-je'> {form.total || ''}</View>
             </View>
             <View className='at-col at-col-4'>

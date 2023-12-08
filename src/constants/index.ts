@@ -1,3 +1,11 @@
+/*
+ * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
+ * @Date: 2023-07-29 23:08:59
+ * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
+ * @LastEditTime: 2023-11-28 00:14:11
+ * @FilePath: /zulinV3.1/src/constants/index.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 // export const ROUTER_MAP = new Map([
 //     ['Main','/pages/Main/index'],
 //     ['GoodGoods','/pages/GoodGoods/index'],
@@ -13,7 +21,8 @@ export const ROUTER_NAME_MAP = {
     community:'Community',
     reserve:'Reserve',
     index:'Index',
-    pinpai:'Index',
+    pinpai:'Pinpai',
+    yuyue:'Index',
 };
 
 export const ORDER_OTYPE_MAP = new Map([

@@ -159,7 +159,7 @@ const GoodsDetail = (props: IProps) => {
               className='buy-btn'
               disabled
             >
-              铊币支付
+              积分支付
             </Button>
           )}
         </View>

@@ -1,11 +1,12 @@
 // 颜色
 $text-grey-color: #c0c0c0;
 $bg-grey-color: #f5f5f5;
-$primary-color: #26a7e2;
-$color-brand: #26a7e2;
-$color-brand-light: #26a7e2;
-$color-brand-dark: #26a7e2;
-
+$primary-color: #bdd8f9;
+$color-brand: #bdd8f9;
+$color-brand-light: #bdd8f9;
+$color-brand-dark: #bdd8f9;
+$color-zi:#bdd8f9;
+$color-fen: #fad3d5;
 // $primary-color: yellowgreen;
 // $color-brand: yellowgreen;
 // $color-brand-light: yellowgreen;
@@ -63,6 +64,14 @@ $mini-fontsize: 22px;
   position: relative;
 }
 
+.jb-bg{
+  background: repeating-linear-gradient(to left,#f8d0f9,#bdd8f9)!important;
+}
+.jb-text{
+  // background: #fad3d5;
+  color: #000;
+  font-weight: bold;
+}
 
 @mixin btn {
   padding: 4px 20px;
@@ -97,14 +106,6 @@ $mini-fontsize: 22px;
 }
 
 
-.jb-bg{
-  background: repeating-linear-gradient(to left,#f8d0f9,#bdd8f9)!important;
-}
-.jb-text{
-  background: #fad3d5;
-  color: #000;
-  font-weight: bold;
-}
 .at-button {
   border: none;
   background: #ccc;
@@ -140,18 +141,47 @@ $mini-fontsize: 22px;
   height: 150px;
 }
 .at-grid__flex .content-inner__text { 
-  background-color: #fad3d5;
+  // background-color: $color-fen;
 }
 
 .at-grid__flex .at-grid-item {
   background-color: #fff;
 }
+.at-tag--active {
+  color: #000;
+  border-color: $color-fen;
+  background-color: #FFF;
+}
+
 .at-tag--primary{
   color: #666;
-  border-color: #f8d0f9;
-  background-color: #f8d0f9;
+  border-color: $color-fen;
+  background-color: $color-fen;
 }
 .at-input input, .at-radio__title 
  {
   font-size: $normal-fontsize!important;
+}
+
+.at-tabs__item--active {
+  color: $color-fen!important;
+}
+
+.at-tabs__item-underline {
+
+    background-color: $color-fen!important;
+}
+// 粉底黑字
+.fdhz {
+  // background-color: $color-fen;
+  color: #000;
+  display: inline-block;
+}
+
+// 粗字
+.cz {
+  font-weight: bold;
+}
+.at-calendar__list.flex .flex__item--selected-head.flex__item--selected-tail .flex__item-container {
+  background: repeating-linear-gradient(to left,#f8d0f9,#bdd8f9)!important;
 }

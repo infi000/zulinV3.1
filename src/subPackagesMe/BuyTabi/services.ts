@@ -17,7 +17,7 @@ export const postPay = (payload: any) => request.post(Api.buyta, payload);
 6.    获取设置getbg
 User/getbg
 必需参数：
-sname:支持yearbg和tabg；yearbg:年会员背景；tabg:铊币背景
+sname:支持yearbg和tabg；yearbg:年会员背景；tabg:积分背景
 
  */
 export const getbg = (payload: any) => request.get(Api.getbg, payload);

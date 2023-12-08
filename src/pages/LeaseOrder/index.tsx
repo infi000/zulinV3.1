@@ -121,7 +121,7 @@ const LeaseOrder = () => {
             paytype = 'ta';
         }
         let payInfo = await leasePayInfo({ oid: addToolOrder.oid,paytype:paytype });
-        // 铊币支付，不走下方的代码
+        // 积分支付，不走下方的代码
         if(isTBPay){
             if(payInfo){
                 Taro.showToast({
@@ -427,7 +427,7 @@ const LeaseOrder = () => {
         let payInfo = await leasePayInfo({ oid: oid,paytype:paytype });
         // console.log("支付信息", payInfo);
         // return;
-        // 铊币支付，不走下方的代码
+        // 积分支付，不走下方的代码
         if(isTBPay){
             if(payInfo){
                 Taro.showToast({
@@ -588,15 +588,15 @@ const LeaseOrder = () => {
                         />
                     </View>
                     <View className='lease-order-pay-selector'>
-                        <AtSwitch class='switch' border={false} title='铊币支付' checked={isTBPay} color="#45AD21" onChange={isTbPayChange} />
+                        <AtSwitch class='switch' border={false} title='积分支付' checked={isTBPay} color="#45AD21" onChange={isTbPayChange} />
                     </View>
                     <View className='lease-order-pay-protocol'>
                         <Radio onClick={agreePayProtocol} checked={payProtocol}></Radio>
                         <View>
                         我已阅读并同意
-                        <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p1.pdf" className='href-text'>《租赁服务协议》</Text>与
-                        <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p2.pdf" className='href-text'>《隐私协议》</Text>与
-                        <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p3.pdf" className='href-text'>《数字证书使用协议》</Text>
+                        {/* <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p1.pdf" className='href-text'>《租赁服务协议》</Text>与 */}
+                        <Text onClick={dumpProtocol} data-url="https://api.lifestylelightseeker.com/Uploads/Picture/2023-07-12/p2.pdf" className='href-text'>《隐私协议》</Text>
+                        {/* <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p3.pdf" className='href-text'>《数字证书使用协议》</Text> */}
                         </View>
                     </View>
                 </View>
@@ -668,7 +668,7 @@ const LeaseOrder = () => {
                         />
                         {/* ))} */}
                     </AtList>
-                    <AtSwitch class='switch' border={false} title='铊币支付' checked={isTBPay} color="#45AD21" onChange={isTbPayChange} />
+                    <AtSwitch class='switch' border={false} title='积分支付' checked={isTBPay} color="#45AD21" onChange={isTbPayChange} />
                 </AtModalContent>
                 <AtModalAction> <Button onClick={closeAddTool}>取消</Button> <Button onClick={payToolMyPrice}>确定</Button></AtModalAction>
             </AtModal>
@@ -702,7 +702,7 @@ const LeaseOrder = () => {
                     微信支付
                 </AtActionSheetItem>
                 <AtActionSheetItem data-paytype="ta" onClick={applyJoinTaFunc}>
-                    铊币支付
+                    积分支付
                 </AtActionSheetItem>
             </AtActionSheet>
         </View>

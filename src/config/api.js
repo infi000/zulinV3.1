@@ -1,12 +1,11 @@
-const MOCK = 'http://easy-mock.sftcwl.com/mock/5f6a20a67266ef5678785185/wxschool';
-const MOCK2 = 'http://easy-mock.sftcwl.com/mock/5f1a8bf410c3f359faddc7df/test';
-const yjw_test = 'https://dev.tangguostore.com/index.php/MiniApi';
-// const yjw = 'https://dev.tangguostore.com';
-// const yjw = 'https://apidev.leclubthallium.com';
+const MockUrl = 'http://easy-mock.sftcwl.com/mock/647f4ca88988f273dfbd7b8e/zl/index.php/MiniApi';
+
+const yjw_test = 'http://apidev.lifestylelightseeker.com';
 const yjw = 'https://api.lifestylelightseeker.com';
-const community = 'https://heshenghui.zhiheworld.com';
+const community = 'https://shequ.lifestylelightseeker.com';
 const WxApiRoot = yjw + '/index.php/MiniApi'; 
 const assetRoot = yjw + '/Public/MiniApi/images'
+export const HOST = yjw;
 // https://www.tangguostore.com/index.php/MiniApi/CC/myowns?openid=oKDX35X2NHYdiZdb8ukgFZmqwM8M
 // https://dev.tangguostore.com/Public/MiniApi/images/jimai.jpg
 // https://dev.tangguostore.com/Public/MiniApi/images/paimai.jpg
@@ -117,7 +116,7 @@ export default {
   meInfo:  WxApiRoot + '/User/baseinfo', //	 我的信息baseinfo
   userInfoModify:  WxApiRoot + '/User/baseinfomodify', //	 修改我的信息baseinfomodify
   buyyear:  WxApiRoot + '/User/buyyear', //	 购买年会会员buyyear
-  buyta:  WxApiRoot + '/User/buyta', //	 铊币充值buyta
+  buyta:  WxApiRoot + '/User/buyta', //	 积分充值buyta
 
   // 首页
   classifySearch: WxApiRoot + '/classify/search', //获取首页数据
@@ -144,5 +143,7 @@ export default {
 
   // 设置手机号
   setwxuserphone: WxApiRoot + '/User/setwxuserphone',
-  baseinfo2: WxApiRoot + '/User/baseinfo2'
+  baseinfo2: WxApiRoot + '/User/baseinfo2',
+  experimentnames: WxApiRoot + '/Lease/experimentnames', // 2.  取实验项目名称列表
+  experimentcategorys: WxApiRoot + '/Lease/experimentcategorys' // 实验项目下小分类列表
 };

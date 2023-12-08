@@ -87,7 +87,7 @@ const MyAvatar = () => {
       <View className='at-row at-row--wrap  my-avatar-bottom'>
         <View className='at-col at-col-6'>
           <View>{userInfo.ta || '0'}</View>
-          <View className='my-avatar-desc'>我的铊币</View>
+          <View className='my-avatar-desc'>我的积分</View>
         </View>
         <View className='at-col at-col-6'>
           <View>lv:{userInfo.level} ({userInfo.levelscore || '-'}分)</View>

@@ -145,7 +145,7 @@ const DetailAdd = () => {
                 onImageClick={imagePickerImageClick}
             />
             <View className='send-btn'>
-                <AtButton className='send-button' type='primary' onClick={send}>发布笔记</AtButton>
+                <AtButton type='primary' onClick={send}>发布笔记</AtButton>
             </View>
         </View>
     );

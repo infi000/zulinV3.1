@@ -3,22 +3,10 @@
 .lease-warp{
     background-color: $bg-grey-color;
     width: 100%;
-    height:calc(100vh+30rem);
+    height:calc(100vh+10rem);
     overflow-x: hidden;
-   
-    .lease-warp-inner{
-        padding: 0 30px;
-    }
 }
 
-.LeaseBottom{
-    height: 300px;
-}
-
-.LeaseHr{
-    height: 20px;
-    background-color: $bg-grey-color;
-}
 .lease-title {
     color: #606266;
     background-color: #fff;
@@ -79,7 +67,7 @@
     width: calc(100% - 1rem);
     flex-wrap:nowrap;
     padding: 21px;
-    font-size: $normal-fontsize;
+
     .lease-selector-timer-num {
         display: flex;
         flex-direction: row;
@@ -188,81 +176,4 @@
     background-color: #53a8ff;
     color: #fff;
     // z-index: 100;
-}
-.experimentNameTag-con{
-    margin-right: 10px;
-    .experimentNameTag{
-        display: inline;
-        font-size: $sm-fontsize;
-    }
-}
-.sy-wrap{
-    background-color: $bg-grey-color;
-    .sy-line {
-        padding: 20px;
-        border-radius: 6px;
-        margin-bottom: 30px;
-        background-color: #fff;
-        box-sizing: border-box;
-        .sy-title{
-            font-size: $normal-fontsize;
-            margin-bottom: 30px;
-        }
-        
-        .sy-desc{
-            font-size:$mini-fontsize;
-        }
-    }
-    
-}
-
-
-
-.Residue-warp {
-    width: 120px;
-    height: 120px;
-    border: 1px solid #DCDFE6;
-    border-radius: 12px;
-    // padding-top: 10px;
-    // padding-bottom: 10px;
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
-    margin-top: 0rem;
-    margin-bottom: 0.1rem;
-}
-.Residue-warp-selector {
-    width: 120px;
-    height: 120px;
-    border-radius: 12px;
-    border: 1px solid #000;
-    // padding-top: 10px;
-    // padding-bottom: 10px;
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
-    margin-top: 0rem;
-    margin-bottom: 0.1rem;
-}
-
-.Residue-warp-disabled {
-    width: 120px;
-    height: 120px;
-    border-radius: 12px;
-
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
-    margin-top: 0rem;
-    margin-bottom: 0.1rem;
-}
-
-.Residue-timer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // padding-top: 10px;
-    height: 120px;
-    font-size: $big-fontsize;
-}
-
-.start-time-num, .end-time-num{
-    margin-bottom: 10px;
 }
