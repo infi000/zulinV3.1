@@ -250,7 +250,7 @@ const Lease = () => {
         }
         console.log('接口请求参数：', params);
         orderadd(params).then((res) => {
-            Taro.navigateTo({ url: '/pages/LeaseOrder/index?orderId=' + res.oid + "&identity=my" });
+            Taro.navigateTo({ url: '/pages/LeaseOrder/index?orderId=' + res.oid + "&identity=my"+ "&xly="+JSON.stringify(res.xly) });
         })
     }
 console.log('memoCanOrder', memoCanOrder);
@@ -291,7 +291,7 @@ console.log('memoCanOrder', memoCanOrder);
                                 value={timer}
                                 onChange={timerChange}
                             />
-                            <View className='jb-text'>（小时）</View>
+                            <View className='jb-text'>（工时）</View>
                         </View>
                         <View className='lease-selector-res'>
                             <View className='start-time'>
@@ -330,7 +330,7 @@ console.log('memoCanOrder', memoCanOrder);
                                     <View className='at-col at-col-3'>
                                         <AtAvatar size='large' image={item.pic}></AtAvatar>
                                     </View>
-                                    <View className='at-col at-col-6'>
+                                    <View className='at-col at-col-7'>
                                         <View className='sy-title'><View className='fdhz cz'>{item.title}</View></View>
                                         <View className='sy-desc'><View className='fdhz'>{item.des}</View></View>
                                     </View>

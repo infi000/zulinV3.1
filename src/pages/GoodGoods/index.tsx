@@ -1,4 +1,12 @@
-import Taro, { scope, Component, useState, useDidShow, useEffect } from '@tarojs/taro';
+/*
+ * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
+ * @Date: 2023-07-29 23:08:59
+ * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
+ * @LastEditTime: 2024-01-07 23:54:14
+ * @FilePath: /zulinV3.1/src/pages/GoodGoods/index.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+import Taro, { scope, Component, useState, useDidShow, useEffect, useRouter } from '@tarojs/taro';
 import { View, Block, ScrollView } from '@tarojs/components';
 import { useSelector, useDispatch } from '@tarojs/redux';
 import SearchBar from './modules/SearchBar';
@@ -14,6 +22,8 @@ import './index.scss';
 const GoodGoods = () => {
   const [tagBarStyle, setTagBarStyle]: [null | object, Function] = useState(null);
   const dispatch = useDispatch();
+  const router = useRouter(); 
+  console.log('routerrouterrouterrouter', router);
   const [areaList, setAreaList]: [any[], any] = useState([]);
   const onScroll = (e) => {
     const scrollHight = Math.ceil(areaList.length/2) * 140;
@@ -52,7 +62,7 @@ const GoodGoods = () => {
         <SearchBar />
         <Banner />
         <Area areaList={areaList}/>
-        <TagBar style={tagBarStyle} />
+        <TagBar style={tagBarStyle} type={router.params.type} />
         <List />
       </ScrollView>
     </View>

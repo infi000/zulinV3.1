@@ -78,9 +78,9 @@ const ConsignmentCreate = () => {
   return (
     <View className='goodgoods-wrap'>
       <View className='myvip-wrap'>
-        <View style={{ height: '500px', lineHeight: '500px', textAlign: 'center' }}>
-          <Image style='width: 100%;height: 100%;' src={bg} />
-        </View>
+        {/* <View style={{textAlign: 'center' }}> */}
+          <Image src={bg} style={{ width: '100%'}} mode='widthFix' />
+        {/* </View> */}
         <View className='at-row  at-row__align--center' style={{ margin: '10px 0' }}>
           <View className='at-col at-col-1 at-col--auto'>邀请码:</View>
           <View className='at-col'>

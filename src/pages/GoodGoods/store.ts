@@ -39,8 +39,10 @@ export default {
     },
   },
   effects: {
-    *getAllCtype(_, { all, call, put }) {
-      const res = yield call(getAllCtype);
+    *getAllCtype({ payload={} }: { payload: any}, { call, put, select })  {
+      const { cid = '' } = payload;
+      console.log('payloadpayloadpayload', payload);
+      const res = yield call(getAllCtype, {cid});
       yield put({ type: 'updateAllCtypeList', payload: res });
     },
     *getSearchGoods({}, { call, put, select }) {

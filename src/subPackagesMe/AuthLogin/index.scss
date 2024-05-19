@@ -13,10 +13,15 @@ $border-style: 10px solid $bg-grey-color;
 .AuthLogin-wrap{
     height: 100vh;
     background-color: #8c8c8c;
+    background-image: url('https://api.lifestylelightseeker.com/Public/static/images/login.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+
 }
 .AuthLogin-btn-con{
     position: absolute;
-    top: 30%;
+    top: 60%;
     width: 80%;
     padding-left: 10%;
     

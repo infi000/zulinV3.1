@@ -2,11 +2,11 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-06-25 13:18:12
  * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2023-12-06 00:13:07
+ * @LastEditTime: 2024-01-07 23:57:51
  * @FilePath: /zulinV3.1/src/pages/GoodGoods/modules/TagBar.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import Taro from '@tarojs/taro';
+import Taro, { useDidShow, useRouter } from '@tarojs/taro';
 import { View, Block } from '@tarojs/components';
 import { useSelector, useDispatch } from '@tarojs/redux';
 import { AtTabs, AtTabsPane, AtGrid } from 'taro-ui';
@@ -29,7 +29,8 @@ const DEFAULT_TAG = [
 ];
 
 const TagBar = (props) => {
-  const  { style ={} } = props;
+  const  { style ={}, type } = props;
+
   const [tabCurrent, SetTabCurrent] = useState(0);
   const { allCtypeList,goodsData } = useSelector((state) => state.goodGoods);
   const dispatch = useDispatch();
@@ -57,9 +58,13 @@ const TagBar = (props) => {
     dispatch({ type: 'goodGoods/getSearchGoods' });
   }, [tabCurrent]);
 
-  useEffect(() => {
-    dispatch({ type: 'goodGoods/getAllCtype' });
-  }, []);
+  useDidShow(() => {
+    if(type === 'zulin'){
+      dispatch({ type: 'goodGoods/getAllCtype', payload: { cid: '243'} });
+    }else{
+      dispatch({ type: 'goodGoods/getAllCtype' });
+    }
+  });
   return (
     <View className='tagbar-wrap' style={style}>
       <AtTabs current={tabCurrent} scroll tabList={formatList()} onClick={handleClickTab}></AtTabs>

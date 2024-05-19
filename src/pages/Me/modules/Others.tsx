@@ -12,8 +12,10 @@ const LIST_URL_MAP = [
   // { name: '抽奖', url: '/pages/Choujiang/index' },
   // { name: '照片墙', url: '/pages/PhotoWall/index' },
   // { name: '个人中心', url: '/subPackagesMe/UserInfoManage/index', icon: { val: 'user', color: '#FF9800' } },
-  { name: '年卡会员购买', url: '/subPackagesMe/BuyVip/index', icon: { val: 'money', color: '#FF9800' } },
-  { name: '购买积分', url: '/subPackagesMe/BuyTabi/index', icon: { val: 'sketch', color: '#FF9800' } },
+  // { name: '年卡会员购买', url: '/subPackagesMe/BuyVip/index', icon: { val: 'money', color: '#FF9800' } },
+  { name: '活动卡购买', url: '/pages/Goujifen/index', icon: { val: 'money', color: '#FF9800' } },
+  // { name: '购买积分', url: '/subPackagesMe/BuyTabi/index', icon: { val: 'sketch', color: '#FF9800' } },
+  { name: '充值', url: '/pages/Goupiao/index', icon: { val: 'sketch', color: '#FF9800' } },
   { name: '寄卖', url: '/subPackages/ConsignmentMenu/index', icon: { val: 'mail', color: '#F44336' } },
   // { name: '收藏', url: '/pages/Collect/index' },
   // { name: '我的藏品', url: '/pages/MyVip/index' },
@@ -67,8 +69,15 @@ const Others = () => {
       case '个人中心':
         Taro.navigateTo({ url: '/subPackagesMe/UserInfoManage/index' });
         break;
+      case '活动卡购买888':
+        Taro.navigateTo({ url: '/pages/Goupiao/index' });
+        break;
       case '会员卡购买':
         Taro.navigateTo({ url: '/subPackagesMe/BuyVip/index' });
+        break;
+      case '充值':
+        // Taro.navigateTo({ url: '/pages/Goujifen/index' });
+        Taro.navigateTo({ url: '/subPackagesMe/BuyTabi/index' });
         break;
       case '购买积分':
         Taro.navigateTo({ url: '/subPackagesMe/BuyTabi/index' });
@@ -98,12 +107,20 @@ const Others = () => {
             },
             {
               image: hykgm,
-              value: '会员卡购买'
+              value: '活动卡购买888'
             },
+            // {
+            //   image: hykgm,
+            //   value: '会员卡购买'
+            // },
             {
               image: hycz,
-              value: '购买积分'
+              value: '充值'
             },
+            // {
+            //   image: hycz,
+            //   value: '购买积分'
+            // },
             {
               image: yydd,
               value: '地址管理'

@@ -86,7 +86,7 @@ const ConsignmentCreate = () => {
   return (
     <View className='goodgoods-wrap'>
       <View className='myvip-wrap'>
-        <Image mode='aspectFit' style='width: 100%;height: 200px;' src={bg} />
+        <Image mode='widthFix' style='width: 100%' src={bg} />
         <AtGrid
           onClick={(e) => handleUpdateForm({ total: e.key })}
           data={
@@ -99,11 +99,21 @@ const ConsignmentCreate = () => {
               { value: '1000元', key: '1000', },
             ]
           } />
+        <View className='at-row  at-row__align--center' style={{ margin: '10px 0' }}>
+          <View className='at-col at-col-1 at-col--auto'>自定义金额:</View>
+          <View className='at-col'>
+            <AtInput
+              name='total'
+              value={form.total}
+              onChange={(e) => handleUpdateForm({ total: e })}
+            />
+          </View>
+        </View>
         <View className='edit-btn-wrap'>
           <View className='at-row at-row__justify--around'>
             <View className='at-col at-col-6'>
-             <View className='myvip-kj' >合计：</View>
-             <View className='myvip-je'> {form.total || ''}</View>
+              <View className='myvip-kj' >合计：</View>
+              <View className='myvip-je'> {form.total || ''}</View>
             </View>
             <View className='at-col at-col-4'>
               <AtButton type='primary' size='small' onClick={handleSubmit}>

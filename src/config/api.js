@@ -145,5 +145,21 @@ export default {
   setwxuserphone: WxApiRoot + '/User/setwxuserphone',
   baseinfo2: WxApiRoot + '/User/baseinfo2',
   experimentnames: WxApiRoot + '/Lease/experimentnames', // 2.  取实验项目名称列表
-  experimentcategorys: WxApiRoot + '/Lease/experimentcategorys' // 实验项目下小分类列表
+  experimentcategorys: WxApiRoot + '/Lease/experimentcategorys', // 实验项目下小分类列表
+  prebookjoin: WxApiRoot + '/Lease/prebookjoin', // 17.  加入预约prebookjoin
+  prebookjoinList: WxApiRoot + '/Lease/prebookjoins', //prebookjoin 列表
+
+    // getccCard: WxApiRoot + '/Card/ccards',
+    gettaCard: WxApiRoot + '/Card/tacards',
+    getccCard: WxApiRoot + '/Card/ccards',
+    getMyCard: WxApiRoot + '/User/mycard',
+    detailbyccode: WxApiRoot + '/Card/detailbyccode',
+    Cardcheck: WxApiRoot + '/Card/check',
+    Addchild: WxApiRoot + '/User/addchild',
+    getChildrens: WxApiRoot + '/User/childrens',
+    getCardCheckedList: WxApiRoot + '/Card/checkedlist',
+    getPicketCheckedList: WxApiRoot + '/Picket/checkedlist',
+    getCardDetail: WxApiRoot + '/Card/detail',
+    getCarddCards: WxApiRoot + '/Card/dcards',
+    getUserBuycard: WxApiRoot + '/User/buycard',
 };

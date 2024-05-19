@@ -155,8 +155,8 @@ $border-style: 10px solid $bg-grey-color;
 
 .myvip-wrap{
     @include con;
-    background-color: #ccc;
-    height: 100%;
+    background-color: #fff;
+    padding-bottom: 200px;
 }
 .goodspage-img-wrap{
     height: 50vh;
@@ -228,57 +228,15 @@ $border-style: 10px solid $bg-grey-color;
     }
 }
 
-.goods-sale-con {
-    font-size: $normal-fontsize;
-    min-height: 200px;
-    box-sizing: border-box;
-    border-bottom: 6px solid $bg-grey-color;
-    .goods-sale-top {
-      padding-bottom: 25px;
-      .goods-sale-count {
-        font-weight: 400;
-      }
-      .goods-sale-all-btn {
-        text-align: right;
-        color: $text-grey-color;
-      }
-    }
-    .goods-sale-mid {
-      font-size: $sm-fontsize;
-      padding-bottom: 0;
-      .goods-sale-record-con {
-        
-        padding-bottom: 10px;
-        .goods-sale-record-l {
-          color: $text-grey-color;
-          @include text2line(1)
-        }
-        .goods-sale-record-m {
-          text-align: center;
-          font-weight: bold;
-        }
-        .goods-sale-record-r {
-          color: $text-grey-color;
-          text-align: right;
-        }
-      }
-    }
-  }
 
-   .goodsshow-con {
-    @include con;
-    margin-bottom: 10px;
-  }
 
   .myvip-kj{
-    background-color: #fad3d5;
     display: inline-block;
     font-size: 28px;;
 
   }
 
     .myvip-je{
-        background-color: #f8d0f9;
         color: red;
         display: inline-block;
         font-size: 28px;;

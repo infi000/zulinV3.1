@@ -2,7 +2,7 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-29 23:08:59
  * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2023-08-11 00:16:41
+ * @LastEditTime: 2023-12-14 23:34:30
  * @FilePath: /zulin/src/subPackagesMe/AuthLogin/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -58,15 +58,18 @@ const AuthLogin = () => {
         // 这里提交数据到后端接口，成功返回后设置登录状态
         if ("getPhoneNumber:ok" == e.detail.errMsg) {
           await logIn(
-            { dispatch,
-               userInfo: res.userInfo, 
-               phone: { encryptedData: e.detail.encryptedData, iv: e.detail.iv},
-               SuccessCb: () => {
+            {
+              dispatch,
+              userInfo: res.userInfo,
+              phone: { encryptedData: e.detail.encryptedData, iv: e.detail.iv },
+              SuccessCb: () => {
                 Taro.navigateBack({
                   delta: 1//表示回到上一页面
+                }).then(() => {
+                  dispatch({type: 'tabbar/updateCurrentNavIndex', payload: 0})
                 })
               }
-              });
+            });
         } else {
           showErrorToast("登录失败")
         }
@@ -79,12 +82,11 @@ const AuthLogin = () => {
   }
 
   return (
-    <View className='AuthLogin-wrap' >
+    <View className='AuthLogin-wrap'>
       <View className='AuthLogin-btn-con' >
-
-        <Button open-type="getPhoneNumber" onGetPhoneNumber={getPhoneNumber} >
+        <AtButton type='primary' circle openType="getPhoneNumber" onGetPhoneNumber={getPhoneNumber} >
           授权登录
-        </Button>
+        </AtButton>
       </View>
 
 

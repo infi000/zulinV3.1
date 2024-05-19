@@ -2,7 +2,7 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-31 01:32:08
  * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2023-12-07 01:51:17
+ * @LastEditTime: 2024-01-23 23:36:52
  * @FilePath: /zulinV3.1/src/app.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -59,12 +59,18 @@ class App extends Component {
 
   config = {
     pages: [
-        //  'pages/ZcyTest/index',
-        // 'pages/Consignment/index',
-        // 'pages/ConsignmentShow/index',
-        'pages/Main/index',
+
+      'pages/Main/index',
+
+        'pages/PinPai/index',
+        'pages/Goujifen/index',
+        'pages/GoujifenDetail/index',
+        'pages/Goupiao/index',
+        'pages/GoupiaoDetail/index',
+
         'pages/GoodGoods/index',
         // 'pages/Lease/index',
+        'pages/Pintuan/index',
 
         // 'pages/Index/index',
       'pages/TaskList/index',

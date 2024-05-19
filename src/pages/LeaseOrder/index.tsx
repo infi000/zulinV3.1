@@ -1,6 +1,6 @@
 import Taro, { useState, useEffect, useDidShow, useRouter, useShareAppMessage } from '@tarojs/taro';
-import { View, Image, Text, Button, Radio, WebView } from '@tarojs/components';
-import { AtCountdown,AtActionSheetItem, AtSwitch, AtRadio, AtList, AtListItem, AtTag, AtBadge, AtActionSheet, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
+import { View, Image, Text, Button, Radio, WebView, Block } from '@tarojs/components';
+import { AtCountdown, AtActionSheetItem, AtSwitch, AtRadio, AtList, AtListItem, AtTag, AtBadge, AtActionSheet, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 import { useDispatch } from '@tarojs/redux';
 
 
@@ -32,8 +32,14 @@ const LeaseOrder = () => {
     const [selectTool, setSelectTool] = useState<any>();
     const [pageType, setPageType] = useState<any>(0);
     const [isTBPay, setIsTBPay] = useState<any>(false);
+    const [choosedXlyid, setChoosedXlyid] = useState<any>(false);
+    const [tbPay, setTbPay] = useState<'ta' | 'card' | undefined>(undefined);
     const [payProtocol, setPayProtocol] = useState<any>(false)
-
+    const [openModal, setOpenModal] = useState(false)
+    const [xly, setXly] = useState([])
+    const handleOpen = () => {
+        setOpenModal(true)
+    }
     // 订单支付倒计时
     const [countDownH, setCountDownH] = useState<any>(0);
     const [countDownS, setCountDownS] = useState<any>(0);
@@ -100,7 +106,7 @@ const LeaseOrder = () => {
             return;
         }
         // 支付金额为0，直接提示购买成功，不走支付流程
-        if(addToolOrder.totalpay<=0){
+        if (addToolOrder.totalpay <= 0) {
             Taro.showToast({
                 title: '购买成功',
                 icon: 'success',
@@ -112,18 +118,22 @@ const LeaseOrder = () => {
             });
             setSelectTool('');
             setAddToolStatus(false)
-            return ;
+            return;
         }
         // 获取支付信息
-       
+
         let paytype = 'miniwxpay';
-        if(isTBPay){
-            paytype = 'ta';
+        if (tbPay) {
+            paytype = tbPay;
         }
-        let payInfo = await leasePayInfo({ oid: addToolOrder.oid,paytype:paytype });
+        const p: any = { oid: addToolOrder.oid, paytype: paytype };
+        if (choosedXlyid) {
+            p.xlyid = choosedXlyid
+        }
+        let payInfo = await leasePayInfo(p);
         // 积分支付，不走下方的代码
-        if(isTBPay){
-            if(payInfo){
+        if (paytype) {
+            if (payInfo) {
                 Taro.showToast({
                     title: '购买成功',
                     icon: 'success',
@@ -136,7 +146,7 @@ const LeaseOrder = () => {
                 setSelectTool('');
                 setAddToolStatus(false)
             }
-            
+
             return;
         }
 
@@ -184,12 +194,28 @@ const LeaseOrder = () => {
         setShareStatus(false);
     }
     const isTbPayChange = (e) => {
+
         setIsTBPay(e);
     }
 
     useDidShow(() => {
         // url参数
         setPageType(router.params.pageType ? router.params.pageType : 0);
+        setXly(router.params.xly ? JSON.parse(router.params.xly) : []);
+        // setXly([
+        //     {
+        //         "equity_id": 5885,
+        //         "goods_sn": "102403265080450",
+        //         "goods_name": "比来派对9折",
+        //         "balance": 1,
+        //         "attr": 0.95
+        //     }, {
+        //         "equity_id": 479,
+        //         "goods_sn": "102403211406553",
+        //         "goods_name": "追光研学营9折",
+        //         "balance": 1,
+        //         "attr": 0.96
+        //     }]);
         // 获取用户信息
         var value = Taro.getStorageSync('wxUserInfo');
         setUid(value.id)
@@ -267,20 +293,20 @@ const LeaseOrder = () => {
         console.log("q", q);
     }
 
-    const closeApplyJoinPayStatus = () =>{
-        
+    const closeApplyJoinPayStatus = () => {
+
         setApplyJoinPayStatus(false)
         console.log(applyJoinPayStatus)
     }
 
-    const applyJoinSelectFunc = async() => {
-        let joinInfo = await leasePrebookjoininfo({bid:orderInfo.bid});
+    const applyJoinSelectFunc = async () => {
+        let joinInfo = await leasePrebookjoininfo({ bid: orderInfo.bid });
         console.log(joinInfo);
         let joinInfoMoney = parseFloat(joinInfo.joinmoney);
-        
-        if(joinInfoMoney > 0) {
+
+        if (joinInfoMoney > 0) {
             setApplyJoinPayStatus(true)
-        }else{
+        } else {
             setApplyJoinStatus(true)
         }
     }
@@ -293,35 +319,35 @@ const LeaseOrder = () => {
                 icon: 'success',
                 duration: 2000
             })
-            Taro.navigateTo({url: '/pages/Main/index' });
-            dispatch({type: 'tabbar/updateCurrentNavIndex', payload: 0})
+            Taro.navigateTo({ url: '/pages/Main/index' });
+            dispatch({ type: 'tabbar/updateCurrentNavIndex', payload: 0 })
         })
 
         setApplyJoinStatus(false)
-        
+
     }
 
     // 申请加入（需要TA支付）
-    const applyJoinTaFunc = async() => {
-        applyJoin({ bid: orderInfo.bid, paytype: "ta"}).then((res) => {
+    const applyJoinTaFunc = async () => {
+        applyJoin({ bid: orderInfo.bid, paytype: "ta" }).then((res) => {
             Taro.showToast({
                 title: '拼团成功',
                 icon: 'success',
                 duration: 2000
             })
-            Taro.navigateTo({url: '/pages/Main/index' });
-            dispatch({type: 'tabbar/updateCurrentNavIndex', payload: 0})
+            Taro.navigateTo({ url: '/pages/Main/index' });
+            dispatch({ type: 'tabbar/updateCurrentNavIndex', payload: 0 })
         }).catch((e) => {
             // showErrorToast('拼团失败')
         })
 
         setApplyJoinPayStatus(false)
-        
+
     }
-     // 申请加入（需要TA支付）
-     const applyJoinMiniWxpayFunc = async() => {
-    
-        applyJoin({ bid: orderInfo.bid, paytype: "miniwxpay"}).then((res) => {
+    // 申请加入（需要TA支付）
+    const applyJoinMiniWxpayFunc = async () => {
+
+        applyJoin({ bid: orderInfo.bid, paytype: "miniwxpay" }).then((res) => {
             console.log(3333333, res)
             if (!res.arraydata) {
                 showToast("支付信息不存在");
@@ -343,24 +369,26 @@ const LeaseOrder = () => {
                         icon: 'success',
                         duration: 2000,
                     })
-                    Taro.navigateTo({url: '/pages/Main/index' });
-                    dispatch({type: 'tabbar/updateCurrentNavIndex', payload: 0})
+                    Taro.navigateTo({ url: '/pages/Main/index' });
+                    dispatch({ type: 'tabbar/updateCurrentNavIndex', payload: 0 })
                 },
                 fail: function (res) {
                     showToast("拼团失败");
                     console.log(res)
                 }
             })
-            
+
         }).catch((e) => {
             console.log(e)
             showErrorToast('申请失败')
         })
 
         setApplyJoinPayStatus(false)
-        
-    }
 
+    }
+    const handleChangeTbPay = (e: any){
+        setTbPay(e)
+    }
 
     const pass = (event) => {
         let jid = event.currentTarget.dataset.jid;
@@ -408,28 +436,32 @@ const LeaseOrder = () => {
     // 订单支付
     const orderPay = async () => {
         let countDown = calcCountDown(orderInfo.ctime, orderPayTimeout);
-        if(countDown.h == 0 && countDown.s == 0) {
+        if (countDown.h == 0 && countDown.s == 0) {
             showErrorToast("订单已经过期");
             // Taro.navigateTo({url: '/pages/Main/index' });
             // dispatch({type: 'tabbar/updateCurrentNavIndex', payload: 2})
-            return ;
+            return;
         }
-        if(!payProtocol){
+        if (!payProtocol) {
             showErrorToast("请勾选协议后，再进行预约");
-            return ;
+            return;
         }
         let oid = router.params.orderId;
         let paytype = 'miniwxpay';
-        if(isTBPay){
-            paytype = 'ta';
+        if (tbPay) {
+            paytype = tbPay;
+        }
+        const p: any = { oid: oid, paytype: paytype };
+        if (choosedXlyid) {
+            p.xlyid = choosedXlyid
         }
         // 获取支付信息
-        let payInfo = await leasePayInfo({ oid: oid,paytype:paytype });
+        let payInfo = await leasePayInfo(p);
         // console.log("支付信息", payInfo);
         // return;
         // 积分支付，不走下方的代码
-        if(isTBPay){
-            if(payInfo){
+        if (tbPay) {
+            if (payInfo) {
                 Taro.showToast({
                     title: '购买成功',
                     icon: 'success',
@@ -483,7 +515,7 @@ const LeaseOrder = () => {
         let src = e.currentTarget.dataset.url;
         Taro.navigateTo({
             url: "/pages/LeaseOrder/Modules/Protocol/index?url=" + src
-         })
+        })
     }
 
     useEffect(() => {
@@ -497,17 +529,35 @@ const LeaseOrder = () => {
     //订单支付倒计时结束跳转我的页面
     const countDownTimeUp = () => {
         showErrorToast("订单已经过期");
-        setTimeout(()=>{
+        setTimeout(() => {
             console.log(111)
             // Taro.reLaunch
             let pages = Taro.getCurrentPages();
             Taro.navigateBack({
                 delta: pages.length//回到最上一页面
-              })
+            })
             // Taro.navigateTo({url: '/pages/Main/index' });
-            dispatch({type: 'tabbar/updateCurrentNavIndex', payload: 3})
+            dispatch({ type: 'tabbar/updateCurrentNavIndex', payload: 3 })
         }, 1000)
-        
+
+    }
+
+    const createTotalPrice = () => {
+        function accMul(arg1, arg2) {
+            var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+            try { m += s1.split(".")[1].length } catch (e) { }
+            try { m += s2.split(".")[1].length } catch (e) { }
+            return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+        }
+        // orderInfo.totalpay
+        let total = orderInfo.totalpay;
+        if (choosedXlyid && xly.length > 0) {
+            const { attr } = xly.find(item => item.equity_id == choosedXlyid);
+            if (attr) {
+                total = accMul(total, attr);
+            }
+        }
+        return total;
     }
 
     return (
@@ -531,29 +581,33 @@ const LeaseOrder = () => {
                 </View>
             </View>
             <View className='LeaseOrder-tools'>
-                <Tools title={"项目名称："} name={orderInfo.prebook.eptitle + " " + orderInfo.prebook.epprice + "*"} num={parseInt(orderInfo.prebook.duration) / 60 > 3?3:parseInt(orderInfo.prebook.duration) / 60} price={orderInfo.prebook.eptotalprice}></Tools>
-                <Tools title={"门  票："} name={orderInfo.prebook.etitle + "*"} num={3} price={orderInfo.deposit}></Tools>
+                <Tools title={"项目名称："} name={orderInfo.prebook.eptitle + " " + orderInfo.prebook.epprice + "*"} num={parseInt(orderInfo.prebook.duration) / 60 > 3 ? 3 : parseInt(orderInfo.prebook.duration) / 60} price={orderInfo.prebook.eptotalprice}></Tools>
+                {/* <Tools title={"门  票："} name={orderInfo.prebook.etitle + "*"} num={3} price={orderInfo.deposit}></Tools> */}
                 {orderInfo.prebook.tools.map((item, index) => (
                     <Tools title={"工具佣金："} key={index} name={item.title} num="" price={item.price}></Tools>
                 ))}
             </View>
             <View className='LeaseOrder-sale'>
                 <View className='title'>年卡会员</View>
-                <Tools title={""} key={101} name={"门票减免"} num="" price={"-"+orderInfo.yearsubtract} pricecolor='red'></Tools>
-                <Tools title={""} key={101} name={"项目减免"} num="" price={"-"+orderInfo.discount} pricecolor='red'></Tools>
+                <Tools title={""} key={101} name={"门票减免"} num="" price={"-" + orderInfo.yearsubtract} pricecolor='red'></Tools>
+                <Tools title={""} key={101} name={"项目减免"} num="" price={"-" + orderInfo.discount} pricecolor='red'></Tools>
             </View>
             {/*  TODO ostatus >= 1  */}
             {orderInfo.ostatus >= 0 ? (
                 <View className='LeaseOrder-people'>
                     <View className='title'>项目合作</View>
                     <View className='start-people'>
-                        <Text className='title'>发起人：</Text>{orderInfo.uname}
+                        <Text className='title'>发起人：</Text>{
+                            orderInfo.prebook.prebookusers.find(item => item.uid == orderInfo.prebook.uid) ?
+                                (orderInfo.prebook.prebookusers.find(item => item.uid == orderInfo.prebook.uid))['uname'] : '-'
+
+                        }
                     </View>
                     <View className='start-people'>
                         <Text className='title'>参与人：</Text>
                         <View className='join'>
                             {orderInfo.prebook.prebookusers.map((item, index) => (
-                                item.vstatus == 1 ? (
+                                item.vstatus == 1 && item.uid !== orderInfo.prebook.uid ? (
                                     <AtTag key={index} className='tag'>{item.uname}</AtTag>
                                 ) : ''
                             ))}
@@ -562,6 +616,9 @@ const LeaseOrder = () => {
 
                 </View>
             ) : ''}
+            <View className='LeaseOrder-lanyao' onClick={handleOpen}>
+                {choosedXlyid && xly.length > 0 ? `已选择【${xly.find(item => item.equity_id == choosedXlyid).goods_name}】` : '小懒腰会员请点击'}
+            </View>
             <View className='LeaseOrder-code'>
                 {orderInfo.ostatus == 0 ? (
                     <View className='title'>扫码即可完成支付</View>
@@ -581,22 +638,29 @@ const LeaseOrder = () => {
                     <View className='lease-order-countdown'>
                         <Text>支付倒计时</Text>
                         <AtCountdown
-                        isShowHour={false}
-                        minutes={countDownH}
-                        seconds={countDownS}
-                        onTimeUp={countDownTimeUp}
+                            isShowHour={false}
+                            minutes={countDownH}
+                            seconds={countDownS}
+                            onTimeUp={countDownTimeUp}
                         />
                     </View>
                     <View className='lease-order-pay-selector'>
-                        <AtSwitch class='switch' border={false} title='积分支付' checked={isTBPay} color="#45AD21" onChange={isTbPayChange} />
+                        <AtRadio
+                            options={[
+                                { label: '余额抵扣', value: 'ta' },
+                                { label: '工时抵扣', value: 'card' },
+                            ]}
+                            value={tbPay}
+                            onClick={handleChangeTbPay}
+                        />
                     </View>
                     <View className='lease-order-pay-protocol'>
                         <Radio onClick={agreePayProtocol} checked={payProtocol}></Radio>
                         <View>
-                        我已阅读并同意
-                        {/* <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p1.pdf" className='href-text'>《租赁服务协议》</Text>与 */}
-                        <Text onClick={dumpProtocol} data-url="https://api.lifestylelightseeker.com/Uploads/Picture/2023-07-12/p2.pdf" className='href-text'>《隐私协议》</Text>
-                        {/* <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p3.pdf" className='href-text'>《数字证书使用协议》</Text> */}
+                            我已阅读并同意
+                            {/* <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p1.pdf" className='href-text'>《租赁服务协议》</Text>与 */}
+                            <Text onClick={dumpProtocol} data-url="https://api.lifestylelightseeker.com/Uploads/Picture/2023-07-12/p2.pdf" className='href-text'>《隐私协议》</Text>
+                            {/* <Text onClick={dumpProtocol} data-url="https://apidev.leclubthallium.com/Uploads/Picture/2023-07-12/p3.pdf" className='href-text'>《数字证书使用协议》</Text> */}
                         </View>
                     </View>
                 </View>
@@ -604,7 +668,7 @@ const LeaseOrder = () => {
             {/* TODO ostatus=0 */}
             {orderInfo.ostatus == 0 && router.params.identity == 'my' ? (
                 <View className='LeaseOrder-footer'>
-                    <View className='title'>订单金额：￥{orderInfo.totalpay}</View>
+                    <View className='title'>订单金额：￥{createTotalPrice()}</View>
                     <Button className='sub-btn' type='primary' onClick={orderPay}>立即预约</Button>
                 </View>
 
@@ -612,14 +676,14 @@ const LeaseOrder = () => {
             {/* TODO ostatus=1 */}
             {orderInfo.ostatus == 1 && router.params.identity == 'share' ? (
                 <View className='LeaseOrder-footer-apply'>
-                    <Button  onClick={applyJoinSelectFunc} type='primary'>申请加入</Button>
+                    <Button onClick={applyJoinSelectFunc} type='primary'>申请加入</Button>
                 </View>
-             ) : ''} 
+            ) : ''}
 
             {orderInfo.ostatus == 1 && router.params.identity == 'my' ? (
                 <View className='LeaseOrder-footer-manage'>
                     <View className='foot-btn-q'>
-                        <AtBadge value={orderInfo.waitusercount?orderInfo.waitusercount:0} maxValue={99}>
+                        <AtBadge value={orderInfo.waitusercount ? orderInfo.waitusercount : 0} maxValue={99}>
                             <Button className='manage-btn' type='default' onClick={openApplyList}>申请列表</Button>
                         </AtBadge>
                     </View>
@@ -668,7 +732,14 @@ const LeaseOrder = () => {
                         />
                         {/* ))} */}
                     </AtList>
-                    <AtSwitch class='switch' border={false} title='积分支付' checked={isTBPay} color="#45AD21" onChange={isTbPayChange} />
+                    <AtRadio
+                        options={[
+                            { label: '余额抵扣', value: 'ta' },
+                            { label: '工时抵扣', value: 'card' },
+                        ]}
+                        value={tbPay}
+                        onClick={handleChangeTbPay}
+                    />
                 </AtModalContent>
                 <AtModalAction> <Button onClick={closeAddTool}>取消</Button> <Button onClick={payToolMyPrice}>确定</Button></AtModalAction>
             </AtModal>
@@ -693,7 +764,7 @@ const LeaseOrder = () => {
                 <AtModalContent>
                     拼团需要审核通过。通过后无需支付实验费用，但需要自行购买门票入场。
                 </AtModalContent>
-                <AtModalAction> <Button onClick={()=>setApplyJoinStatus(false)}>取消</Button> <Button onClick={applyJoinFreeFunc}>确定</Button> </AtModalAction>
+                <AtModalAction> <Button onClick={() => setApplyJoinStatus(false)}>取消</Button> <Button onClick={applyJoinFreeFunc}>确定</Button> </AtModalAction>
             </AtModal>
 
             {/* 申请支付弹窗 */}
@@ -702,8 +773,31 @@ const LeaseOrder = () => {
                     微信支付
                 </AtActionSheetItem>
                 <AtActionSheetItem data-paytype="ta" onClick={applyJoinTaFunc}>
-                    积分支付
+                    余额抵扣
                 </AtActionSheetItem>
+            </AtActionSheet>
+            <AtActionSheet isOpened={openModal} title='小懒腰会员' onClose={() => setOpenModal(false)}>
+                <Block>
+                    {
+                        xly.map((item: any) => {
+                            return <AtActionSheetItem onClick={() => {
+                                setChoosedXlyid(item.equity_id);
+                                setOpenModal(false);
+                            }}>
+                                {`${item.goods_name}/剩余（${item.balance}）`}
+                            </AtActionSheetItem>
+                        })
+                    }
+                    {
+                        xly.length == 0 ? <AtActionSheetItem>暂无会员</AtActionSheetItem> : <AtActionSheetItem onClick={() => {
+                            setChoosedXlyid(false);
+                            setOpenModal(false);
+                        }}>
+                            取消
+                        </AtActionSheetItem>
+                    }
+
+                </Block>
             </AtActionSheet>
         </View>
     )

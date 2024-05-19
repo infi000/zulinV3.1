@@ -38,20 +38,20 @@ const ConsignmentCreate = () => {
       showErrorToast("请勾选协议后，再进行提交");
       return;
     }
-    if (!form.over18) {
-      showErrorToast("请选择是否满18，再进行提交");
-      return;
-    }
-    // 必填项 手机号，真实姓名，监护人姓名，监护人电话，监护人身份证；
-    if (form.over18 === '0' && (!form.guardianname || !form.guardianphone || !form.guardiancard)) {
-      showErrorToast("请填写监护人信息，再进行提交");
-      return;
-    }
-    if (!form.realname || !form.mobile) {
-      showErrorToast("请填写手机号，真实姓名");
-      return;
-    }
-    createUserInfo({ ...form }).then((d) => {
+    // if (!form.over18) {
+    //   showErrorToast("请选择是否满18，再进行提交");
+    //   return;
+    // }
+    // // 必填项 手机号，真实姓名，监护人姓名，监护人电话，监护人身份证；
+    // if (form.over18 === '0' && (!form.guardianname || !form.guardianphone || !form.guardiancard)) {
+    //   showErrorToast("请填写监护人信息，再进行提交");
+    //   return;
+    // }
+    // if (!form.realname || !form.mobile) {
+    //   showErrorToast("请填写手机号，真实姓名");
+    //   return;
+    // }
+    createUserInfo({ ...form, nickname: form.realname }).then((d) => {
       showSuccessToast("提交成功");
       console.log(d);
       Taro.navigateBack({
@@ -98,7 +98,9 @@ const ConsignmentCreate = () => {
   useEffect(() => {
     getMeInfo().then((d) => {
       console.log(d);
-      setForm({ ...d })
+      const { realname, mobile} = d;
+
+      setForm({ realname, mobile})
     })
   }, []);
 
@@ -115,7 +117,7 @@ const ConsignmentCreate = () => {
   return (
     <View className='userinfo-wrap'>
       <View className='myvip-wrap'>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        {/* <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>昵称:</View>
           <View className='at-col'>
             <AtInput
@@ -126,7 +128,7 @@ const ConsignmentCreate = () => {
               onChange={(e) => handleUpdateForm({ nickname: e })}
             />
           </View>
-        </View>
+        </View> */}
         <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>手机号:</View>
           <View className='at-col'>
@@ -152,7 +154,7 @@ const ConsignmentCreate = () => {
             />
           </View>
         </View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        {/* <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>生日:</View>
           <View className='at-col'>
             <Picker mode='date' disabled={isVerify} onChange={(e: any) => handleUpdateForm({ birthday: e.target.value })} value={form.birthday}>
@@ -161,8 +163,8 @@ const ConsignmentCreate = () => {
               </AtList>
             </Picker>
           </View>
-        </View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        </View> */}
+        {/* <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>身份证:</View>
           <View className='at-col'>
             <AtInput
@@ -174,8 +176,8 @@ const ConsignmentCreate = () => {
               onChange={(e) => handleUpdateForm({ ucard: e })}
             />
           </View>
-        </View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        </View> */}
+        {/* <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>性别:</View>
           <View className='at-col'>
             <AtRadio
@@ -184,8 +186,8 @@ const ConsignmentCreate = () => {
               onClick={(e) => handleUpdateForm({ sex: e })}
             />
           </View>
-        </View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        </View> */}
+        {/* <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>已满18岁:</View>
           <View className='at-col'>
             <AtRadio
@@ -194,7 +196,7 @@ const ConsignmentCreate = () => {
               onClick={(e) => handleUpdateForm({ over18: e })}
             />
           </View>
-        </View>
+        </View> */}
         {
           form.over18 === '0' && (
             <Block>
@@ -250,21 +252,21 @@ const ConsignmentCreate = () => {
           )
         }
         {
-          !isVerify && <View className='at-row  at-row__align--center userinfo-form-item'>
+          <View className='at-row  at-row__align--center userinfo-form-item'>
             <View className='at-col at-col-3 userinfo-label jb-text'>头像:</View>
             <View className='at-col'>
               <UploadHead length={1} ftype='1' />
             </View>
           </View>
         }
-        {
+        {/* {
           !isVerify && <View className='at-row  at-row__align--center userinfo-form-item'>
             <View className='at-col at-col-3 userinfo-label jb-text'>自拍头像:</View>
             <View className='at-col'>
               <UploadHead length={1} ftype='2' />
             </View>
           </View>
-        }
+        } */}
         {
           !isVerify && <View className='user-yd'>
             <View className='lease-order-pay-protocol'>
