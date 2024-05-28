@@ -634,6 +634,13 @@ const LeaseOrder = () => {
                 ) : ''}
 
             </View>
+            <View className='LeaseOrder-people'>
+                    <View className='title'>项目备注</View>
+                    <View className='start-people'><Text className='title'>青少年名称：{orderInfo.peoplename || ''}</Text></View>
+                    <View className='start-people'><Text className='title'>任务名称：{orderInfo.tasktitle || ''}</Text></View>
+                    <View className='start-people'><Text className='title'>队友名称：{orderInfo.membername || ''}</Text></View>
+                    <View className='start-people'><Text className='title'>备注：{orderInfo.message || ''}</Text></View>
+            </View>
             {orderInfo.ostatus == 0 && router.params.identity == 'my' ? (
                 <View>
                     <View className='lease-order-countdown'>
