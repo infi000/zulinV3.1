@@ -2,7 +2,7 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-29 23:08:59
  * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2024-02-26 15:10:48
+ * @LastEditTime: 2024-05-26 10:32:19
  * @FilePath: /zulinV3.1/src/components/Tabbar/store.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -30,12 +30,6 @@ export default {
         image: btn_shouye2,
         selectedImage: btn_shouye2,
       },
-      // { // todo  做完再放开
-      //   title: '视频',
-      //   type: ROUTER_NAME_MAP.shipin,
-      //   image: btn_pinpai,
-      //   selectedImage: btn_pinpai,
-      // },
       {
         title: '预约',
         type: ROUTER_NAME_MAP.reserve,
@@ -43,10 +37,10 @@ export default {
         selectedImage: yydd,
       },
       {
-        title: '社区',
-        type: ROUTER_NAME_MAP.community,
-        image: btn_shequ,
-        selectedImage: btn_shequ,
+        title: '视频',
+        type: ROUTER_NAME_MAP.shipin,
+        image: btn_pinpai,
+        selectedImage: btn_pinpai,
       },
       {
         title: '我的',

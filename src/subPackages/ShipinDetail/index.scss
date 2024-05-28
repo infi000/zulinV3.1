@@ -1,0 +1,46 @@
+@import '~taro-ui/dist/style/components/flex.scss';
+@import '../../static/style/common';
+.ShipinDetail-warp {
+    background-color: #fff;
+    width: 100%;
+    height:100%;
+    padding-bottom: 100px;
+    overflow-x: hidden;
+    .ShipinDetail-VideoList-con{
+        padding: 0 30px;
+    }
+    .ShipinDetail-rooms {
+        display: flex;
+        flex-direction: row;
+        overflow-x:scroll;
+        width: calc(100% - 2rem);
+        // flex-wrap:nowrap;
+        padding: 21px;
+        -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
+    }
+    .ShipinDetail-Video-con{
+        font-size:$sm-fontsize;
+        color:#ccc;
+        margin-bottom: 40px;
+        padding-top: 20px;
+    }
+    .ShipinDetail-Video-name{
+        font-size: $big-fontsize;
+        color:#000;
+        margin-bottom: 10px;
+    }
+    .ShipinDetail-Video-desc{
+    }
+    .ShipinDetail-Video-time{
+        margin-bottom: 10px;
+    }
+}
+
+.ShipinDetail-experimentNameTag-con{
+    margin-right: 10px;
+    .experimentNameTag{
+        display: inline;
+        font-size: $sm-fontsize;
+    }
+}

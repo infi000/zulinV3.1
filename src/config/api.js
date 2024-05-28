@@ -162,4 +162,6 @@ export default {
     getCardDetail: WxApiRoot + '/Card/detail',
     getCarddCards: WxApiRoot + '/Card/dcards',
     getUserBuycard: WxApiRoot + '/User/buycard',
+    experimentvideos: WxApiRoot + '/Lease/experimentvideos',
+    experimentvideodetail: WxApiRoot + '/Lease/experimentvideodetail',
 };

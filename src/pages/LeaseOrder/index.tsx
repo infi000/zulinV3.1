@@ -33,7 +33,7 @@ const LeaseOrder = () => {
     const [pageType, setPageType] = useState<any>(0);
     const [isTBPay, setIsTBPay] = useState<any>(false);
     const [choosedXlyid, setChoosedXlyid] = useState<any>(false);
-    const [tbPay, setTbPay] = useState<'ta' | 'card' | undefined>(undefined);
+    const [tbPay, setTbPay] = useState<'ta' | 'card' | 'miniwxpay' | 'xlyUser' |  undefined>('miniwxpay');
     const [payProtocol, setPayProtocol] = useState<any>(false)
     const [openModal, setOpenModal] = useState(false)
     const [xly, setXly] = useState([])
@@ -123,7 +123,7 @@ const LeaseOrder = () => {
         // 获取支付信息
 
         let paytype = 'miniwxpay';
-        if (tbPay) {
+        if (tbPay === 'card' || tbPay ==='miniwxpay' || tbPay ==='ta') {
             paytype = tbPay;
         }
         const p: any = { oid: addToolOrder.oid, paytype: paytype };
@@ -131,8 +131,10 @@ const LeaseOrder = () => {
             p.xlyid = choosedXlyid
         }
         let payInfo = await leasePayInfo(p);
+
+        console.log('tbPay', tbPay)
         // 积分支付，不走下方的代码
-        if (paytype) {
+        if (tbPay === 'card' || tbPay ==='ta') {
             if (payInfo) {
                 Taro.showToast({
                     title: '购买成功',
@@ -387,6 +389,7 @@ const LeaseOrder = () => {
 
     }
     const handleChangeTbPay = (e: any){
+        setChoosedXlyid(false);
         setTbPay(e)
     }
 
@@ -448,7 +451,7 @@ const LeaseOrder = () => {
         }
         let oid = router.params.orderId;
         let paytype = 'miniwxpay';
-        if (tbPay) {
+        if (tbPay === 'card' || tbPay ==='miniwxpay' || tbPay ==='ta') {
             paytype = tbPay;
         }
         const p: any = { oid: oid, paytype: paytype };
@@ -460,7 +463,7 @@ const LeaseOrder = () => {
         // console.log("支付信息", payInfo);
         // return;
         // 积分支付，不走下方的代码
-        if (tbPay) {
+        if (tbPay === 'card' || tbPay ==='ta') {
             if (payInfo) {
                 Taro.showToast({
                     title: '购买成功',
@@ -616,9 +619,7 @@ const LeaseOrder = () => {
 
                 </View>
             ) : ''}
-            <View className='LeaseOrder-lanyao' onClick={handleOpen}>
-                {choosedXlyid && xly.length > 0 ? `已选择【${xly.find(item => item.equity_id == choosedXlyid).goods_name}】` : '小懒腰会员请点击'}
-            </View>
+
             <View className='LeaseOrder-code'>
                 {orderInfo.ostatus == 0 ? (
                     <View className='title'>扫码即可完成支付</View>
@@ -647,13 +648,21 @@ const LeaseOrder = () => {
                     <View className='lease-order-pay-selector'>
                         <AtRadio
                             options={[
+                                { label: '微信支付', value: 'miniwxpay' },
                                 { label: '余额抵扣', value: 'ta' },
                                 { label: '工时抵扣', value: 'card' },
+                                { label: '小懒腰会员支付', value: 'xlyUser' },
                             ]}
                             value={tbPay}
                             onClick={handleChangeTbPay}
                         />
                     </View>
+                    {
+                        tbPay === 'xlyUser' && <View className='LeaseOrder-lanyao' onClick={handleOpen}>
+                            {choosedXlyid && xly.length > 0 ? `已选择【${xly.find(item => item.equity_id == choosedXlyid).goods_name}】` : '小懒腰会员请点击'}
+                        </View>
+                    }
+
                     <View className='lease-order-pay-protocol'>
                         <Radio onClick={agreePayProtocol} checked={payProtocol}></Radio>
                         <View>
@@ -665,6 +674,7 @@ const LeaseOrder = () => {
                     </View>
                 </View>
             ) : ''}
+
             {/* TODO ostatus=0 */}
             {orderInfo.ostatus == 0 && router.params.identity == 'my' ? (
                 <View className='LeaseOrder-footer'>
@@ -734,8 +744,10 @@ const LeaseOrder = () => {
                     </AtList>
                     <AtRadio
                         options={[
+                            { label: '微信支付', value: 'miniwxpay' },
                             { label: '余额抵扣', value: 'ta' },
                             { label: '工时抵扣', value: 'card' },
+                            { label: '小懒腰会员支付', value: 'xlyUser' },
                         ]}
                         value={tbPay}
                         onClick={handleChangeTbPay}
