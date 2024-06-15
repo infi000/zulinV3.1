@@ -1,8 +1,8 @@
 /*
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-29 23:08:59
- * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2024-01-23 23:34:25
+ * @LastEditors: infi000_at_home 113079767@qq.com
+ * @LastEditTime: 2024-06-15 22:20:04
  * @FilePath: /zulinV3.1/src/pages/Index/services.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -67,7 +67,7 @@ export const dumpByType = (gotype, data) => {
             })
             break;
         case 6:  
-            dispatch({type: 'tabbar/updateCurrentNavIndex', payload: 2})
+            dispatch({type: 'tabbar/updateCurrentNavIndex', payload: 1})
             break;                  
         case 8:  
              Taro.navigateTo({

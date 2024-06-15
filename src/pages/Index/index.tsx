@@ -16,7 +16,7 @@ const Index = () => {
     const [swiperData, setSwiperData] = useState<any>([]);
     const [middleData, setMiddleData] = useState<any>([]);
     const [footerData, setFooterData] = useState<any>([]);
-
+console.log('middleData',middleData)
     // 搜索框开始
     const [searchVal, setSearchVal] = useState<any>('');
     const searchChange = (value) =>{
