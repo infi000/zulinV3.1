@@ -44,14 +44,15 @@ const Lease = () => {
     const [equipments, setEquipments] = useState<any>([]); // 工位列表
     const [choosedEid, setChoosedEid] = useState<any>(undefined); // 选择的实验项目id
     const [categorys, setCategorys] = useState<any>(undefined); // 实验项目下小分类列表
-
+    const router:any = useRouter();
+    const  { eid } = router.params;
     // 获取实验项目名
     const handleGetExperimentnames = () => {
         getExperimentnames().then((res) => {
             if (res.experiments && Array.isArray(res.experiments)) {
                 setExperimentName(res.experiments);
                 const firstEid = res.experiments[0].id;
-                setChoosedEid(firstEid);
+                setChoosedEid(eid || firstEid);
             }
         })
     }
@@ -305,7 +306,7 @@ console.log('memoCanOrder', memoCanOrder);
                             </View>
                         </View>
                     </View>
-                    <View className='lease-rooms'>
+                    {/* <View className='lease-rooms'>
                         {experimentName.map((item, index) => (
                             // <View className='experimentNameTag' data-index={index}>{item.title}</View>
                             <View className='experimentNameTag-con'>
@@ -320,7 +321,7 @@ console.log('memoCanOrder', memoCanOrder);
                             </View>
 
                         ))}
-                    </View>
+                    </View> */}
                     <View className='LeaseHr'></View>
                     {/* 实验小项列表 */}
                     <View className='sy-wrap'>

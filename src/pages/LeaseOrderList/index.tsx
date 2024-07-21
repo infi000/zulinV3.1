@@ -1,8 +1,8 @@
 /*
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2024-05-22 22:25:06
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2024-05-28 23:43:34
+ * @LastEditors: infi000_at_home 113079767@qq.com
+ * @LastEditTime: 2024-06-23 18:45:48
  * @FilePath: \zulinV3.1\src\pages\LeaseOrderList\index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -60,19 +60,25 @@ const LeaseOrderList = () => {
                 </View>
             </View>
             <View className='LeaseOrderList-list'>
-                <AtList>
+                <AtList  className='LeaseOrderList-list'>
                     <ScrollView  scrollY={true} scrollWithAnimation style={{ height: '100vh' }} onScrollToLower={onScrollToLower}>
                         {list.map((item, index)=>(
                             <View className='LeaseOrderList-img' key={index} data-id={item.id} data-title={item.title || ''} onClick={dumpLease}>
-                                <AtListItem
+                                {/* <AtListItem
                                 data-oid={item.id}
                                 title={(item.ostatus == "0"?'待支付 - ':(item.ostatus == "1"?'待核销 - ':(item.ostatus == "2"?'已核销 - ':'已关闭 - ')))+ (item.title || '')}
                                 note={"订单金额："+item.totalpay+" 申请人数："+(item.waitusercount?item.waitusercount:0)}
                                 extraText='查看'
                                 arrow='right'
                                 thumb={item.thumbinal}
-                                />
-                                
+                                /> */}
+                                <View>
+                                    <View>{(item.ostatus == "0"?'待支付 - ':(item.ostatus == "1"?'待核销 - ':(item.ostatus == "2"?'已核销 - ':'已关闭 - ')))+ (item.otitle || '')}</View>
+                                    <View>实验大项目：{item.etitle || '-'}</View>
+                                    <View>备注信息：{item.message || '-'}</View>
+                                    <View>订单金额：{item.totalpay || '-'}</View>
+                                    <View>申请人数：{item.waitusercount? item.waitusercount:0}</View>
+                                </View>
                             </View>
                         ))}
                     </ScrollView>

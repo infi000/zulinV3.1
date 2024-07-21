@@ -20,7 +20,7 @@ const LeaseOrder = () => {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const orderPayTimeout = 5;
+    const orderPayTimeout = 15;
 
     // 变量
     const [applyListStatus, setApplyListStatus] = useState(false);
@@ -636,6 +636,7 @@ const LeaseOrder = () => {
             </View>
             <View className='LeaseOrder-people'>
                     <View className='title'>项目备注</View>
+                    <View className='start-people'><Text className='title'>订单标题：{orderInfo.title || ''}</Text></View>
                     <View className='start-people'><Text className='title'>青少年名称：{orderInfo.peoplename || ''}</Text></View>
                     <View className='start-people'><Text className='title'>任务名称：{orderInfo.tasktitle || ''}</Text></View>
                     <View className='start-people'><Text className='title'>队友名称：{orderInfo.membername || ''}</Text></View>

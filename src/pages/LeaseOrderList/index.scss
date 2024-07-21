@@ -5,6 +5,9 @@
     width: 100%;
     height:calc(100vh+10rem);
     overflow-x: hidden;
+    .LeaseOrderList-list{
+        background-color: $bg-grey-color;
+    }
 }
 .LeaseOrderList-title {
     background-color: #fff;
@@ -18,4 +21,7 @@
 
 .LeaseOrderList-img {
     margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+
 }
