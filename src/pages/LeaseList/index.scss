@@ -3,7 +3,7 @@
 .LeaseList-warp {
     background-color: $bg-grey-color;
     width: 100%;
-    height:calc(100vh+70rem);
+    height:100vh;
     overflow-x: hidden;
 }
 .LeaseList-title {
@@ -18,5 +18,5 @@
 
 .LeaseList-img {
     margin-top: 20px;
-  
+  height: 700px;
 }

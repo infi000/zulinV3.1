@@ -183,5 +183,6 @@ $mini-fontsize: 22px;
   font-weight: bold;
 }
 .at-calendar__list.flex .flex__item--selected-head.flex__item--selected-tail .flex__item-container {
-  background: repeating-linear-gradient(to left,#f8d0f9,#bdd8f9)!important;
+  // background: repeating-linear-gradient(to left,#f8d0f9,#bdd8f9)!important;
+  background: #73bbf4;
 }

@@ -327,17 +327,19 @@ console.log('memoCanOrder', memoCanOrder);
                     <View className='sy-wrap'>
                         {
                             categorys.map((item, index) => {
-                                return <View className='sy-line at-row  at-row__align--center' key={item.id}>
-                                    <View className='at-col at-col-3'>
-                                        <AtAvatar size='large' image={item.pic}></AtAvatar>
+                                return <View className='sy-line at-row  at-row__align--center' key={item.id}  onClick={() => submitOrder(item, memoCanOrder)} >
+                                    <View className='at-col at-col-6'  style = {{height:'100%'}}>
+                                        {/* <AtAvatar size='large' image={item.pic}></AtAvatar> */}
+                                        <Image mode='aspectFill' src={item.pic} style = {{height:'100%', width: '100%'}} />
                                     </View>
-                                    <View className='at-col at-col-7'>
+                                    <View className='at-col at-col-1'></View>
+                                    <View className='at-col at-col-5' style={{ 'overflowX': 'scroll'}}>
                                         <View className='sy-title'><View className='fdhz cz'>{item.title}</View></View>
                                         <View className='sy-desc'><View className='fdhz'>{item.des}</View></View>
                                     </View>
-                                    <View className='at-col at-col-2'>
+                                    {/* <View className='at-col at-col-2'>
                                         <AtButton className='sub-btn' onClick={() => submitOrder(item, memoCanOrder)} size='small' type='primary' disabled={!memoCanOrder}>预约</AtButton>
-                                    </View>
+                                    </View> */}
                                 </View>
                             })
                         }

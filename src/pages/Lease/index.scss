@@ -200,17 +200,20 @@
     background-color: $bg-grey-color;
     .sy-line {
         padding: 20px;
+        height: 150px;
         border-radius: 6px;
         margin-bottom: 30px;
         background-color: #fff;
         box-sizing: border-box;
         .sy-title{
-            font-size: $normal-fontsize;
+            font-size: $mini-fontsize;
             margin-bottom: 30px;
+            padding: 0 6px;
         }
         
         .sy-desc{
             font-size:$mini-fontsize;
+            padding: 0 6px;
         }
     }
     

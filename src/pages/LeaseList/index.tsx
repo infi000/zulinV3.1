@@ -2,7 +2,7 @@
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2024-05-22 22:25:06
  * @LastEditors: infi000_at_home 113079767@qq.com
- * @LastEditTime: 2024-07-22 01:13:30
+ * @LastEditTime: 2024-07-23 01:22:46
  * @FilePath: \zulinV3.1\src\pages\LeaseList\index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -63,9 +63,8 @@ const LeaseList = () => {
 
     return (
         <View className='LeaseList-warp'>
-            <View className='LeaseList-list'>
                 <AtList>
-                    <ScrollView  scrollY={true} scrollWithAnimation style={{ height: '100vh' }} onScrollToLower={onScrollToLower}>
+                    <ScrollView  scrollY={true} scrollWithAnimation style={{ height: '88vh' }} onScrollToLower={onScrollToLower}>
                         {list.map((item, index)=>(
                             <View className='LeaseList-img' key={index} data-id={item.id} data-title={item.title} data-swiper={item.pics} onClick={dumpLease}>
 
@@ -76,13 +75,11 @@ const LeaseList = () => {
                                 >
                                 <Image  src={item.thumbinal} mode="aspectFit" />
                                 </AtCard> */}
-                                <Image  src={item.thumbinal} mode="aspectFit" style={{ width : '100%'}}  />
+                                <Image  src={item.thumbinal} mode="aspectFit" style={{ width:'100%', height:'100%'}} />
                             </View>
                         ))}
                     </ScrollView>
                 </AtList>
-
-            </View>
         </View>
     );
 }
