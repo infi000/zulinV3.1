@@ -49,7 +49,7 @@ console.log('middleData',middleData)
             for(let i=0; i<res.length; i++){
                 let item = res[i];
                 let path = item.fpath;
-                let suffix = path.substring(path.lastIndexOf(".")+1);
+                let suffix = path? path.substring(path.lastIndexOf(".")+1) : '';
                 if(suffix == 'mp4'){
                     res[i].type = 'video'
                 }else{

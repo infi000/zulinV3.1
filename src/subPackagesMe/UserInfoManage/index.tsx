@@ -51,7 +51,7 @@ const ConsignmentCreate = () => {
     //   showErrorToast("请填写手机号，真实姓名");
     //   return;
     // }
-    createUserInfo({ ...form, nickname: form.realname }).then((d) => {
+    createUserInfo({ ...form}).then((d) => {
       showSuccessToast("提交成功");
       console.log(d);
       Taro.navigateBack({
@@ -98,9 +98,9 @@ const ConsignmentCreate = () => {
   useEffect(() => {
     getMeInfo().then((d) => {
       console.log(d);
-      const { realname, mobile} = d;
+      const { realname, mobile,nickname,school,sex,birthday} = d;
 
-      setForm({ realname, mobile})
+      setForm({ realname, mobile,nickname,school,sex,birthday})
     })
   }, []);
 
@@ -117,7 +117,7 @@ const ConsignmentCreate = () => {
   return (
     <View className='userinfo-wrap'>
       <View className='myvip-wrap'>
-        {/* <View className='at-row  at-row__align--center userinfo-form-item'>
+        <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>昵称:</View>
           <View className='at-col'>
             <AtInput
@@ -128,7 +128,7 @@ const ConsignmentCreate = () => {
               onChange={(e) => handleUpdateForm({ nickname: e })}
             />
           </View>
-        </View> */}
+        </View>
         <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>手机号:</View>
           <View className='at-col'>
@@ -154,16 +154,18 @@ const ConsignmentCreate = () => {
             />
           </View>
         </View>
-        {/* <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label jb-text'>生日:</View>
+        <View className='at-row  at-row__align--center userinfo-form-item'>
+          <View className='at-col at-col-3 userinfo-label jb-text'>学校:</View>
           <View className='at-col'>
-            <Picker mode='date' disabled={isVerify} onChange={(e: any) => handleUpdateForm({ birthday: e.target.value })} value={form.birthday}>
-              <AtList>
-                <AtListItem extraText={form.birthday} />
-              </AtList>
-            </Picker>
+            <AtInput
+              className='userinfo-input'
+              name='school'
+              disabled={isVerify}
+              value={form.school}
+              onChange={(e) => handleUpdateForm({ school: e })}
+            />
           </View>
-        </View> */}
+        </View>
         {/* <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>身份证:</View>
           <View className='at-col'>
@@ -177,7 +179,7 @@ const ConsignmentCreate = () => {
             />
           </View>
         </View> */}
-        {/* <View className='at-row  at-row__align--center userinfo-form-item'>
+        <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>性别:</View>
           <View className='at-col'>
             <AtRadio
@@ -186,7 +188,17 @@ const ConsignmentCreate = () => {
               onClick={(e) => handleUpdateForm({ sex: e })}
             />
           </View>
-        </View> */}
+        </View>
+        <View className='at-row  at-row__align--center userinfo-form-item'>
+          <View className='at-col at-col-3 userinfo-label jb-text'>生日:</View>
+          <View className='at-col'>
+            <Picker mode='date' disabled={isVerify} onChange={(e: any) => handleUpdateForm({ birthday: e.target.value })} value={form.birthday}>
+              <AtList>
+                <AtListItem extraText={form.birthday} />
+              </AtList>
+            </Picker>
+          </View>
+        </View>
         {/* <View className='at-row  at-row__align--center userinfo-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>已满18岁:</View>
           <View className='at-col'>

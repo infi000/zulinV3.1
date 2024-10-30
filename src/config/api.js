@@ -164,4 +164,5 @@ export default {
     getUserBuycard: WxApiRoot + '/User/buycard',
     experimentvideos: WxApiRoot + '/Lease/experimentvideos',
     experimentvideodetail: WxApiRoot + '/Lease/experimentvideodetail',
+    getPics:  WxApiRoot + '/Classify/getpics',
 };

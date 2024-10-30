@@ -1,3 +1,11 @@
+/*
+ * @Author: infi000_at_home 113079767@qq.com
+ * @Date: 2024-05-22 22:25:06
+ * @LastEditors: infi000_at_home 113079767@qq.com
+ * @LastEditTime: 2024-09-06 00:26:16
+ * @FilePath: \zulinV3.1\src\static\images\index.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 
 
 
@@ -31,7 +39,7 @@ export { default as collect} from './collect.png';
 // export { default as footprint} from './footprint.png';
 export { default as address} from './address.png';
 export { default as coupon} from './coupon.png';
-
+export { default as kefu} from './kefu.jpg';
 
 export { default as goods} from './goods.png';
 export { default as goodsSelected} from './goods@selected.png';

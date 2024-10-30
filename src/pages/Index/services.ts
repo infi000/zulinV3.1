@@ -2,7 +2,7 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-29 23:08:59
  * @LastEditors: infi000_at_home 113079767@qq.com
- * @LastEditTime: 2024-07-22 01:55:27
+ * @LastEditTime: 2024-09-01 23:09:19
  * @FilePath: /zulinV3.1/src/pages/Index/services.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -32,9 +32,8 @@ export const dumpByType = (gotype, data) => {
             })
             break;
         case 2:  
-            Taro.navigateTo({
-                url: '/pages/Lease/index?eid='+data.eid
-            })
+            dispatch({ type: 'tabbar/updateCurrentNavIndex', payload: 1 })
+            dispatch({ type: 'main/updateYuyueTabIndex', payload: data.eid })
             break;
         case 3:  
             if(!data.cid){
@@ -86,6 +85,16 @@ export const dumpByType = (gotype, data) => {
              Taro.navigateTo({
                 url: '/pages/GoodGoods/index?type=zulin'
             })
-            break;                  
+
+
+
+
+            
+            break;             
+            case 14:  
+            Taro.navigateTo({
+               url: '/pages/PicList/index?cid=' + data.pid
+           })
+           break;       
     }
 }

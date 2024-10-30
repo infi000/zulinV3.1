@@ -33,7 +33,7 @@ const LeaseOrder = () => {
     const [pageType, setPageType] = useState<any>(0);
     const [isTBPay, setIsTBPay] = useState<any>(false);
     const [choosedXlyid, setChoosedXlyid] = useState<any>(false);
-    const [tbPay, setTbPay] = useState<'ta' | 'card' | 'miniwxpay' | 'xlyUser' |  undefined>('miniwxpay');
+    const [tbPay, setTbPay] = useState<'ta' | 'card' | 'miniwxpay' | 'xlyUser' | undefined>('miniwxpay');
     const [payProtocol, setPayProtocol] = useState<any>(false)
     const [openModal, setOpenModal] = useState(false)
     const [xly, setXly] = useState([])
@@ -123,7 +123,7 @@ const LeaseOrder = () => {
         // 获取支付信息
 
         let paytype = 'miniwxpay';
-        if (tbPay === 'card' || tbPay ==='miniwxpay' || tbPay ==='ta') {
+        if (tbPay === 'card' || tbPay === 'miniwxpay' || tbPay === 'ta') {
             paytype = tbPay;
         }
         const p: any = { oid: addToolOrder.oid, paytype: paytype };
@@ -134,7 +134,7 @@ const LeaseOrder = () => {
 
         console.log('tbPay', tbPay)
         // 积分支付，不走下方的代码
-        if (tbPay === 'card' || tbPay ==='ta') {
+        if (tbPay === 'card' || tbPay === 'ta') {
             if (payInfo) {
                 Taro.showToast({
                     title: '购买成功',
@@ -451,7 +451,7 @@ const LeaseOrder = () => {
         }
         let oid = router.params.orderId;
         let paytype = 'miniwxpay';
-        if (tbPay === 'card' || tbPay ==='miniwxpay' || tbPay ==='ta') {
+        if (tbPay === 'card' || tbPay === 'miniwxpay' || tbPay === 'ta') {
             paytype = tbPay;
         }
         const p: any = { oid: oid, paytype: paytype };
@@ -463,7 +463,7 @@ const LeaseOrder = () => {
         // console.log("支付信息", payInfo);
         // return;
         // 积分支付，不走下方的代码
-        if (tbPay === 'card' || tbPay ==='ta') {
+        if (tbPay === 'card' || tbPay === 'ta') {
             if (payInfo) {
                 Taro.showToast({
                     title: '购买成功',
@@ -572,10 +572,10 @@ const LeaseOrder = () => {
             <View className='LeaseOrder-orderinfo'>
                 <View className='order-info'>
                     <View className='image'>
-                        <Image className='image-img' src={orderInfo.prebook.thumbinal} mode="aspectFit" />
+                        <Image className='image-img' src={orderInfo.prebook.ecthumbinal} mode="aspectFit" />
                     </View>
                     <View className='text'>
-                        <View className='title'>{orderInfo.prebook.etitle}-{orderInfo.prebook.eptitle}</View>
+                        <View className='title'>{orderInfo.prebook.etitle}-{orderInfo.prebook.ectitle}</View>
                         {/* <View className='money'>金额：￥{orderInfo.prebook.epprice}*{parseInt(orderInfo.prebook.duration) / 60}</View> */}
                         <View className='money'>订单号：{orderInfo.orderid}</View>
                         <View className='money'>预约日期：{orderInfo.prebook.starttimestr.substring(0, 10)}</View>
@@ -584,7 +584,7 @@ const LeaseOrder = () => {
                 </View>
             </View>
             <View className='LeaseOrder-tools'>
-                <Tools title={"项目名称："} name={orderInfo.prebook.eptitle + " " + orderInfo.prebook.epprice + "*"} num={parseInt(orderInfo.prebook.duration) / 60 > 3 ? 3 : parseInt(orderInfo.prebook.duration) / 60} price={orderInfo.prebook.eptotalprice}></Tools>
+                <Tools title={"项目名称："} name={orderInfo.prebook.eptitle + "-" + orderInfo.prebook.ectitle} price={orderInfo.categoryprice}></Tools>
                 {/* <Tools title={"门  票："} name={orderInfo.prebook.etitle + "*"} num={3} price={orderInfo.deposit}></Tools> */}
                 {orderInfo.prebook.tools.map((item, index) => (
                     <Tools title={"工具佣金："} key={index} name={item.title} num="" price={item.price}></Tools>
@@ -620,27 +620,14 @@ const LeaseOrder = () => {
                 </View>
             ) : ''}
 
-            <View className='LeaseOrder-code'>
-                {orderInfo.ostatus == 0 ? (
-                    <View className='title'>扫码即可完成支付</View>
-                ) : (
-                    <View className='title'>扫码查看订单信息</View>
-                )}
 
-                {!shareStatus && !applyListStatus && !addToolStatus && !applyJoinPayStatus ? (
-                    <View className='qrcode'>
-                        <canvas class='canvas' canvas-id='canvas' bindlongtap='save'></canvas>
-                    </View>
-                ) : ''}
-
-            </View>
             <View className='LeaseOrder-people'>
-                    <View className='title'>项目备注</View>
-                    <View className='start-people'><Text className='title'>订单标题：{orderInfo.title || ''}</Text></View>
-                    <View className='start-people'><Text className='title'>青少年名称：{orderInfo.peoplename || ''}</Text></View>
-                    <View className='start-people'><Text className='title'>任务名称：{orderInfo.tasktitle || ''}</Text></View>
-                    <View className='start-people'><Text className='title'>队友名称：{orderInfo.membername || ''}</Text></View>
-                    <View className='start-people'><Text className='title'>备注：{orderInfo.message || ''}</Text></View>
+                <View className='title'>项目备注</View>
+                <View className='start-people'><Text className='title'>订单标题：{orderInfo.prebook.eptitle + "-" + orderInfo.prebook.ectitle}</Text></View>
+                <View className='start-people'><Text className='title'>青少年名称：{orderInfo.peoplename || ''}</Text></View>
+                <View className='start-people'><Text className='title'>任务名称：{orderInfo.tasktitle || ''}</Text></View>
+                <View className='start-people'><Text className='title'>队友名称：{orderInfo.membername || ''}</Text></View>
+                <View className='start-people'><Text className='title'>备注：{orderInfo.message || ''}</Text></View>
             </View>
             {orderInfo.ostatus == 0 && router.params.identity == 'my' ? (
                 <View>
@@ -682,6 +669,20 @@ const LeaseOrder = () => {
                     </View>
                 </View>
             ) : ''}
+            <View className='LeaseOrder-code'>
+                {orderInfo.ostatus == 0 ? (
+                    <View className='title'>扫码即可完成支付</View>
+                ) : (
+                    <View className='title'>扫码查看订单信息</View>
+                )}
+
+                {!shareStatus && !applyListStatus && !addToolStatus && !applyJoinPayStatus ? (
+                    <View className='qrcode' style={{ display: openModal ? 'none' : 'flex'}}>
+                        <canvas class='canvas' canvas-id='canvas' bindlongtap='save'></canvas>
+                    </View>
+                ) : ''}
+
+            </View>
 
             {/* TODO ostatus=0 */}
             {orderInfo.ostatus == 0 && router.params.identity == 'my' ? (

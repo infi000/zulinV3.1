@@ -65,7 +65,16 @@ $border-style: 10px solid $bg-grey-color;
     font-size: 25px;
     text-align: left;
   }
+  .at-radio::after {
 
+    border-bottom-color:#fff
+  }
+  .at-radio::before {
+    border-top-color: #fff;
+  }
+.at-list__item{
+    min-height: 100px;
+}
 
 }
 

@@ -1,8 +1,8 @@
 /*
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-29 23:08:59
- * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2023-12-08 22:30:49
+ * @LastEditors: infi000_at_home 113079767@qq.com
+ * @LastEditTime: 2024-09-01 22:55:14
  * @FilePath: /zulin/src/store/main.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,6 +18,7 @@ export default {
     isLogIn:false,
     wxUserInfo:{},
     openid:'',
+    yuYueTabIndex: '',
     userInfo: {
       // ut: 1不可验票，2可验票
     }
@@ -34,6 +35,9 @@ export default {
     },
     updateUserInfo: (state, { payload }) => {
       state.userInfo = payload;
+    },
+    updateYuyueTabIndex: (state, { payload }) => {
+      state.yuYueTabIndex = payload;
     },
   },
   effects: {

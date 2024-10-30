@@ -12,7 +12,7 @@
 }
 
 .LeaseBottom{
-    height: 300px;
+    height: 50px;
 }
 
 .LeaseHr{
@@ -24,8 +24,8 @@
     background-color: #fff;
     // height: 50px;
     margin-top: 0px;
-    padding-top: 10px;
-    padding-bottom: 15px;
+    // padding-top: 10px;
+    // padding-bottom: 15px;
 }
 
 .lease-swiper-img {
@@ -80,6 +80,9 @@
     flex-wrap:nowrap;
     padding: 21px;
     font-size: $normal-fontsize;
+    .at-input__title{
+        font-size: $normal-fontsize!important;
+    }
     .lease-selector-timer-num {
         display: flex;
         flex-direction: row;
@@ -115,6 +118,8 @@
 .sub-btn {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
+    background: #73bbf4!important;
+    color: #fff;
 }
 
 .test-h{
@@ -170,6 +175,7 @@
 .lease-calendar {
     // width: 100%;
     z-index: 1000;
+    height: 30%;
 }
 
 .lease-starttimer-subbtn {
@@ -206,7 +212,7 @@
         background-color: #fff;
         box-sizing: border-box;
         .sy-title{
-            font-size: $mini-fontsize;
+            font-size: $normal-fontsize;
             margin-bottom: 30px;
             padding: 0 6px;
         }
@@ -215,6 +221,9 @@
             font-size:$mini-fontsize;
             padding: 0 6px;
         }
+    }
+    .sy-line-choose {
+        border: 1px solid #98c6eb;
     }
     
 }
@@ -245,6 +254,41 @@
     margin-top: 0rem;
     margin-bottom: 0.1rem;
 }
+.Residue-name {
+    text-align: center;
+    color: #606266;
+    overflow: hidden;
+    background-color: #f0f6f1cc;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #E6A23C;
+    font-size: 20px;
+    height: 30px;
+}
+
+.Residue-money {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // color: #909399;
+    background-color: #f0f6f1cc;
+    color: #E6A23C;
+    font-size: 23px;
+    height: 30px;
+}
+
+.Residue-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #E6A23C;
+    font-size: 26px;
+    height: 60px;
+    .at-icon {
+        margin-right: 10px;
+    }
+}
+
 
 .Residue-warp-disabled {
     width: 120px;
@@ -257,14 +301,12 @@
     margin-bottom: 0.1rem;
 }
 
-.Residue-timer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // padding-top: 10px;
-    height: 120px;
-    font-size: $big-fontsize;
-}
+// .Residue-timer {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     font-size: $big-fontsize;
+// }
 
 .start-time-num, .end-time-num{
     margin-bottom: 10px;

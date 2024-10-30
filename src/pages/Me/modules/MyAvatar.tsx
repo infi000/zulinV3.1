@@ -1,8 +1,8 @@
 /*
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-08-10 23:47:55
- * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2024-01-01 02:17:35
+ * @LastEditors: infi000_at_home 113079767@qq.com
+ * @LastEditTime: 2024-09-09 23:11:56
  * @FilePath: /zulin/src/pages/Me/modules/MyAvatar.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -103,16 +103,16 @@ const MyAvatar = () => {
         <View className='at-col at-col-12'>
           <View className='my-card-bg' >追光科探会员</View>
         </View>
-        <View className='at-col at-col-6'>
+        <View className='at-col at-col-12'>
           <View className='my-avatar-desc'>我的余额</View>
           <View className='my-avatar-color'>{userInfo.ta || '-'}</View>
 
         </View>
-        <View className='at-col at-col-6'>
+        {/* <View className='at-col at-col-6'>
           <View className='my-avatar-desc'>剩余次数</View>
           <View className='my-avatar-color'>{userInfo.cardcount || '-'}</View>
 
-        </View>
+        </View> */}
       </View>
     </View>
   );

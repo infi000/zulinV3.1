@@ -2,7 +2,7 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-29 23:08:59
  * @LastEditors: infi000_at_home 113079767@qq.com
- * @LastEditTime: 2024-07-22 00:22:19
+ * @LastEditTime: 2024-08-24 23:03:03
  * @FilePath: /zulin/src/pages/Main/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,7 +16,7 @@ import PinPai from '@/pages/PinPai';
 import Shipin from '@/pages/Shipin';
 import ShequList from '@/pages/Community';
 import Reserve from '@/pages/Reserve';
-import LeaseList from '@/pages/LeaseList';
+import LeaseListV2 from '@/pages/LeaseListV2';
 import ShowYe from '@/pages/Index';
 import { ROUTER_NAME_MAP } from '@/constants/index';
 import './index.scss';
@@ -39,7 +39,7 @@ const Main = (props) => {
       {nav[currentNavIndex].type == ROUTER_NAME_MAP.me && <Me />}
       {nav[currentNavIndex].type == ROUTER_NAME_MAP.index && <ShowYe />}
       {nav[currentNavIndex].type == ROUTER_NAME_MAP.community && <ShequList />}
-      {nav[currentNavIndex].type == ROUTER_NAME_MAP.reserve && <LeaseList />}
+      {nav[currentNavIndex].type == ROUTER_NAME_MAP.reserve && <LeaseListV2 />}
       {nav[currentNavIndex].type == ROUTER_NAME_MAP.pinpai && <PinPai />}
       {nav[currentNavIndex].type == ROUTER_NAME_MAP.shipin && <Shipin />}
 
