@@ -2,7 +2,7 @@
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-07-31 01:32:08
  * @LastEditors: infi000_at_home 113079767@qq.com
- * @LastEditTime: 2024-09-13 23:54:09
+ * @LastEditTime: 2024-12-17 00:28:18
  * @FilePath: /zulinV3.1/src/app.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -60,6 +60,7 @@ class App extends Component {
   config = {
     pages: [
 
+      'pages/TeacherVer/index',
       'pages/Main/index',
       'pages/PicList/index',
 
@@ -114,11 +115,11 @@ class App extends Component {
         root: 'subPackages',
         name: 'subPackages2',
         pages: [
-          // 'Consignment/index',
-          // 'ConsignmentShow/index',
-          // 'ConsignmentBuyList/index',
-          // 'ConsignmentSaleList/index',
-          // 'ConsignmentCreate/index',
+          'Consignment/index',
+          'ConsignmentShow/index',
+          'ConsignmentBuyList/index',
+          'ConsignmentSaleList/index',
+          'ConsignmentCreate/index',
           'Yuyue/index',
           'ShipinDetail/index',
         ],

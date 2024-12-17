@@ -165,4 +165,7 @@ export default {
     experimentvideos: WxApiRoot + '/Lease/experimentvideos',
     experimentvideodetail: WxApiRoot + '/Lease/experimentvideodetail',
     getPics:  WxApiRoot + '/Classify/getpics',
+    getTeacherStatusList:  WxApiRoot + '/Teacher/teastatuslist',
+    getTeacherSList:  WxApiRoot + '/Teacher/tealist',
+    getTeacherVer:  WxApiRoot + '/Teacher/teaverify',
 };

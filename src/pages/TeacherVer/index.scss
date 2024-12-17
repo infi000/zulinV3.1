@@ -1,0 +1,44 @@
+@import '~taro-ui/dist/style/components/flex.scss';
+@import '../../static/style/common';
+
+.teacherVer-wrap {
+    background-color:#fff;
+    // height: calc(100vh + 680px);
+    height:100vh;
+    padding-bottom: 30px;
+    overflow-y: scroll;
+    position: relative;
+    .word-con{
+      position: absolute;
+      top:0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow-y: scroll;
+      z-index: 1000;
+    }
+    .teacherVer-form-item{
+      margin-bottom: 20px;
+    }
+    .teacherVer-label{
+      font-size: 25px;
+      text-align: left;
+    }
+    .at-radio::after {
+  
+      border-bottom-color:#fff
+    }
+    .at-radio::before {
+      border-top-color: #fff;
+    }
+  .at-list__item{
+      min-height: 100px;
+  }
+  
+  }
+  .myvip-wrap{
+    @include con;
+    background-color: #fff;
+    height: 100%;
+    margin-bottom:  20px;
+}

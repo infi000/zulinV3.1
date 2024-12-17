@@ -1,8 +1,8 @@
 /*
  * @Author: 张驰阳 zhangchiyang@sfmail.sf-express.com
  * @Date: 2023-06-25 13:18:23
- * @LastEditors: 张驰阳 zhangchiyang@sfmail.sf-express.com
- * @LastEditTime: 2023-12-07 23:36:42
+ * @LastEditors: infi000_at_home 113079767@qq.com
+ * @LastEditTime: 2024-11-14 00:11:45
  * @FilePath: /zulinV3.1/src/pages/Lease/services.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -67,6 +67,22 @@ export const getExperimentnames = () => request.post(Api.experimentnames);
  * @returns 
  */
 export const getExperimentcategorys = (data) => request.post(Api.experimentcategorys, data);
+
+/**
+ * 
+ * @param payload 获取老师的状态teastatuslist
+
+ * @returns 
+ */
+export const getTeacherStatusList = (data) => request.post(Api.getTeacherStatusList, data);
+
+/**
+ * 
+ * @param payload 获取老师列表
+
+ * @returns 
+ */
+export const getTeachersList = (data) => request.post(Api.getTeacherSList, data);
 
 
 export default {};

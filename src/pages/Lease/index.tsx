@@ -45,7 +45,9 @@ import {
   getEquipmentBookTimes,
   orderadd,
   getExperimentnames,
-  getExperimentcategorys
+  getExperimentcategorys,
+  getTeacherStatusList,
+  getTeachersList
 } from "./services";
 function formatDate(date) {
   const year = date.getFullYear();
@@ -56,7 +58,13 @@ function formatDate(date) {
     .padStart(2, "0");
   return `${year}/${month}/${day}`;
 }
+// 0空闲，1预约，2休假
 
+const teaStatus={
+0:'空闲',
+1:'已预约',
+2:'休假',
+}
 const roomDefault = [
   { num: "可约", money: 800, timer: "10:00", status: "Residue-warp" },
   { num: "可约", money: 800, timer: "11:00", status: "Residue-warp" },
@@ -93,10 +101,30 @@ const Lease = () => {
   const [phone, setPhone] = useState(""); // 手机号
   const [remark, setRemark] = useState(""); // 备注信息
   const [chooseCate, setChooseCate] = useState<any>(undefined);
+  const [teacherStatusList, setTeacherStatusList] = useState<any>(undefined);
+  const [teacherList, setTeacherList] = useState<any>(undefined);
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 10);
   const maxDate = formatDate(tomorrow);
+
+
+  const memoTea = useMemo(() => {
+    let t:any = [];
+    if(Array.isArray(teacherList) && teacherList.length >0){
+      t = teacherList;
+    }
+    if(Array.isArray(teacherStatusList)){
+       t =  teacherList.map( item => {
+          const tag = teacherStatusList.find(item2 => item2.teaid === item.id);
+          if(tag){
+            return {...item, teaid: tag.teaid, status: tag.status}
+          }
+          return {...item, teaid: item.id, status: '0'}
+       })
+    }
+    return t;
+  }, [JSON.stringify(teacherList),JSON.stringify(teacherStatusList)])
   // 预留信息
   const phoneChange = value => {
     setPhone(value);
@@ -125,6 +153,11 @@ const Lease = () => {
     // 设置当前日期可选择范围
     setCurDate(curdate);
     setDateSel(curdate);
+    getTeachersList({cid}).then(res => {
+      if (res.teacherlist && Array.isArray(res.teacherlist)) {
+        setTeacherList(res.teacherlist);
+      }
+    });
   });
   // 获取实验项目名
   const handleGetExperimentnames = () => {
@@ -158,6 +191,16 @@ const Lease = () => {
         }
       }
     });
+    const { starttime, endtime } = opt || {};
+
+    if(cid && starttime && endtime){
+      getTeacherStatusList(falsyParamsFilter({ cid, startdate: starttime, enddate:endtime })).then(res => {
+        if (res.teastatuselist && Array.isArray(res.teastatuselist)) {
+          setTeacherStatusList(res.teastatuselist);
+        }
+      });
+    }
+
   };
 
   // 是否能预约
@@ -317,6 +360,7 @@ const Lease = () => {
     // remark 大实验项目+小试验项目
     const remark1 = remark || experimentsDetail.title + " " + cate.title;
     let params = {
+      teaid: Array.isArray(teacherList) && teacherList.length >0 ? teacherList[0].id : '',
       eid: experimentsDetail.id,
       edeposit: parseFloat(experimentsDetail.deposit) * 3, //parseFloat(eptotalprice),// 押金 parseFloat(experimentsDetail.deposit),//*timer,//parseFloat(eptotalprice),
       epid: ep.id,
@@ -473,7 +517,15 @@ const Lease = () => {
 
             <View className="at-article lease-title">
               <View className="at-article lease-h2">
-                <View className="lease-h2-icon"></View> {chooseCate.remark || ""}
+                <View className="lease-h2-icon"></View>
+                老师状态：
+                {
+                  memoTea.length > 0 ? memoTea.map((item, index) => {
+                    const str = (index!==0 ? ',' : '' )+  (item.teaname) + (teaStatus[item.status] || '');
+                    return <span>{str}</span>
+                  }  ): ''
+                }
+            {/* {chooseCate.remark || ""} */}
               </View>
             </View>
             <View className="at-article lease-title">
