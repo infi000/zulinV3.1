@@ -10,8 +10,8 @@ import Taro, { useState, useEffect, useRef } from "@tarojs/taro";
 import { AtButton, AtInput, AtList, AtListItem, AtRadio } from "taro-ui";
 
 import { View } from "@tarojs/components";
-import "./index.scss";
-import { getTeacherVerService } from "./services";
+import "../index.scss";
+import { getTeacherVerService } from "../services";
 import { showSuccessToast } from "@/utils/util";
 
 const defaultForm: { [key: string]: any } = {};
@@ -33,40 +33,38 @@ const TeacherVer = () => {
     return;
   };
 
- const handleToSign = () => {
-  console.log(form)
-  getTeacherVerService({ ...form}).then((d) => {
-    showSuccessToast("提交成功");
-    console.log(d);
-
-  })
- }
+  const handleToSign = () => {
+    console.log(form)
+    getTeacherVerService({ ...form }).then((d) => {
+      showSuccessToast("提交成功");
+      Taro.setStorage({ key: 'teacherToken', data: d.token });
+    })
+  }
   return (
-    <View className="teacherVer-wrap">
-       <View className='myvip-wrap'>
-      <View className="at-row  at-row__align--center teacherVer-form-item">
-        <View className="at-col at-col-3 teacherVer-label jb-text">手机号:</View>
-        <View className="at-col">
-          <AtInput
-            className="teacherVer-input"
-            name="phone"
-            value={form.phone}
-            onChange={e => handleUpdateForm({ phone: e })}
-          />
+      <View>
+        <View className="at-row  at-row__align--center teacherVer-form-item">
+          <View className="at-col at-col-3 teacherVer-label jb-text">手机号:</View>
+          <View className="at-col">
+            <AtInput
+              className="teacherVer-input"
+              name="phone"
+              value={form.phone}
+              onChange={e => handleUpdateForm({ phone: e })}
+            />
+          </View>
         </View>
-      </View>
-      <View className="at-row  at-row__align--center teacherVer-form-item">
-        <View className="at-col at-col-3 teacherVer-label jb-text">密码:</View>
-        <View className="at-col">
-          <AtInput
-            className="teacherVer-input"
-            name="password"
-            value={form.password}
-            onChange={e => handleUpdateForm({ password: e })}
-          />
+        <View className="at-row  at-row__align--center teacherVer-form-item">
+          <View className="at-col at-col-3 teacherVer-label jb-text">密码:</View>
+          <View className="at-col">
+            <AtInput
+              className="teacherVer-input"
+              name="password"
+              value={form.password}
+              onChange={e => handleUpdateForm({ password: e })}
+            />
+          </View>
         </View>
-      </View>
-      <View style={{ height: ' 20px' }}></View>
+        <View style={{ height: ' 20px' }}></View>
         <View className='edit-btn-wrap'>
           <View className='at-row at-row__justify--around'>
             <View className='at-col at-col-5'>
@@ -76,7 +74,7 @@ const TeacherVer = () => {
             </View>
             <View className='at-col at-col-5'>
               <AtButton type='primary' circle size='small' onClick={handleToSign} >
-              确定
+                确定
               </AtButton>
             </View>
 
@@ -85,7 +83,6 @@ const TeacherVer = () => {
         </View>
         <View style={{ height: ' 20px' }}></View>
       </View>
-    </View>
   );
 };
 

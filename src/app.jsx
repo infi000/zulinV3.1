@@ -54,13 +54,12 @@ class App extends Component {
         Taro.login()
       },
     });
-    this.update();  
+    this.update();
   }
 
   config = {
     pages: [
 
-      'pages/TeacherVer/index',
       'pages/Main/index',
       'pages/PicList/index',
 
@@ -76,7 +75,7 @@ class App extends Component {
         // 'pages/Index/index',
       'pages/TaskList/index',
       'pages/LeaseOrderList/index',
-      
+
       //'pages/LeaseList/index',
       // 'pages/Lease/index',
       'pages/LeaseDetail/index',
@@ -102,7 +101,7 @@ class App extends Component {
       'pages/Collect/index',
       'pages/SortPage/index',
       'pages/LeaseOrder/Modules/Protocol/index',
-      
+
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -123,11 +122,12 @@ class App extends Component {
           'Yuyue/index',
           'ShipinDetail/index',
         ],
-      }, 
+      },
       {
         root: 'subPackagesMe',
         name: 'subPackagesMe',
         pages: [
+          'TeacherVer/index',
           'UserInfoManage/index',
           'BuyVip/index',
           'BuyTabi/index',

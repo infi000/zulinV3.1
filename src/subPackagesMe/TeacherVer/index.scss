@@ -1,4 +1,5 @@
 @import '~taro-ui/dist/style/components/flex.scss';
+@import "~taro-ui/dist/style/components/article.scss";
 @import '../../static/style/common';
 
 .teacherVer-wrap {
@@ -25,7 +26,7 @@
       text-align: left;
     }
     .at-radio::after {
-  
+
       border-bottom-color:#fff
     }
     .at-radio::before {
@@ -34,11 +35,26 @@
   .at-list__item{
       min-height: 100px;
   }
-  
+
   }
   .myvip-wrap{
     @include con;
     background-color: #fff;
     height: 100%;
-    margin-bottom:  20px;
+    margin-bottom:  50px;
+}
+
+.tea-order-list{
+
+  .tea-order-item{
+    margin-bottom: 40px;
+    .tea-order-item-title{
+      font-size:  $big-fontsize;
+    }
+    .tea-order-item-content{
+      font-size:  $normal-fontsize;
+    }
+    .tea-order-item-btn{
+    }
+  }
 }

@@ -51,3 +51,18 @@ export const G_STATUS_MAP = new Map([
     ['已售出下线', '4'],
     ['待审用户下线核', '5'],
 ])
+
+// "wstatus": "1",//上班状态，0不上班，1上班，2加班
+// "dstatus": "1",//预约状态，1有预约，0空闲，2有休假
+
+
+export const tea_wstatus={
+  0:'不上班',
+  1:'上班',
+  2:'加班',
+  }
+export const tea_dstatus={
+  0:'空闲',
+  1:'忙碌',
+  2:'休假',
+  }

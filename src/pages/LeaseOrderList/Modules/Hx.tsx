@@ -6,51 +6,36 @@ import Taro, {
   useMemo
 } from "@tarojs/taro";
 import {
-  View,
-  Swiper,
-  SwiperItem,
-  Image,
-  Video,
-  Button
+  View
 } from "@tarojs/components";
 import {
-  AtList,
-  AtListItem,
   AtInput,
   AtButton,
   AtInputNumber,
   AtCalendar,
   AtFloatLayout,
-  AtTag,
-  AtAvatar,
-  AtGrid
+  AtAvatar
 } from "taro-ui";
-import { useSelector, useDispatch } from "@tarojs/redux";
+import { useSelector } from "@tarojs/redux";
 import {
   currentDate,
-  currentHour,
   falsyParamsFilter,
+  showSuccessToast,
   showToast
 } from "@/utils/util";
 
-import "./index.scss";
-import LeaseRadio from "./Modules/LeaseRadio";
-import LeaseTools from "./Modules/tools";
-import Residue from "./Modules/residue";
+import "../../Lease/index.scss";
 
 import {
   getExperimentDetailService,
   getEquipmentsService,
   getToolsService,
-  getToolService,
-  getEquipmentBookTimes,
   orderadd,
   getExperimentnames,
   getExperimentcategorys,
-  getTeacherStatusList,
-  getTeachersList
-} from "./services";
-import { tea_dstatus, tea_wstatus } from "@/constants/index";
+  getTeacherStatusList
+} from "../../Lease/services";
+import { postXlPreOrder } from "../services";
 function formatDate(date) {
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -76,12 +61,21 @@ const roomDefault = [
   { num: "可约", money: 800, timer: "21:00", status: "Residue-warp" }
   // { num: '可约', money: 800, timer: "22:00", status: 'Residue-warp' }
 ];
-const Lease = () => {
-  const router: any = useRouter();
-  const { eid, cid, duration, categoryprice } = router.params;
-  console.log("router.params", router.params);
-  const [timer, setTimer] = useState(duration ? Number(duration) : 1); // 预约市场，单位：小时
-  const [maxAtInputNumber, setMaxAtInputNumber] = useState(15); // 可选择最大时长
+
+interface IProps {
+  oid: string;
+  eid: string;
+  cid: string;
+  duration: any;
+  categoryprice: any;
+  handleBack: any;
+  show: boolean
+}
+const HX = (props: IProps) => {
+  const { eid, cid, duration, categoryprice, show, handleBack, oid } = props || {};
+  console.log('{ eid, cid, duration, categoryprice } ', { eid, cid, duration, categoryprice })
+  const [timer, setTimer] = useState(1); // 预约市场，单位：小时
+  const [maxAtInputNumber, setMaxAtInputNumber] = useState(duration); // 可选择最大时长
   const [curDate, setCurDate] = useState(""); // 今日日期
 
   const [startTimeSel, setStartTimeSel] = useState(""); // 选择开始时间
@@ -123,25 +117,26 @@ const Lease = () => {
     return value;
   };
 
-  useDidShow(() => {
-    console.log("走到这", eid);
-    if (!eid) {
-      Taro.navigateTo({ url: "/pages/Main/index" });
-      return;
+  useEffect(() => {
+    if(show){
+      if (!eid) {
+        Taro.navigateTo({ url: "/pages/Main/index" });
+        return;
+      }
+      setResidue(roomDefault);
+      // const { params } = router;
+      // const { eid } = params;
+      // getData({ eid });
+      handleGetExperimentnames();
+      // handleGetEquipments();
+      // 获取当前日期
+      let curdate = currentDate();
+      console.log("获取当前日期", curdate);
+      // 设置当前日期可选择范围
+      setCurDate(curdate);
+      setDateSel(curdate);
     }
-    setResidue(roomDefault);
-    // const { params } = router;
-    // const { eid } = params;
-    // getData({ eid });
-    handleGetExperimentnames();
-    // handleGetEquipments();
-    // 获取当前日期
-    let curdate = currentDate();
-    console.log("获取当前日期", curdate);
-    // 设置当前日期可选择范围
-    setCurDate(curdate);
-    setDateSel(curdate);
-  });
+  },[show]);
   // 获取实验项目名
   const handleGetExperimentnames = () => {
     getExperimentnames().then(res => {
@@ -176,7 +171,7 @@ const Lease = () => {
     });
     const { starttime, endtime } = opt || {};
 
-    if (cid) {
+    if (cid && starttime && endtime) {
       getTeacherStatusList(falsyParamsFilter({ cid, starttime, endtime })).then(res => {
         if (res.teacherlist && Array.isArray(res.teacherlist)) {
           setTeacherList(res.teacherlist);
@@ -188,12 +183,7 @@ const Lease = () => {
 
   // 是否能预约
   const memoCanOrder = useMemo(() => {
-    const res = {
-      eid: "0",
-      id: "0",
-      price: "0.00",
-    }
-    // const res = equipments.find(item => item.canbook == 1) || false; // TODO
+    const res = equipments.find(item => item.canbook == 1) || false; // TODO
 
     return res;
   }, [equipments]);
@@ -246,7 +236,7 @@ const Lease = () => {
         }
       }
 
-      if(timer > _max){
+      if (timer > _max) {
         showToast("预约时长不足" + timer + "小时", 200);
         return
       }
@@ -280,24 +270,6 @@ const Lease = () => {
     return value;
   };
 
-  // useEffect(() => {
-  //   setResidue(roomDefault);
-  //   // const { params } = router;
-  //   // const { eid } = params;
-  //   // getData({ eid });
-  //   handleGetExperimentnames();
-  //   // handleGetEquipments();
-  //   // 获取当前日期
-  //   let curdate = currentDate();
-  //   console.log("获取当前日期", curdate);
-  //   // 设置当前日期可选择范围
-  //   setCurDate(curdate);
-  //   setDateSel(curdate);
-
-  //   // 设置当前选中日期
-  //   // onDateChange({value: curdate})
-  //   // dispatch({ type: 'lease/getExperimentDetail', payload: { eid } });
-  // }, []);
 
   const handleChooseTeacher = (item) => {
     const { id } = item;
@@ -310,110 +282,37 @@ const Lease = () => {
   };
 
   const submitOrder = async () => {
-    if (!chooseCate) {
-      showToast("请选择项目");
+
+    if (!startTimeSel) {
+      showToast("请选择开始时间");
+      return;
+    }
+    if (!endTimeSel) {
+      showToast("请选择时长时间");
       return;
     }
 
-    // if (!startTimeSel) {
-    //   showToast("请选择开始时间");
-    //   return;
-    // }
-    // if (!endTimeSel) {
-    //   showToast("请选择时长时间");
-    //   return;
-    // }
-    if (!phone) {
-      showToast("请填写手机");
+    let p = {
+      oid,
+      starttime: dateSel + " " + startTimeSel,
+      endtime: dateSel + " " + endTimeSel,
+    }
+
+    if (p.starttime == " 请选择开始时间") {
+      showToast("请选择开始时间");
       return;
     }
-    const cate = chooseCate;
-    const ep = memoCanOrder;
-    const eid = cate.eid;
-    // 获取实验详情
-    const experimentsDetail = await getExperimentDetailService({ eid });
-    console.log("experimentsDetail", experimentsDetail);
-    // 获取工具
-    const toolsBox = await getToolsService({ eid, istools: 1, ecid: cid });
-    console.log("toolsBox", toolsBox);
-    const choosedTools = toolsBox.toolboxs[0].tools;
-    const toolsTotal = choosedTools.reduce((res, i) => { return parseFloat(i.price) + res }, 0);
-
-    let eptotalprice = 0 as any;
-
-    // let countPrice = parseFloat(eptotalprice) + (parseFloat(room.price)+parseFloat(experimentsDetail.deposit)) * timer;
-    let h = timer;
-    // if (timer > 3) {
-    //   h = 3;
-    // }
-    let shebei = parseFloat(ep.price) * h;
-    const teacherPrice = parseFloat(choosedTea.price) * h;
-
-    // 设备租赁总价格
-    console.log("开台费/设备费:", ep.price);
-    console.log("时长：", h);
-    console.log("门票：", experimentsDetail.deposit);
-    console.log("押金", eptotalprice);
-    console.log("工具金额之和", toolsTotal);
-    console.log("工具金额之和", toolsTotal);
-    console.log("老师金额", teacherPrice);
-    console.log("设备金额", shebei);
-    // 总价格
-    let countPrice =
-      parseFloat(eptotalprice) +
-      parseFloat(categoryprice) +
-      parseFloat(toolsTotal) +
-      shebei +
-      teacherPrice +
-      parseFloat(experimentsDetail.deposit) * h; // * timer;
-
-    // remark 大实验项目+小试验项目
-    const remark1 = remark || experimentsDetail.title + " " + cate.title;
-    let params = {
-      teaid: choosedTea.id,
-      ctype: cate.ctype,
-      eid: experimentsDetail.id,
-      duration: timer,
-      edeposit: parseFloat(experimentsDetail.deposit) * h, //parseFloat(eptotalprice),// 押金 parseFloat(experimentsDetail.deposit),//*timer,//parseFloat(eptotalprice),
-      epid: ep.id,
-      eptotalprice: shebei,
-      categoryprice: categoryprice,
-      uphone: phone || userInfo.mobile || 13333333333,
-      title: experimentsDetail.title,
-      total: countPrice,
-      totalpay: countPrice,
-      tools: JSON.stringify({ tools: choosedTools }),
-      ecid: cate.id,
-      remark: remark1
-    };
-
-    // if (!params.epid) {
-    //   // showToast("请选择工作台");
-    //   showToast("已过选择时间，请选择正确时间")
-    //   return;
-    // }
-    // if (params.starttime == " 请选择开始时间") {
-    //   showToast("请选择开始时间");
-    //   return;
-    // }
-    if (params.endtime == " --") {
+    if (p.endtime == " --") {
       showToast("请选择时长");
       return;
     }
-    if (!params.uphone) {
-      showToast("请填写手机号");
-      return;
-    }
-    console.log("接口请求参数：", params);
-    orderadd(params).then(res => {
-      Taro.navigateTo({
-        url:
-          "/pages/LeaseOrder/index?orderId=" +
-          res.oid +
-          "&identity=my" +
-          "&xly=" +
-          JSON.stringify(res.xly)
-      });
+
+    console.log("接口请求参数：", p);
+    postXlPreOrder(p).then(res => {
+      showSuccessToast('提交成功');
+      setTimeout(() => {
+        handleBack();
+      }, 500);
     });
   };
   console.log("memoCanOrder", memoCanOrder);
@@ -421,7 +320,7 @@ const Lease = () => {
     <View className="lease-warp">
       <View className="lease-warp-inner">
         <View className="at-article lease-title">
-          <View className="lease-calendar" style={{ display: 'none'}}>
+          <View className="lease-calendar">
             <AtCalendar
               size="small"
               isSwiper
@@ -430,7 +329,7 @@ const Lease = () => {
               maxDate={maxDate}
             />
           </View>
-          <View className="lease-rooms"   style={{ display: 'none'}} >
+          <View className="lease-rooms">
             {residue.map((item, index) => (
               <View key={index} onClick={residueClick} data-index={index}>
                 <View className={`${item.status}`}>
@@ -443,18 +342,17 @@ const Lease = () => {
               </View>
             ))}
           </View>
-          <View className="lease-selector-timer"  style={{ display: 'none'}} >
+          <View className="lease-selector-timer">
             <View className="lease-selector-timer-num">
               <View className="jb-text">时长：</View>
               <AtInputNumber
                 type="number"
                 disabledInput
                 min={1}
-                max={maxAtInputNumber}
+                max={duration}
                 step={1}
                 value={timer}
                 onChange={timerChange}
-                disabled
               />
               <View className="jb-text">（工时）</View>
             </View>
@@ -474,18 +372,16 @@ const Lease = () => {
           </View>
           <View className="LeaseHr"></View>
           {/* 实验小项列表 */}
-          <View className="sy-wrap">
+          {/* <View className="sy-wrap">
             <View className="at-article lease-title">
               <View className="at-article lease-h2">
                 <View className="lease-h2-icon"></View>
                 请选择授权老师
               </View>
-
-              {/* <AtGrid data={memoTea} /> */}
               <View className='at-row at-row--wrap'>
                 {
                   memoTea.map((item, index) => {
-                    let dis = '';
+                    let dis = item.dstatus == 0 ? '' : 'teacherChooseDisabled';
                     let choose = item.id === choosedTea.id ? 'teacherChooseCon-choose' : '';
                     return <View className={'at-col at-col-4 teacherChooseCon ' + dis + '' + choose} key={index} onClick={() => handleChooseTeacher(item)}>
                       <AtAvatar image={item.head} className="teacherChooseCon-img" size="normal"></AtAvatar>
@@ -496,12 +392,11 @@ const Lease = () => {
                 }
               </View>
             </View>
-
-          </View>
+          </View> */}
           <View className="LeaseHr"></View>
           {/* 实验小项列表 */}
           <View className="sy-wrap">
-            <View className="at-article lease-title">
+            {/* <View className="at-article lease-title">
               <View className="lease-selector-timer">
                 <AtInput
                   name="phone"
@@ -521,10 +416,9 @@ const Lease = () => {
                   onChange={remarkChange}
                 />
               </View>
-            </View>
-            <View className="lease-sub-info">
-              <View className="title">{chooseCate.title || ""}</View>
-              <AtButton
+            </View> */}
+            <View className="LeaseBottom">
+            <AtButton
                 className="sub-btn"
                 onClick={submitOrder}
                 type="primary"
@@ -533,18 +427,17 @@ const Lease = () => {
               </AtButton>
             </View>
             <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
+
+            <View className="LeaseHr"></View>
+            <View className="LeaseBottom">
+            <AtButton
+                className="sub-btn"
+                onClick={handleBack}
+                type="primary"
+              >
+                返回
+              </AtButton>
+            </View>
             <View className="LeaseBottom"></View>
             <View className="LeaseBottom"></View>
           </View>
@@ -564,4 +457,4 @@ const Lease = () => {
   );
 };
 
-export default Lease;
+export default HX;

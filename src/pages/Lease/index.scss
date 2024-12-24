@@ -5,7 +5,7 @@
     width: 100%;
     height:calc(100vh+30rem);
     overflow-x: hidden;
-   
+
     .lease-warp-inner{
         padding: 0 30px;
     }
@@ -112,7 +112,7 @@
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
     }
-   
+
 }
 
 .sub-btn {
@@ -216,7 +216,7 @@
             margin-bottom: 30px;
             padding: 0 6px;
         }
-        
+
         .sy-desc{
             font-size:$mini-fontsize;
             padding: 0 6px;
@@ -225,7 +225,7 @@
     .sy-line-choose {
         border: 1px solid #98c6eb;
     }
-    
+
 }
 
 
@@ -310,4 +310,31 @@
 
 .start-time-num, .end-time-num{
     margin-bottom: 10px;
+}
+
+.teacherChooseCon{
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  .teacherChooseCon-img{
+    display: inline-block;
+  }
+  .teacherChooseCon-name{
+    margin-bottom: 0.2rem;
+  }
+
+  .teacherChooseCon-price{
+    margin-bottom: 0.2rem;
+  }
+
+}
+
+.teacherChooseCon-disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.teacherChooseCon-choose {
+  border-radius: 12px;
+  border: 1px solid #000;
 }
