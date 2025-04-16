@@ -89,7 +89,22 @@ const Others = () => {
         Taro.navigateTo({ url: '/pages/LeaseOrderList/index' });
         break;
       case '追光客服':
-        Taro.navigateTo({ url: '/pages/Kefu/index' });
+        try {
+
+        } catch (error) {
+
+        }
+        (wx as any).openCustomerServiceChat({
+          extInfo: {url: 'https://work.weixin.qq.com/kfid/kfc10d6918210ac4c17'},
+          corpId: 'wwe6015415caf97b22',
+          success(res) {
+            console.log('调用成功',res)
+          },
+          fail(err){
+            console.log('调用失败',err)
+          }
+        })
+        // Taro.navigateTo({ url: '/pages/Kefu/index' });
         break;
       default:
         break;

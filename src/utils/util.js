@@ -63,7 +63,7 @@ export function isEmpty(params) {
 
 /**
  * 获取当前日期
- * @returns 
+ * @returns
  */
 export function currentDate() {
     var now = new Date();
@@ -75,7 +75,7 @@ export function currentDate() {
 }
 /**
  * 获取当前小时
- * @returns 
+ * @returns
  */
 export function currentHour() {
   var now = new Date();
@@ -97,7 +97,7 @@ export function calcCountDown(timestamp, minutes) {
   if(sy < 0) {
     return {h:0, s:0};
   }
-  
+
 console.log("倒计时", sy)
 console.log("当前时间戳", now)
   let h = parseInt(sy/60);
@@ -121,3 +121,15 @@ export function falsyParamsFilter(params) {
   }
   return params;
 }
+
+export const timestampToDateTime = (timestamp) => {
+  const date = new Date(timestamp * 1000); // 将秒时间戳转换为毫秒时间戳
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需要加1，并补零
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+};

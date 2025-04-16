@@ -57,7 +57,7 @@ export const G_STATUS_MAP = new Map([
 
 
 export const tea_wstatus={
-  0:'不上班',
+  0:'空闲',
   1:'上班',
   2:'加班',
   }

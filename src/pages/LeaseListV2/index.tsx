@@ -36,7 +36,7 @@ const LeaseListV2 = () => {
   });
   const handleChangeE = (e: any) => {
     setChoosdItem(e);
-    getExperimentcategorys(falsyParamsFilter({ eid: e.id })).then(res => {
+    getExperimentcategorys(falsyParamsFilter({ eid: e.id, offset:0 ,count: 50 })).then(res => {
       if (res.experimentcategorys && Array.isArray(res.experimentcategorys)) {
         setCategorys(res.experimentcategorys);
       }
@@ -61,7 +61,7 @@ const LeaseListV2 = () => {
             res.experimentcategorys &&
             Array.isArray(res.experimentcategorys)
           ) {
-          
+
             setCategorys(res.experimentcategorys);
           }
         });
@@ -111,7 +111,7 @@ const LeaseListV2 = () => {
           </View>
         ))}
 
-        
+
       </View>
       {/* <View className="LeaseListV2-desc">{choosedItem.des}</View> */}
       <View className="LeaseListV2-img">
@@ -133,7 +133,7 @@ const LeaseListV2 = () => {
               </View>
             })
         }
-  
+
       </View>
     </View>
   );

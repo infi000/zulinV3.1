@@ -178,4 +178,10 @@ export default {
     teaordercon:  WxApiRoot + '/Teacher/teaordercon',
     teaorderend:  WxApiRoot + '/Teacher/teaorderend',
     teaordercomplete:  WxApiRoot + '/Teacher/teaordercomplete',
+    userxlprebookchlist:  WxApiRoot + '/Lease/userxlprebookchlist',
+    teadetailbytoken:  WxApiRoot + '/Teacher/teadetailbytoken',
+    checkCheckbaselist:  WxApiRoot + '/Check/checkbaselist',
+    checkCheckedlist:  WxApiRoot + '/Check/checkedlist',
+    checkCheckAdd:  WxApiRoot + '/Check/checkadd',
+    checkCheckmodify:  WxApiRoot + '/Check/checkmodify',
 };

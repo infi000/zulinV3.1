@@ -9,11 +9,11 @@
 import Taro, { useState, useEffect, useRef, useDidShow } from "@tarojs/taro";
 import { AtButton, AtInput, AtList, AtListItem, AtRadio } from "taro-ui";
 
-import { Picker, View } from "@tarojs/components";
+import { Picker, View, Image } from "@tarojs/components";
 import "../index.scss";
 import { getTeacherVerService, getTeacurstatusmodifyService, getTeacurstatusService } from "../services";
 import { showSuccessToast } from "@/utils/util";
-import { tea_wstatus, tea_dstatus } from "@/constants/index";
+import { tea_dstatus } from "@/constants/index";
 
 const defaultForm: { [key: string]: any } = {};
 
@@ -57,36 +57,48 @@ const TeacherCon = () => {
 
   const handleToSign = () => {
     console.log(form)
-    const {  startDay, startTime, endDay, endTime, ...rest } = form;
+    const { startDay, startTime, endDay, endTime, ...rest } = form;
     const starttime = `${startDay} ${startTime}`;
     const endtime = `${endDay} ${endTime}`;
     const token = Taro.getStorageSync('teacherToken');
     const params = { ...rest, starttime, endtime, token };
-    console.log(params)
     getTeacurstatusmodifyService(params).then(res => {
       showSuccessToast("修改成功");
       handleGetStatus
     })
   }
-  console.log('{tea_dstatus[teacherStatus.wstatus]}', tea_dstatus[teacherStatus.wstatus])
-  console.log('{tea_dstatus[teacherStatus.wstatus]}',teacherStatus)
+
   return (
     <View>
-      <View>我的状态：wstatus:{tea_wstatus[teacherStatus.wstatus]}, dstatus:{tea_dstatus[teacherStatus.dstatus]}</View>
       <View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
-          <View className='at-col at-col-3 userinfo-label jb-text'>状态:</View>
-          <View className='at-col'>
-            {/* 0空闲，1忙碌，2休假 */}
-            <AtRadio
-              // options={[{ label: '空闲', value: '0' }, { label: '忙碌', value: '1' }, { label: '休假', value: '2' }]}
-              options={Object.keys(tea_dstatus).map(item => ({ label: tea_dstatus[item], value: item }))}
-              value={form.status}
-              onClick={(e) => handleUpdateForm({ status: e })}
-            />
+
+        <View className='at-row  at-row__align--center tea-form-item'>
+          {/* 空闲 */}
+          <View className={form.status ==0 ?"tea-status-sbtn tea-status-sbtn-choosed": "tea-status-sbtn"}>
+            <Image
+              onClick={() => handleUpdateForm({ status: '0' })}
+              mode='aspectFill'
+              style='width: 100%;height: 100%;'
+              src={'https://api.lifestylelightseeker.com/Public/Web/status1.png'} />
+          </View>
+          {/* 忙碌 */}
+          <View  className={form.status ==1 ?"tea-status-sbtn tea-status-sbtn-choosed": "tea-status-sbtn"}>
+            <Image
+              onClick={() => handleUpdateForm({ status: '1' })}
+              mode='aspectFill'
+              style='width: 100%;height: 100%;'
+              src={'https://api.lifestylelightseeker.com/Public/Web/status2.png'} />
+          </View>
+          {/* 休假 */}
+          <View  className={form.status ==2 ?"tea-status-sbtn tea-status-sbtn-choosed": "tea-status-sbtn"}>
+            <Image
+              onClick={() => handleUpdateForm({ status: '2' })}
+              mode='aspectFill'
+              style='width: 100%;height: 100%;'
+              src={'https://api.lifestylelightseeker.com/Public/Web/status3.png'} />
           </View>
         </View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        <View className='at-row  at-row__align--center tea-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>开始时间日期:</View>
           <View className='at-col'>
             <Picker mode='date' onChange={(e: any) => handleUpdateForm({ startDay: e.target.value })} value={form.startDay}>
@@ -96,7 +108,7 @@ const TeacherCon = () => {
             </Picker>
           </View>
         </View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        <View className='at-row  at-row__align--center tea-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>开始时分:</View>
           <View className='at-col'>
             <Picker mode='time' onChange={(e: any) => handleUpdateForm({ startTime: e.target.value })} value={form.startTime}>
@@ -106,7 +118,7 @@ const TeacherCon = () => {
             </Picker>
           </View>
         </View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        <View className='at-row  at-row__align--center tea-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>结束时间日期:</View>
           <View className='at-col'>
             <Picker mode='date' onChange={(e: any) => handleUpdateForm({ endDay: e.target.value })} value={form.endDay}>
@@ -116,7 +128,7 @@ const TeacherCon = () => {
             </Picker>
           </View>
         </View>
-        <View className='at-row  at-row__align--center userinfo-form-item'>
+        <View className='at-row  at-row__align--center tea-form-item'>
           <View className='at-col at-col-3 userinfo-label jb-text'>结束时分:</View>
           <View className='at-col'>
             <Picker mode='time' onChange={(e: any) => handleUpdateForm({ endTime: e.target.value })} value={form.endTime}>
@@ -129,12 +141,8 @@ const TeacherCon = () => {
         <View style={{ height: ' 20px' }}></View>
         <View className='edit-btn-wrap'>
           <View className='at-row at-row__justify--around'>
-            <View className='at-col at-col-5'>
-              <AtButton size='small' circle onClick={handleCancel}>
-                取消
-              </AtButton>
-            </View>
-            <View className='at-col at-col-5'>
+
+            <View className='at-col'>
               <AtButton type='primary' circle size='small' onClick={handleToSign} >
                 确定
               </AtButton>

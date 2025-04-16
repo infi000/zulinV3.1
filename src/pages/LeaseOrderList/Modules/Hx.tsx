@@ -421,7 +421,7 @@ const HX = (props: IProps) => {
             <AtButton
                 className="sub-btn"
                 onClick={submitOrder}
-                type="primary"
+                type="secondary"
               >
                 提交
               </AtButton>
@@ -433,7 +433,7 @@ const HX = (props: IProps) => {
             <AtButton
                 className="sub-btn"
                 onClick={handleBack}
-                type="primary"
+                type="secondary"
               >
                 返回
               </AtButton>

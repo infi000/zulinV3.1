@@ -21,7 +21,7 @@ const ConsignmentCreate = () => {
   // price:商品价格
   // chargefee:手续费
   // uphone:联系手机号
-  // gcid:商品分类id 
+  // gcid:商品分类id
   // pics[]:寄卖商品详情图，文件域
   const [form, setForm] = useState(defaultForm);
   const handleUpdateForm = (opt: any) => {
@@ -91,12 +91,10 @@ const ConsignmentCreate = () => {
           onClick={(e) => handleUpdateForm({ total: e.key })}
           data={
             [
-              { value: '100元', key: '100', },
-              { value: '200元', key: '200', },
-              { value: '300元', key: '300', },
-              { value: '500元', key: '500', },
-              { value: '800元', key: '800', },
               { value: '1000元', key: '1000', },
+              { value: '3000元', key: '3000', },
+              { value: '5000元', key: '5000', },
+              { value: '8000元', key: '8000', },
             ]
           } />
         <View className='at-row  at-row__align--center' style={{ margin: '10px 0' }}>

@@ -10,6 +10,7 @@ import request from '@/utils/request';
 import Api from '@/config/api';
 
 export const getTeacherVerService = (payload: any) => request.get(Api.getTeacherVer, payload);
+export const getTeadetailbytokenService = (payload: any) => request.get(Api.teadetailbytoken, payload);
 export const getTeacurstatusmodifyService = (payload: any) => request.post(Api.getTeacurstatusmodify, payload);
 export const getTeacurstatusService = (payload: any) => request.post(Api.getTeacurstatus, payload);
 export const getTeaworklistService = (payload: any) => request.post(Api.getTeaworklist, payload);

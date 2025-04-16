@@ -23,7 +23,7 @@ const TeacherHistoryOrder = () => {
 
   const handleGetOrder = () => {
     const token = Taro.getStorageSync('teacherToken');
-    getTeaorderlistService({ token, otype: 2, count: 999999 }).then(res => {
+    getTeaorderlistService({ token, otype: 2, count: 999999, status: '2,3' }).then(res => {
       setTeacherOrder(res.teaorderlist || [])
       // setTeacherOrder(historyOrder)
     })
@@ -44,10 +44,12 @@ const TeacherHistoryOrder = () => {
           return <View className='tea-order-item'>
             <View className='at-row at-row__justify--between tea-order-item-title'>
               <View className='at-col'>{item.etitle} {item.ectitle} </View>
-              <View className='at-col'>状态:【{order_status_map[item.status]}】</View>
             </View>
-            <View className="tea-order-item-content">时间：{item.starttime} ~ {item.endtime}</View>
-            <View className="tea-order-item-content">学生：{item.nickname}</View>
+            <View className="tea-order-item-content tea-order-item-content-std">学生：{item.nickname}</View>
+            <View className="tea-order-item-content tea-order-item-content-tool">设备：{
+              (Array.isArray(item.tools) && item.tools.length > 0) ? item.tools.map(item2 => item2.title) : ''
+            }</View>
+            <View className="tea-order-item-content tea-order-item-content-time">时间：{item.starttime} ~ {item.endtime}</View>
           </View>
         })
       }

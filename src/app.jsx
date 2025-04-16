@@ -128,6 +128,7 @@ class App extends Component {
         name: 'subPackagesMe',
         pages: [
           'TeacherVer/index',
+          'FzrVer/index',
           'UserInfoManage/index',
           'BuyVip/index',
           'BuyTabi/index',

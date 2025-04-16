@@ -37,31 +37,31 @@ const TeacherVer = (props:{ changeTab: any}) => {
     console.log(form)
     getTeacherVerService({ ...form }).then((d) => {
       showSuccessToast("提交成功");
-      props.changeTab('老师主页');
-      Taro.setStorage({ key: 'teacherToken', data: d.token });
+      props.changeTab('负责人主页');
+      Taro.setStorage({ key: 'fzrToken', data: d.token });
     })
   }
   return (
       <View>
-        <View className="tea-ver-head">
-          老师登录
+        <View className="fzr-ver-head">
+          负责人登录
         </View>
-        <View className="at-row  at-row__align--center teacherVer-form-item">
-          <View className="at-col at-col-3 teacherVer-label jb-text">手机号:</View>
+        <View className="at-row  at-row__align--center fzrVer-form-item">
+          <View className="at-col at-col-3 fzrVer-label jb-text">手机号:</View>
           <View className="at-col">
             <AtInput
-              className="teacherVer-input no-bg-input"
+              className="fzrVer-input no-bg-input"
               name="phone"
               value={form.phone}
               onChange={e => handleUpdateForm({ phone: e })}
             />
           </View>
         </View>
-        <View className="at-row  at-row__align--center teacherVer-form-item">
-          <View className="at-col at-col-3 teacherVer-label jb-text">密码:</View>
+        <View className="at-row  at-row__align--center fzrVer-form-item">
+          <View className="at-col at-col-3 fzrVer-label jb-text">密码:</View>
           <View className="at-col">
             <AtInput
-              className="teacherVer-input no-bg-input"
+              className="fzrVer-input no-bg-input"
               name="password"
               value={form.password}
               onChange={e => handleUpdateForm({ password: e })}

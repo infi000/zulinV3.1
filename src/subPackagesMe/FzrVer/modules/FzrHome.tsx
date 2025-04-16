@@ -9,24 +9,21 @@
 import Taro, { useState, useEffect, useDidShow } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import "../index.scss";
-import { getTeaorderlistService } from "../services";
 import { AtButton } from "taro-ui";
 
 interface IProps {
   changeTab: (index: any) => void;
 }
 
-const TeacherHome = (props: IProps) => {
+const FzrHome = (props: IProps) => {
   const { changeTab } = props;
 
   return (
     <View className="teacher-home-wrap">
-      <AtButton className="teacher-home-btn" type='secondary' onClick={() => changeTab('我的状态')}>我的状态</AtButton>
-      <AtButton className="teacher-home-btn" type='secondary' onClick={() => changeTab('我的订单')}>我的订单</AtButton>
-      <AtButton className="teacher-home-btn" type='secondary' onClick={() => changeTab('历史订单')}>历史订单</AtButton>
-      <AtButton className="teacher-home-btn" type='secondary' onClick={() => changeTab('工时排班')}>工时排班</AtButton>
+      <AtButton className="teacher-home-btn" type='secondary' onClick={() => changeTab('开店检查')}>开店检查</AtButton>
+      <AtButton className="teacher-home-btn" type='secondary' onClick={() => changeTab('闭店检查')}>闭店检查</AtButton>
     </View>
   );
 };
 
-export default TeacherHome;
+export default FzrHome;

@@ -76,4 +76,12 @@ export const getExperimentcategorys = (data) => request.post(Api.experimentcateg
  */
 export const getTeacherStatusList = (data) => request.post(Api.getTeacherSList, data);
 
+/**
+ *
+ * @param payload 获取老师的状态teastatuslist
+
+ * @returns
+ */
+export const getTeaworklistService = (data) => request.post(Api.getTeaworklist, data);
+
 export default {};

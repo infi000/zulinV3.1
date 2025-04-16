@@ -74,6 +74,9 @@ const MyAvatar = () => {
   const handleTeaVer = () => {
     Taro.navigateTo({ url: '/subPackagesMe/TeacherVer/index' });
   }
+  const handleFzrVer = () => {
+    Taro.navigateTo({ url: '/subPackagesMe/FzrVer/index' });
+  }
   return (
     <View className='my-avatar-con jb-bg'>
       <View className='at-row at-row__align--center  my-avatar-top'>
@@ -113,6 +116,9 @@ const MyAvatar = () => {
         </View>
         <View className='at-col at-col-12'>
           <View className='my-avatar-desc' onClick={handleTeaVer}>老师认证入口</View>
+        </View>
+        <View className='at-col at-col-12'>
+          <View className='my-avatar-desc' onClick={handleFzrVer}>负责人认证入口</View>
         </View>
         {/* <View className='at-col at-col-6'>
           <View className='my-avatar-desc'>剩余次数</View>

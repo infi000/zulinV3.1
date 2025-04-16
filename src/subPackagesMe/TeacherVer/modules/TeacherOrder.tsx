@@ -26,17 +26,17 @@ type TCon = '取消订单' | '订单续时' | '确认下课' | '项目完结' | 
 const TeacherOrder = () => {
 
   const [teacherOrder, setTeacherOrder] = useState<any>([]);
-  const [showCon, setShowCon] = useState<{type: TCon, data?: any}>({ type: '列表', data:{} });
+  const [showCon, setShowCon] = useState<{ type: TCon, data?: any }>({ type: '列表', data: {} });
   const handleGetOrder = () => {
     const token = Taro.getStorageSync('teacherToken');
-    getTeaorderlistService({ token, otype: 1, count: 999999 }).then(res => {
+    getTeaorderlistService({ token, otype: 1, count: 999999, status: '1', }).then(res => {
       // setTeacherOrder(historyOrder)
 
       setTeacherOrder(res.teaorderlist || [])
     })
   }
 
-  const handleClick = (e: any, d:any) => {
+  const handleClick = (e: any, d: any) => {
     setShowCon({
       type: e,
       data: d
@@ -44,7 +44,7 @@ const TeacherOrder = () => {
   }
 
   useEffect(() => {
-    if(showCon.type === '列表'){
+    if (showCon.type === '列表') {
       handleGetOrder()
     }
   }, [showCon])
@@ -62,20 +62,22 @@ const TeacherOrder = () => {
               return <View className='tea-order-item'>
                 <View className='at-row at-row__justify--between tea-order-item-title'>
                   <View className='at-col'>{item.etitle} {item.ectitle} </View>
-                  <View className='at-col'>状态:【{order_status_map[item.status]}】</View>
+                  {/* <View className='at-col'>状态:【{order_status_map[item.status]}】</View> */}
                 </View>
-                <View className="tea-order-item-content">时间：{item.starttime} ~ {item.endtime}</View>
-                <View className="tea-order-item-content">学生：{item.nickname}</View>
-                <View className="tea-order-item-content">设备：{
+                <View className="tea-order-item-content tea-order-item-content-std">学生：{item.nickname}</View>
+                <View className="tea-order-item-content tea-order-item-content-tool">设备：{
                   (Array.isArray(item.tools) && item.tools.length > 0) ? item.tools.map(item2 => item2.title) : ''
                 }</View>
-                <View className="tea-order-item-btn at-row at-row__justify--between">
-                  <AtButton type='primary' size='small' onClick={() => handleClick('取消订单', item)}>取消订单</AtButton>
-                  <AtButton type='primary' size='small' onClick={() => handleClick('订单续时', item)}>订单续时</AtButton>
-                  <AtButton type='primary' size='small' onClick={() => handleClick('确认下课', item)}>确认下课</AtButton>
-                  <AtButton type='primary' size='small' onClick={() => handleClick('项目完结', item)}>项目完结</AtButton>
+                <View className="tea-order-item-content tea-order-item-content-time">时间：{item.starttime} ~ {item.endtime}</View>
+                {
+                  item.status == 1 && <View className="tea-order-item-btn at-row at-row__justify--between">
+                    <AtButton type='primary' size='small' onClick={() => handleClick('取消订单', item)}>取消订单</AtButton>
+                    <AtButton type='primary' size='small' onClick={() => handleClick('订单续时', item)}>订单续时</AtButton>
+                    <AtButton type='primary' size='small' onClick={() => handleClick('确认下课', item)}>确认下课</AtButton>
+                    <AtButton type='primary' size='small' onClick={() => handleClick('项目完结', item)}>项目完结</AtButton>
+                  </View>
 
-                </View>
+                }
               </View>
             })
           }
@@ -88,7 +90,7 @@ const TeacherOrder = () => {
         showCon.type === '订单续时' && <OrderCon cancel={() => handleClick('列表', {})} puid={showCon.data.id} />
       }
       {
-        showCon.type === '确认下课' && <OrderRend cancel={() => handleClick('列表', {})} puid={showCon.data.id} />
+        showCon.type === '确认下课' && <OrderRend cancel={() => handleClick('列表', {})} puid={showCon.data.id} info={showCon.data} />
       }
       {
         showCon.type === '项目完结' && <OrderEnd cancel={() => handleClick('列表', {})} puid={showCon.data.id} oid={showCon.data.oid} />

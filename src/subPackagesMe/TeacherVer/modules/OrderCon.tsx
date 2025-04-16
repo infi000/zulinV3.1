@@ -55,7 +55,7 @@ const OrderCon = (props: IProps) => {
         <View className='at-col at-col-3 userinfo-label jb-text'>续时时间:</View>
         <View className='at-col'>
           <AtInput
-            className='userinfo-input'
+            className='no-bg-input'
             name='duration'
             value={form.duration}
             type='number'

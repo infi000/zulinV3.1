@@ -23,7 +23,8 @@ import {
   AtFloatLayout,
   AtTag,
   AtAvatar,
-  AtGrid
+  AtGrid,
+  AtCurtain
 } from "taro-ui";
 import { useSelector, useDispatch } from "@tarojs/redux";
 import {
@@ -48,9 +49,11 @@ import {
   getExperimentnames,
   getExperimentcategorys,
   getTeacherStatusList,
-  getTeachersList
+  getTeachersList,
+  getTeaworklistService
 } from "./services";
 import { tea_dstatus, tea_wstatus } from "@/constants/index";
+import TeacherInfo from "./Modules/TeacherInfo";
 function formatDate(date) {
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -60,7 +63,11 @@ function formatDate(date) {
     .padStart(2, "0");
   return `${year}/${month}/${day}`;
 }
-
+// status:1上班，2加班
+const statusMap = {
+  1: '上班',
+  2: '加班'
+}
 const roomDefault = [
   { num: "可约", money: 800, timer: "10:00", status: "Residue-warp" },
   { num: "可约", money: 800, timer: "11:00", status: "Residue-warp" },
@@ -80,8 +87,8 @@ const Lease = () => {
   const router: any = useRouter();
   const { eid, cid, duration, categoryprice } = router.params;
   console.log("router.params", router.params);
-  const [timer, setTimer] = useState(duration ? Number(duration) : 1); // 预约市场，单位：小时
-  const [maxAtInputNumber, setMaxAtInputNumber] = useState(15); // 可选择最大时长
+  const [timer, setTimer] = useState(Number(duration)); // 预约市场，单位：小时
+  const [maxAtInputNumber, setMaxAtInputNumber] = useState(Number(duration)); // 可选择最大时长
   const [curDate, setCurDate] = useState(""); // 今日日期
 
   const [startTimeSel, setStartTimeSel] = useState(""); // 选择开始时间
@@ -100,6 +107,9 @@ const Lease = () => {
   const [teacherList, setTeacherList] = useState<any>(undefined);
   const [choosedTea, setChoosedTea] = useState<any>({})
   const [teacherShow, setTeacherShow] = useState(false)
+  const [teaWorkList, setTeaWorkList] = useState<any>([])
+  const [selectInfo, setSelectInfo] = useState<any>({});
+
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 10);
@@ -232,7 +242,6 @@ const Lease = () => {
       }
       _residue.push(residue[i]);
     }
-    setResidue([..._residue]);
 
     if (cur.timer) {
       // 计算可以选择的时长
@@ -246,12 +255,12 @@ const Lease = () => {
         }
       }
 
-      if(timer > _max){
+      if (timer > _max) {
         showToast("预约时长不足" + timer + "小时", 200);
         return
       }
+      setResidue([..._residue]);
 
-      setMaxAtInputNumber(_max);
       setStartTimeSel(cur.timer); // 设置开始时间
       if (timer > _max) {
         setTimer(_max);
@@ -275,6 +284,10 @@ const Lease = () => {
   };
 
   const timerChange = value => {
+    if(parseInt(startTimeSel) + value >22){
+      showToast('预约超时，请重新选择时间。')
+      return
+    }
     setTimer(value);
     setEndTimeSel(parseInt(startTimeSel) + value + ":00"); // 设置结束时间
     return value;
@@ -315,14 +328,14 @@ const Lease = () => {
       return;
     }
 
-    // if (!startTimeSel) {
-    //   showToast("请选择开始时间");
-    //   return;
-    // }
-    // if (!endTimeSel) {
-    //   showToast("请选择时长时间");
-    //   return;
-    // }
+    if (!startTimeSel) {
+      showToast("请选择开始时间");
+      return;
+    }
+    if (!endTimeSel) {
+      showToast("请选择时长时间");
+      return;
+    }
     if (!phone) {
       showToast("请填写手机");
       return;
@@ -342,7 +355,7 @@ const Lease = () => {
     let eptotalprice = 0 as any;
 
     // let countPrice = parseFloat(eptotalprice) + (parseFloat(room.price)+parseFloat(experimentsDetail.deposit)) * timer;
-    let h = timer;
+    let h = duration;
     // if (timer > 3) {
     //   h = 3;
     // }
@@ -361,8 +374,8 @@ const Lease = () => {
     // 总价格
     let countPrice =
       parseFloat(eptotalprice) +
-      parseFloat(categoryprice) +
-      parseFloat(toolsTotal) +
+      parseFloat(categoryprice) * h +
+      parseFloat(toolsTotal) * h +
       shebei +
       teacherPrice +
       parseFloat(experimentsDetail.deposit) * h; // * timer;
@@ -373,7 +386,7 @@ const Lease = () => {
       teaid: choosedTea.id,
       ctype: cate.ctype,
       eid: experimentsDetail.id,
-      duration: timer,
+      duration: duration,
       edeposit: parseFloat(experimentsDetail.deposit) * h, //parseFloat(eptotalprice),// 押金 parseFloat(experimentsDetail.deposit),//*timer,//parseFloat(eptotalprice),
       epid: ep.id,
       eptotalprice: shebei,
@@ -384,7 +397,9 @@ const Lease = () => {
       totalpay: countPrice,
       tools: JSON.stringify({ tools: choosedTools }),
       ecid: cate.id,
-      remark: remark1
+      remark: remark1,
+      starttime: dateSel + " " + startTimeSel,
+      endtime: dateSel + " " + (parseInt(startTimeSel) + timer) + ":00", // 设置结束时间,
     };
 
     // if (!params.epid) {
@@ -392,10 +407,10 @@ const Lease = () => {
     //   showToast("已过选择时间，请选择正确时间")
     //   return;
     // }
-    // if (params.starttime == " 请选择开始时间") {
-    //   showToast("请选择开始时间");
-    //   return;
-    // }
+    if (params.starttime == " 请选择开始时间") {
+      showToast("请选择开始时间");
+      return;
+    }
     if (params.endtime == " --") {
       showToast("请选择时长");
       return;
@@ -416,12 +431,32 @@ const Lease = () => {
       });
     });
   };
+  const handleSelectWorkList = (e: any) => {
+    const { value } = e;
+    const res = teaWorkList.find(item => item.cdate === value);
+    if (res) {
+      setSelectInfo(res)
+    } else {
+      setSelectInfo({ cdate: e.value, status: 0 })
+    }
+  }
+
+
+  useEffect(() => {
+    if (choosedTea.id && teacherShow) {
+      getTeaworklistService({ teaid: choosedTea.id }).then((d: any) => {
+        if (Array.isArray(d.teaworklist)) {
+          setTeaWorkList(d.teaworklist)
+        }
+      })
+    }
+  }, [teacherShow])
   console.log("memoCanOrder", memoCanOrder);
-  return (
+  return (<View>
     <View className="lease-warp">
       <View className="lease-warp-inner">
         <View className="at-article lease-title">
-          <View className="lease-calendar" style={{ display: 'none'}}>
+          <View className="lease-calendar">
             <AtCalendar
               size="small"
               isSwiper
@@ -430,7 +465,7 @@ const Lease = () => {
               maxDate={maxDate}
             />
           </View>
-          <View className="lease-rooms"   style={{ display: 'none'}} >
+          <View className="lease-rooms"   >
             {residue.map((item, index) => (
               <View key={index} onClick={residueClick} data-index={index}>
                 <View className={`${item.status}`}>
@@ -443,9 +478,11 @@ const Lease = () => {
               </View>
             ))}
           </View>
-          <View className="lease-selector-timer"  style={{ display: 'none'}} >
+
+          <View className="lease-selector-timer"  >
+
             <View className="lease-selector-timer-num">
-              <View className="jb-text">时长：</View>
+              <View className="jb-text">您本次预约时长：</View>
               <AtInputNumber
                 type="number"
                 disabledInput
@@ -454,10 +491,10 @@ const Lease = () => {
                 step={1}
                 value={timer}
                 onChange={timerChange}
-                disabled
               />
-              <View className="jb-text">（工时）</View>
+              <View className="jb-text">小时</View>
             </View>
+            <View className="jb-text lease-selector-desc"  style={{marginTop: 30}}>本项目需要{Number(duration)}小时完成，项目剩余时长：{timer ? Number(duration)-Number(timer) : Number(duration)}小时</View>
             <View className="lease-selector-res">
               <View className="start-time">
                 <View className="start-time-num fdhz">
@@ -474,27 +511,29 @@ const Lease = () => {
           </View>
           <View className="LeaseHr"></View>
           {/* 实验小项列表 */}
-          <View className="sy-wrap">
-            <View className="at-article lease-title">
-              <View className="at-article lease-h2">
-                <View className="lease-h2-icon"></View>
-                请选择授权老师
-              </View>
+          <View className="teacherChooseCon-wrap">
+            <View className="teacherChooseCon-wrap-title jb-text">请选择授权老师</View>
 
-              {/* <AtGrid data={memoTea} /> */}
-              <View className='at-row at-row--wrap'>
-                {
-                  memoTea.map((item, index) => {
-                    let dis = '';
-                    let choose = item.id === choosedTea.id ? 'teacherChooseCon-choose' : '';
-                    return <View className={'at-col at-col-4 teacherChooseCon ' + dis + '' + choose} key={index} onClick={() => handleChooseTeacher(item)}>
-                      <AtAvatar image={item.head} className="teacherChooseCon-img" size="normal"></AtAvatar>
-                      <View className="teacherChooseCon-name">{item.teaname}</View>
-                      <View className="teacherChooseCon-price">{item.price}/课时</View>
+            {/* <AtGrid data={memoTea} /> */}
+            <View className='at-row at-row--wrap'>
+              {
+                memoTea.map((item, index) => {
+                  let dis = '';
+                  let choose = item.id === choosedTea.id ? 'teacherChooseCon-choose' : '';
+                  let s = item.dstatus == '1' ? 'teacherChooseCon-status-color1' : 'teacherChooseCon-status-color';
+                  return <View className={'at-col at-col-4 teacherChooseCon ' + dis + '' + choose} key={index} onClick={() => handleChooseTeacher(item)}>
+                    <View className="avatar-border">
+                      <AtAvatar image={item.head} className="teacherChooseCon-img" size="large" circle></AtAvatar>
                     </View>
-                  })
-                }
-              </View>
+                    <View className="teacherChooseCon-info">
+                      <View className="teacherChooseCon-name">{item.teaname}</View>
+                      <View className="teacherChooseCon-price">¥{item.price}/课时</View>
+                      <View className={"teacherChooseCon-status"}>状态:<View className={s}>{tea_dstatus[item.dstatus]}</View></View>
+                    </View>
+
+                  </View>
+                })
+              }
             </View>
 
           </View>
@@ -527,40 +566,50 @@ const Lease = () => {
               <AtButton
                 className="sub-btn"
                 onClick={submitOrder}
-                type="primary"
+                type="secondary"
               >
                 提交
               </AtButton>
             </View>
             <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
-            <View className="LeaseBottom"></View>
           </View>
         </View>
       </View>
-      <AtFloatLayout isOpened={teacherShow} title={choosedTea.name} onClose={() => setTeacherShow(false)}>
-        <View className='at-article'>
-          <View className='at-article__content'>
-            <View className='at-article__section'>
-              <View className='at-article__h3'>{choosedTea.teaname}</View>
-              <View className='at-article__p'>{choosedTea.remark}</View>
+
+      <AtFloatLayout isOpened={teacherShow} onClose={() => setTeacherShow(false)} scrollTop={0}>
+        {
+          teacherShow && <View className='at-article'>
+            <View className='at-article__content'>
+
+              <View className="tea-work-wrap" style={{ marginBottom: '30px'}}>
+              <View className="tea-work-title">老师介绍</View>
+              <View className='at-article__section'>
+                <Image
+                  className='at-article__img'
+                  src={choosedTea.detailimg}
+                  mode='widthFix' />
+              </View>
+                <View className="tea-work-title">老师工作日历</View>
+                <AtCalendar size='small' marks={teaWorkList.map(item => ({ ...item, value: item.cdate }))} onDayClick={handleSelectWorkList} />
+                {
+                  selectInfo.cdate && (
+                    <View className="tea-work-info">
+                      <View className="tea-work-time"> {selectInfo.cdate}: </View>
+                      <View className={selectInfo.status == 0 ? "tea-work-tag" : "tea-work-tag tea-work-tag-red"}>{tea_wstatus[selectInfo.status || 0]}</View>
+                    </View>
+                  )
+                }
+              </View>
             </View>
           </View>
-        </View>
+        }
+
       </AtFloatLayout>
+      {/* <TeacherInfo isOpened={teacherShow} onClose={() => setTeacherShow(false)} choosedTea={choosedTea} /> */}
+
     </View>
+  </View>
+
   );
 };
 

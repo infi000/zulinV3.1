@@ -130,10 +130,10 @@ const GoodsDetail = (props: IProps) => {
           <View className='at-col at-col-2 goods-attr'>品牌</View>
           <View className='at-col at-col-10  goods-attr-desc'>{detail.brand}</View>
         </View>
-        <View className='at-row at-row__justify--between goods-attr-con'>
+        {/* <View className='at-row at-row__justify--between goods-attr-con'>
           <View className='at-col at-col-2 goods-attr'>尺寸</View>
           <View className='at-col at-col-10  goods-attr-desc'>{detail.size}</View>
-        </View>
+        </View> */}
         <View className='at-row at-row__justify--between goods-attr-con'>
           <View className='at-col at-col-2 goods-attr'>物品押金</View>
           <View className='at-col at-col-10  goods-attr-desc'>{detail.deposit || '-'}</View>

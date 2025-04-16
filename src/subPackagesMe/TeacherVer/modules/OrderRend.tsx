@@ -19,12 +19,13 @@ const defaultForm: { [key: string]: any } = {};
 
 interface IProps {
   cancel: any;
-  puid:any;
+  puid: any;
+  info: any;
 }
 
 
 const OrderRend = (props: IProps) => {
-  const { cancel, puid } = props;
+  const { cancel, puid, info } = props;
   const [form, setForm] = useState(defaultForm);
   const handleUpdateForm = (opt: any) => {
     console.log(opt);
@@ -38,7 +39,7 @@ const OrderRend = (props: IProps) => {
 
     const params = {
       puid,
-      duration: form.duration,
+      backduration: form.backduration,
       token
     }
     getTeaorderendService(params).then(res => {
@@ -55,32 +56,44 @@ const OrderRend = (props: IProps) => {
         <View className='at-col at-col-3 userinfo-label jb-text'>时间:</View>
         <View className='at-col'>
           <AtInput
-            className='userinfo-input'
-            name='duration'
-            value={form.duration}
+            className='no-bg-input'
+            name='backduration'
+            value={form.backduration}
             type='number'
-            onChange={(e) => handleUpdateForm({ duration: e })}
+            onChange={(e) => handleUpdateForm({ backduration: e })}
           />
         </View>
       </View>
       <View style={{ height: ' 20px' }}></View>
-        <View className='edit-btn-wrap'>
-          <View className='at-row at-row__justify--around'>
-            <View className='at-col at-col-5'>
-              <AtButton size='small' circle onClick={cancel}>
+      <View className='at-row  at-row__align--center userinfo-form-item'>
+        注意：提交将结束本次课程。
+      </View>
+      <View style={{ height: ' 20px' }}></View>
+      <View className='at-row  at-row__align--center userinfo-form-item'>
+        已使用：{info.useduration}/{info.duration}课时
+      </View>
+      <View style={{ height: ' 20px' }}></View>
+      <View className='at-row  at-row__align--center userinfo-form-item'>
+        返还时间：{form.backduration || '_'}小时。
+      </View>
+      <View style={{ height: ' 20px' }}></View>
+      <View className='edit-btn-wrap'>
+        <View className='at-row at-row__justify--around'>
+          <View className='at-col at-col-5'>
+            <AtButton size='small' circle onClick={cancel}>
               返回
-              </AtButton>
-            </View>
-            <View className='at-col at-col-5'>
-              <AtButton type='primary' circle size='small' onClick={handleSubmit} >
+            </AtButton>
+          </View>
+          <View className='at-col at-col-5'>
+            <AtButton type='primary' circle size='small' onClick={handleSubmit} >
               提交
-              </AtButton>
-            </View>
-
+            </AtButton>
           </View>
 
         </View>
-        <View style={{ height: ' 20px' }}></View>
+
+      </View>
+      <View style={{ height: ' 20px' }}></View>
     </View>
   );
 };

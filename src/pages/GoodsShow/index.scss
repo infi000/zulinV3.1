@@ -68,7 +68,7 @@
     font-size: $sm-fontsize;
     padding-bottom: 0;
     .goods-sale-record-con {
-      
+
       padding-bottom: 10px;
       .goods-sale-record-l {
         color: $text-grey-color;
@@ -124,17 +124,17 @@
   text-align: center;
   .sale-btn{
     display: inline-block;
-   @include foot-btn($color-brand);
+   @include foot-btn(#26a7e2);
     color:#fff;
   }
   .buy-btn{
     display: inline-block;
-    @include foot-btn($color-brand);
+    @include foot-btn(#26a7e2);
     color:#fff;
   }
   .buy-btn-issaled{
     display: inline-block;
-    @include foot-btn(#ddd);
+    @include foot-btn(#26a7e2);
     color:#fff;
   }
   .love-btn{

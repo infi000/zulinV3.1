@@ -50,12 +50,12 @@ const OrderCancel = (props: IProps) => {
 
 
   return (
-    <View className="order-wrap">
+    <View className="cancel-order-wrap">
       <View className='at-row  at-row__align--center userinfo-form-item'>
         <View className='at-col at-col-3 userinfo-label jb-text'>原因说明:</View>
         <View className='at-col'>
           <AtInput
-            className='userinfo-input'
+            className='no-bg-input'
             name='remark'
             value={form.remark}
             onChange={(e) => handleUpdateForm({ remark: e })}
@@ -77,7 +77,6 @@ const OrderCancel = (props: IProps) => {
             </View>
 
           </View>
-
         </View>
         <View style={{ height: ' 20px' }}></View>
     </View>

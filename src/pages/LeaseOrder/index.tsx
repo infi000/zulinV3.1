@@ -473,6 +473,9 @@ const LeaseOrder = () => {
                 // 获取订单信息
                 orderDetail({ oid: router.params.orderId }).then((res) => {
                     setOrderInfo(res);
+                    setTimeout(() => {
+                      Taro.navigateTo({url: '/pages/Main/index' });
+                    }, 2000);
                 });
             }
             return;
@@ -501,6 +504,9 @@ const LeaseOrder = () => {
                 // 获取订单信息
                 orderDetail({ oid: router.params.orderId }).then((res) => {
                     setOrderInfo(res);
+                    setTimeout(() => {
+                      Taro.navigateTo({url: '/pages/Main/index' });
+                    }, 2000);
                 });
             },
             fail: function (res) {
@@ -584,11 +590,12 @@ const LeaseOrder = () => {
                 </View>
             </View>
             <View className='LeaseOrder-tools'>
-                <Tools title={"项目名称："} name={orderInfo.prebook.eptitle + "-" + orderInfo.prebook.ectitle} price={orderInfo.categoryprice}></Tools>
+                <Tools title={"项目名称："} name={orderInfo.prebook.ectitle + "x" + orderInfo.prebook.ecduration} price={orderInfo.categoryprice}></Tools>
                 {/* <Tools title={"门  票："} name={orderInfo.prebook.etitle + "*"} num={3} price={orderInfo.deposit}></Tools> */}
                 {orderInfo.prebook.tools.map((item, index) => (
-                    <Tools title={"工具佣金："} key={index} name={item.title} num="" price={item.price}></Tools>
+                    <Tools title={"工具佣金："} key={index} name={item.title + "x" + orderInfo.prebook.ecduration} num="" price={orderInfo.totaltoolsprice}></Tools>
                 ))}
+                <Tools title={"老师佣金："} name={orderInfo.teaname + `(${orderInfo.teaprice})x${orderInfo.prebook.ecduration}`} price={orderInfo.teacherprice}></Tools>
             </View>
             <View className='LeaseOrder-sale'>
                 <View className='title'>年卡会员</View>

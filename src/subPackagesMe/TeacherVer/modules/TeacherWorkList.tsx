@@ -7,7 +7,7 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import Taro, { useState, useEffect, useRef, useDidShow } from "@tarojs/taro";
-import { AtButton, AtInput, AtList, AtListItem, AtRadio } from "taro-ui";
+import { AtButton, AtCalendar, AtInput, AtList, AtListItem, AtRadio, AtTag } from "taro-ui";
 
 import { Picker, View } from "@tarojs/components";
 import "../index.scss";
@@ -22,42 +22,46 @@ const defaultForm: { [key: string]: any } = {};
 
 const TeacherWork = () => {
 
-  const [teacherWork, setTeacherWork] = useState<any>({});
-
+  const [teacherWork, setTeacherWork] = useState<any>([]);
+  const [selectInfo, setSelectInfo] = useState<any>({});
   const handleGetOrder = () => {
     const token = Taro.getStorageSync('teacherToken');
     getTeaworklistService({ token, count: 999999 }).then(res => {
-      setTeacherWork(res.teaworklist || [])
+      if (Array.isArray(res.teaworklist) && res.teaworklist.length > 0) {
+        setTeacherWork(res.teaworklist || [])
+        return
+      }
+      setTeacherWork([])
     })
   }
 
+  const handleSelect = (e: any) => {
+    console.log(e)
+    const { value } = e;
+    const res = teacherWork.find(item => item.cdate === value);
+    if (res) {
+      setSelectInfo(res)
+    } else {
+      setSelectInfo({ cdate: e.value, status: 0 })
+    }
+  }
+
   useEffect(() => {
+    console.log('useEffect')
     handleGetOrder()
   }, [])
 
-  useDidShow(() => {
-    handleGetOrder()
-  })
-
   return (
-    <View>
-
-      <View className='at-row'>
-        <View className='at-col'>实验室</View>
-        <View className='at-col'>学生姓名</View>
-        <View className='at-col'>状态</View>
-        <View className='at-col'>日期</View>
-      </View>
+    <View className="tea-work-wrap">
+      <AtCalendar marks={teacherWork.map(item => ({ ...item, value: item.cdate }))} onDayClick={handleSelect} />
       {
-        teacherWork.map((item: any, index: number) => {
-         return <View className='at-row'>
-
-          <View className='at-col'>{tea_wstatus[item.status]}</View>
-          <View className='at-col'>{item.cdate}</View>
-        </View>
-        })
+        selectInfo.cdate && (
+          <View className="tea-work-info">
+            <View className="tea-work-time"> {selectInfo.cdate}: </View>
+            <View className={selectInfo.status == 0 ? "tea-work-tag" : "tea-work-tag tea-work-tag-red"}>{tea_wstatus[selectInfo.status || 0]}</View>
+          </View>
+        )
       }
-
     </View>
   );
 };

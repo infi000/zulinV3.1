@@ -2,12 +2,7 @@
 @import '~taro-ui/dist/style/components/article.scss';
 @import '../../static/style/common';
 
-.teacherVer-wrap {
-  // background-color:#fff;
-  // background-image: url('https://api.lifestylelightseeker.com/Public/Web/teaBg.png');
-  // background-position: center;
-  // background-size: contain;
-  // height: calc(100vh + 680px);
+.fzrVer-wrap {
   height: 100vh;
   padding-bottom: 30px;
   overflow-y: scroll;
@@ -23,11 +18,11 @@
     z-index: 1000;
   }
 
-  .teacherVer-form-item {
+  .fzrVer-form-item {
     margin-bottom: 20px;
   }
 
-  .teacherVer-label {
+  .fzrVer-label {
     font-size: 25px;
     text-align: left;
   }
@@ -45,11 +40,11 @@
   }
 }
 
-.teacherVer-box-wrap {
+.fzrVer-box-wrap {
   @include con;
   background-color: #ffffff4a;
   position: absolute;
-  top: 35%;
+  top: 5%;
   bottom: 10%;
   overflow-y: scroll;
   width: 96%;
@@ -59,13 +54,13 @@
   box-shadow: 1px 1px 6px 2px #9e9e9e;
 }
 
-.teacherVer-head-wrap {
+.fzrVer-head-wrap {
   background-color: #ffffff4a;
   position: absolute;
   top: 5%;
   width: 100%;
   box-sizing: border-box;
-  .teacherVer-head-name {
+  .fzrVer-head-name {
     position: absolute;
     left: 70px;
     width: 180px;
@@ -78,7 +73,7 @@
     font-size: 35px;
     font-weight: bold;
   }
-  .teacherVer-head-img {
+  .fzrVer-head-img {
     position: absolute;
     left: 200px;
     width: 300px;
@@ -87,14 +82,14 @@
     overflow: hidden;
     border: 10px solid #5872f7;
   }
-  .teacherVer-head-icon {
+  .fzrVer-head-icon {
     position: absolute;
     left: 420px;
     width: 330px;
     height: 330px;
     top: 90px;
   }
-  .teacherVer-head-status {
+  .fzrVer-head-status {
     position: absolute;
     left: 270px;
     top: 300px;
@@ -107,7 +102,7 @@
   }
 }
 
-.teacherVer-box-icon3 {
+.fzrVer-box-icon3 {
   position: absolute;
   bottom: 5%;
   left: 5%;
@@ -115,36 +110,17 @@
   width: 100px;
 }
 
-.teacherVer-box-back {
+.fzrVer-box-back {
   position: absolute;
   bottom: 2%;
   right: 5%;
   width: 200px;
 }
-
-.tea-order-list {
-  .tea-order-item {
-    margin-bottom: 40px;
-
-    .tea-order-item-title {
-      font-size: $big-fontsize;
-    }
-
-    .tea-order-item-content {
-      font-size: $normal-fontsize;
-    }
-    .tea-order-item-content-time {
-      font-size: $sm-fontsize;
-    }
-
-    .tea-order-item-btn {
-    }
-  }
-}
-
-.tHome-btn {
-  width: 640px;
-  height: 190px;
+.fzrVer-box-tj {
+  position: absolute;
+  bottom: 2%;
+  left: 5%;
+  width: 200px;
 }
 
 .teacher-home-btn {
@@ -156,13 +132,13 @@
   background-color: #fff0;
 }
 
-.tea-status-sbtn{
+.fzr-status-sbtn{
   height: 100px;
   width: 250px;
   margin: 0 8px;
   border-radius: 10px;
 }
-.tea-status-sbtn-choosed{
+.fzr-status-sbtn-choosed{
  background-color: #5872f7;
 }
 .no-bg-input {
@@ -170,35 +146,65 @@
   border-bottom: 1px solid #000;
 }
 
-.tea-work-info{
-
-  .tea-work-time{
-    font-size: $big-fontsize;
-    font-weight: bold;
-    display: inline-block;
-    margin-right: 20px;
-  }
-  .tea-work-tag{
-    width: 150px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    border-radius: 20px;
-    background-color: #75eef5;
-    font-size: $big-fontsize;
-    font-weight: bold;
-    color:#9e9e9e;
-    display: inline-block;
-  }
-  .tea-work-tag-red{
-    background-color:#e466d0;
-    color:#fff;
-  }
-}
-
-.tea-ver-head{
+.fzr-ver-head{
   font-size: $big-fontsize;
   font-weight: bolder;
   text-align: center;
   margin-bottom: 20px;
 }
+.fzr-order-list {
+  .fzr-order-item-bg-blue {
+    background-color: #c9edf9;
+  }
+  .fzr-order-item-bg-red {
+    background-color: #ff9890;
+  }
+  .fzr-order-item {
+    margin-bottom: 40px;
+    border: 1px solid #000;
+    padding: 10px;
+    .fzr-order-item-title {
+      font-size: $big-fontsize;
+    }
+
+    .fzr-order-item-content {
+      font-size: $normal-fontsize;
+      margin-bottom: 10px;
+    }
+    .fzr-order-item-content-time {
+      font-size: $sm-fontsize;
+      margin-left: 30px;
+      display: inline-block;
+    }
+
+    .fzr-order-item-btn {
+    }
+  }
+}
+
+.fzr-status-sbtn{
+  height: 70px;
+  line-height: 70px;
+  width: 230px;
+  margin: 0 8px;
+  border-radius: 10px;
+  border: 1px solid #000;
+  text-align: center;
+}
+.fzr-status-sbtn-choosed{
+ background-color: #5872f7;
+}
+.fzr-drawer{
+  padding: 30px 10px;
+  .fzr-drawer-item{
+    margin-bottom: 20px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    background-color:  #c9edf9;
+  }
+  .fzr-drawer-item-red{
+    background-color:  #ff9890;
+  }
+}
+
