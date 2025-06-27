@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from '@tarojs/redux';
 import GoodsList from '@/components/GoodsList';
 import { isArray, toNumber, slice, isString } from 'lodash';
 import { logIn } from '@/utils/auth';
+import { showToast } from '../../../utils/util';
 
 import '../index.scss';
 import SelecotModall from './SelecotModall';
@@ -19,15 +20,15 @@ const defaultChooseModal = {
     size: [],
   },
 };
-interface IProps {}
+interface IProps { }
 /**
  * 商品展示
  */
 const GoodsDetail = (props: IProps) => {
   const { detail, relatedGoods, buysRecordList, isfav, gid } = useSelector((state) => state.goodsShow);
-  const { isLogIn } = useSelector((state) => state.main);
+  const { isLogIn, userInfo } = useSelector((state) => state.main);
   const [chooseModal, setChooseModal] = useState(defaultChooseModal);
-
+  console.log('userInfo', userInfo)
   // const { gid } = props;
   const dispatch = useDispatch();
   const buysList = useMemo(() => {
@@ -55,11 +56,21 @@ const GoodsDetail = (props: IProps) => {
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
         console.log(res);
-        logIn({dispatch,userInfo: res.userInfo});
+        logIn({ dispatch, userInfo: res.userInfo });
       }
     })
   };
   const handleToChoose = () => {
+    const { mobile } = userInfo || {};
+    if (mobile) {
+
+    } else {
+      Taro.navigateTo({ url: "/subPackagesMe/UserInfoManage/index" }).then(r => {
+        showToast('请先完善个人信息提交审核', 4000)
+      });
+      return;
+    }
+
     const { ispicket } = detail || {};
     // 先吧ispicket当成商品
     // if(ispicket === '1'){
@@ -89,9 +100,9 @@ const GoodsDetail = (props: IProps) => {
     setChooseModal(params);
   };
 
-  const handleSelecotModalSubmit = (params:{price:string;num:number}) =>{
+  const handleSelecotModalSubmit = (params: { price: string; num: number }) => {
     setChooseModal(defaultChooseModal);
-    dispatch({ type: 'goodsShow/createOrder',params });
+    dispatch({ type: 'goodsShow/createOrder', params });
   }
   // useEffect(() => {
   //   // dispatch({ type: 'goodsShow/updateGid', payload: gid });
@@ -111,7 +122,7 @@ const GoodsDetail = (props: IProps) => {
             return (
               <SwiperItem key={id}>
                 <View className='swiper-img-con'>
-                  <Image lazyLoad style='height: 100%' src={fpath}  mode='aspectFit' />
+                  <Image lazyLoad style='height: 100%' src={fpath} mode='aspectFit' />
                 </View>
               </SwiperItem>
             );
@@ -198,38 +209,22 @@ const GoodsDetail = (props: IProps) => {
         </View>
         <View className='at-col at-col-4 '>{/* <View className='sale-btn' >出售</View> */}</View>
         <View className='at-col at-col-4'>
-          {detail.issale == '-1' ? (
-            <View className='buy-btn-issaled' >
-              购买
-            </View>
-          ) : isLogIn ? (
-            <View className='buy-btn' onClick={handleToChoose}>
-              购买
-            </View>
-          ) : (
-            <Button
-              className='buy-btn'
-              // open-type='getUserInfo'
-              // onGetUserInfo={(e) => {
-              //   logIn(dispatch, handleToChoose);
-              // }}
-              onClick={handleLogIn}
-            >
-              购买
-            </Button>
-          )}
+          {detail.issale == '-1' ? <View className='buy-btn-issaled' > 购买</View> :
+            isLogIn ? <View className='buy-btn' onClick={handleToChoose}> 购买 </View> :
+              <Button className='buy-btn' onClick={handleLogIn}>购买</Button>
+          }
         </View>
       </View>
       {chooseModal.show && (
-         <SelecotModall
-           color={chooseModal.data.color}
-           groupprice={chooseModal.data.groupprice}
-           size={chooseModal.data.size}
-           handleAdd={handleSelecotModalSubmit}
-           handleCancel={() => {
+        <SelecotModall
+          color={chooseModal.data.color}
+          groupprice={chooseModal.data.groupprice}
+          size={chooseModal.data.size}
+          handleAdd={handleSelecotModalSubmit}
+          handleCancel={() => {
             setChooseModal(defaultChooseModal);
-         }}
-       />
+          }}
+        />
       )}
     </View>
   );

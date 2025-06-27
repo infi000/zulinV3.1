@@ -50,7 +50,7 @@ export default {
       // TODO 暂时删除
       if( verify !== '1'){
         setTimeout(() => {
-          Taro.navigateTo({ url: "/subPackagesMe/UserInfoManage/index" }).then(r => { 
+          Taro.navigateTo({ url: "/subPackagesMe/UserInfoManage/index" }).then(r => {
             showToast('请先完善个人信息提交审核', 4000)
           });
         }, 500);

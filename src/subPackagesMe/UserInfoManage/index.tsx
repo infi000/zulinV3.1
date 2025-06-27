@@ -30,10 +30,10 @@ const ConsignmentCreate = () => {
   const isVerify = `${userInfo.verify}` === '1';
   // 去签名
   const handleToSign = () => {
-    if (isVerify) {
-      showErrorToast("请勿重复提交");
-      return;
-    }
+    // if (isVerify) {
+    //   showErrorToast("请勿重复提交");
+    //   return;
+    // }
     if (!payProtocol) {
       showErrorToast("请勾选协议后，再进行提交");
       return;
@@ -54,9 +54,12 @@ const ConsignmentCreate = () => {
     createUserInfo({ ...form}).then((d) => {
       showSuccessToast("提交成功");
       console.log(d);
-      Taro.navigateBack({
-        delta: 1//表示回到上一页面
-      })
+      dispatch({ type: 'main/getUserInfo', payload: {} });
+      setTimeout(() => {
+        Taro.navigateBack({
+          delta: 1//表示回到上一页面
+        })
+      }, 500);
     })
 
     // if(form.over18 === '0' ){
@@ -100,7 +103,7 @@ const ConsignmentCreate = () => {
       console.log(d);
       const { realname, mobile,nickname,school,sex,birthday} = d;
 
-      setForm({ realname, mobile,nickname,school,sex,birthday})
+      setForm({ realname: realname === '微信用户' ? '': realname , mobile,nickname,school,sex,birthday})
     })
   }, []);
 
@@ -123,7 +126,7 @@ const ConsignmentCreate = () => {
             <AtInput
               className='userinfo-input'
               name='nickname'
-              disabled={isVerify}
+              // disabled={isVerify}
               value={form.nickname}
               onChange={(e) => handleUpdateForm({ nickname: e })}
             />
@@ -136,7 +139,7 @@ const ConsignmentCreate = () => {
               className='userinfo-input'
               name='mobile'
               type='number'
-              disabled={isVerify}
+              // disabled={isVerify}
               value={form.mobile}
               onChange={(e) => handleUpdateForm({ mobile: e })}
             />
@@ -279,8 +282,8 @@ const ConsignmentCreate = () => {
             </View>
           </View>
         } */}
-        {
-          !isVerify && <View className='user-yd'>
+
+         <View className='user-yd'>
             <View className='lease-order-pay-protocol'>
               <Radio onClick={agreePayProtocol} checked={payProtocol}></Radio>
               <View>
@@ -291,18 +294,26 @@ const ConsignmentCreate = () => {
               </View>
             </View>
           </View>
-        }
+
+        <View style={{ height: ' 20px' }}></View>
+        <View style={{ height: ' 20px' }}>请填写真实用户信息</View>
+
         <View style={{ height: ' 20px' }}></View>
         <View className='edit-btn-wrap'>
           <View className='at-row at-row__justify--around'>
-            <View className='at-col at-col-5'>
+            {/* <View className='at-col at-col-5'>
               <AtButton size='small' circle onClick={handleCancel}>
                 取消
               </AtButton>
-            </View>
+            </View> */}
             <View className='at-col at-col-5'>
-              <AtButton type='primary' circle size='small' onClick={handleToSign} disabled={isVerify}>
-                {isVerify ? '已提交' : '下一步'}
+              <AtButton
+               type='primary'
+                circle size='small'
+                onClick={handleToSign}
+                // disabled={isVerify}
+              >
+                {isVerify ? '已提交' : '提交'}
               </AtButton>
             </View>
 
